@@ -1,10 +1,8 @@
 ﻿using System;
 namespace PVPMistico.Managers.Interfaces
 {
-    public class IHttpManager
+    public interface IHttpManager
     {
-        public IHttpManager()
-        {
-        }
+       
     }
 }

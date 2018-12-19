@@ -7,11 +7,12 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
     <PackageReference Include="Prism.Unity.Forms" Version="7.1.0.431" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Managers\" />
     <Folder Include="Managers\Interfaces\" />
+    <Folder Include="Constants\" />
   </ItemGroup>
 </Project>

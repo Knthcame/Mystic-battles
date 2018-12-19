@@ -1,17 +1,26 @@
-﻿using System;
+﻿using System.Drawing;
+using Acr.UserDialogs;
+using Prism.Commands;
 using Prism.Navigation;
+using PVPMistico.Constants;
+using PVPMistico.Managers.Interfaces;
 using PVPMistico.Views;
-using Xamarin.Forms;
 
 namespace PVPMistico.ViewModels
 {
     public class LogInPageViewModel : BaseViewModel
     {
+        #region Fields
         private string _password;
         private string _username;
         private bool _hidePassword = true;
         private string _passwordVisibilityIcon = "PasswordHidden.png";
+        private bool _signInEnabled;
+        private Color _usernameColor = Color.Black;
+        private Color _passwordColor = Color.Black;
+        #endregion
 
+        #region Properties
         public string Username
         {
             get => _username;
@@ -24,10 +33,10 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _password, value);
         }
 
-        public bool HidePassword 
-        { 
-            get => _hidePassword; 
-            set => SetProperty(ref _hidePassword, value); 
+        public bool HidePassword
+        {
+            get => _hidePassword;
+            set => SetProperty(ref _hidePassword, value);
         }
 
         public string PasswordVisibilityIcon
@@ -36,16 +45,48 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _passwordVisibilityIcon, value);
         }
 
-        public Command LogInCommand { get; private set; }
-        public Command SignInCommand { get; private set; }
-        public Command PasswordVisibilityToggleCommand { get; private set; }
+        public bool SignInEnabled
+        {
+            get => _signInEnabled;
+            set => SetProperty(ref _signInEnabled, value);
+        }
 
-        public LogInPageViewModel(INavigationService navigationService) : base(navigationService)
+        public Color UsernameColor 
+        { 
+            get => _usernameColor; 
+            set => SetProperty(ref _usernameColor, value);
+        }
+
+        public Color PasswordColor
+        {
+            get => _passwordColor;
+            set => SetProperty(ref _passwordColor, value);
+        }
+
+        public ILogInManager LogInManager { get; private set; }
+        public DelegateCommand LogInCommand { get; private set; }
+        public DelegateCommand SignInCommand { get; private set; }
+        public DelegateCommand PasswordVisibilityToggleCommand { get; private set; }
+        public DelegateCommand TextChangedCommand { get; private set; }
+        #endregion
+
+        public LogInPageViewModel(INavigationService navigationService, ILogInManager logInManager) : base(navigationService)
         {
             Title = "Inicia sessión";
-            LogInCommand = new Command(OnLogInButtonPressed);
-            SignInCommand = new Command(OnSignInButtonPressed);
-            PasswordVisibilityToggleCommand = new Command(OnPasswordVisibilityToggle);
+
+            LogInManager = logInManager;
+
+            LogInCommand = new DelegateCommand(OnLogInButtonPressed);
+            SignInCommand = new DelegateCommand(OnSignInButtonPressed);
+            PasswordVisibilityToggleCommand = new DelegateCommand(OnPasswordVisibilityToggle);
+            TextChangedCommand = new DelegateCommand(OnTextChanged);
+        }
+
+        private void OnTextChanged()
+        {
+            SignInEnabled = !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password);
+            UsernameColor = Color.Black;
+            PasswordColor = Color.Black;
         }
 
         private void OnPasswordVisibilityToggle()
@@ -70,7 +111,25 @@ namespace PVPMistico.ViewModels
 
         private void OnLogInButtonPressed()
         {
-            NavigationService.NavigateAsync(nameof(MainPage));
+            if (LogInManager.LogIn(Username, Password, out string logInResponse))
+                NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
+            else
+            {
+                var toastConfig = new ToastConfig(logInResponse);
+                toastConfig.SetPosition(ToastPosition.Bottom);
+                //toastConfig.SetIcon("error.svg");
+                UserDialogs.Instance.Toast(toastConfig);
+                switch (logInResponse)
+                {
+                    case LogInResponses.UsernameNotFound:
+                        UsernameColor = Color.Red;
+                        break;
+
+                    case LogInResponses.PasswordIncorrect:
+                        PasswordColor = Color.Red;
+                        break;
+                }
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="PVPMistico.Views.LogInPage"
+             xmlns:Prism="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              Title="{Binding Title}">
     
     <ContentPage.Content>
@@ -20,8 +21,15 @@
             
             <Label Text="Nombre de usuario"
                    Grid.Row="1"/>
+            
             <Entry Text="{Binding Username, Mode=OneWayToSource}"
-                   Grid.Row="2"/>
+                   Grid.Row="2"
+                   TextColor="{Binding UsernameColor}">
+                <Entry.Behaviors>
+                    <Prism:EventToCommandBehavior EventName="TextChanged"
+                                                  Command="{Binding TextChangedCommand}"/>
+                </Entry.Behaviors>
+            </Entry>
             
             <Label Text="Contraseña"
                    Grid.Row="3"/>
@@ -35,7 +43,13 @@
                 <Entry Text="{Binding Password, Mode=OneWayToSource}"
                        IsPassword="{Binding HidePassword}"
                        Grid.Column="0"
-                       Grid.ColumnSpan="2"/>
+                       Grid.ColumnSpan="2"
+                       TextColor="{Binding PasswordColor}">
+                    <Entry.Behaviors>
+                        <Prism:EventToCommandBehavior EventName="TextChanged"
+                                                      Command="{Binding TextChangedCommand}"/>
+                    </Entry.Behaviors>
+                </Entry>
                 
                 <ImageButton Command="{Binding PasswordVisibilityToggleCommand}"
                              Grid.Column="1"
@@ -53,7 +67,8 @@
                 
             <Button Text="Iniciar sesión"
                     Command="{Binding LogInCommand}"
-                    Grid.Column="0"/>
+                    Grid.Column="0"
+                    IsEnabled="{Binding SignInEnabled}"/>
         
             <Button Text="Registro"
                     Command="{Binding SignInCommand}"

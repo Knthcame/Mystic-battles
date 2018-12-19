@@ -1,5 +1,7 @@
 ﻿using Prism;
 using Prism.Ioc;
+using PVPMistico.Managers;
+using PVPMistico.Managers.Interfaces;
 using PVPMistico.ViewModels;
 using PVPMistico.Views;
 using Xamarin.Forms;
@@ -32,6 +34,9 @@ namespace PVPMistico
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<LogInPage, LogInPageViewModel>();
             containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
+
+            containerRegistry.Register<IHttpManager, HttpManager>();
+            containerRegistry.Register<ILogInManager, LogInManager>();
         }
     }
 }
