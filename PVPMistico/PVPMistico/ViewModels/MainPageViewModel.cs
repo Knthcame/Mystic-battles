@@ -8,7 +8,7 @@ using System.Text;
 
 namespace PVPMistico.ViewModels
 {
-    public class MainPageViewModel : ViewModelBase
+    public class MainPageViewModel : BaseViewModel
     {
         public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)

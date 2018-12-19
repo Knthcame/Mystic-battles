@@ -30,6 +30,8 @@ namespace PVPMistico
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<LogInPage, LogInPageViewModel>();
+            containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
         }
     }
 }

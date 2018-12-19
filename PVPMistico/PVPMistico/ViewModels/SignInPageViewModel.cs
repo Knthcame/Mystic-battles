@@ -3,7 +3,7 @@ using Prism.Navigation;
 
 namespace PVPMistico.ViewModels
 {
-    public class SignInPageViewModel : ViewModelBase
+    public class SignInPageViewModel : BaseViewModel
     {
         public SignInPageViewModel(INavigationService navigationService) : base(navigationService)
         {

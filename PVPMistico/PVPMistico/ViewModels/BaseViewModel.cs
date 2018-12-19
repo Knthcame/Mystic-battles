@@ -7,7 +7,7 @@ using System.Text;
 
 namespace PVPMistico.ViewModels
 {
-    public class ViewModelBase : BindableBase, INavigationAware, IDestructible
+    public class BaseViewModel : BindableBase, INavigationAware, IDestructible
     {
         protected INavigationService NavigationService { get; private set; }
 
@@ -18,7 +18,7 @@ namespace PVPMistico.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        public ViewModelBase(INavigationService navigationService)
+        public BaseViewModel(INavigationService navigationService)
         {
             NavigationService = navigationService;
         }
