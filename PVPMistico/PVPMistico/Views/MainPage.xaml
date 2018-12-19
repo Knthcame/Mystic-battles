@@ -3,11 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="PVPMistico.Views.MainPage"
              Title="{Binding Title}">
+    
     <ContentPage.Content>
+        
         <Label Text="Que mierdas pongo aquí? Ideas pls"
                FontSize="Large"
                Margin="50"
                HorizontalOptions="Center"
                VerticalOptions="Center"/>
+        
     </ContentPage.Content>
+
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Command="{Binding MenuItemCommand}"
+                     Order="Secondary"
+                     Text="{Binding MenuText}"/>
+
+    </ContentPage.ToolbarItems>
+    
 </ContentPage>
