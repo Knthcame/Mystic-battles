@@ -1,6 +1,7 @@
 ﻿using System;
 using PVPMistico.Constants;
 using PVPMistico.Managers.Interfaces;
+using Xamarin.Essentials;
 
 namespace PVPMistico.Managers
 {
@@ -27,6 +28,7 @@ namespace PVPMistico.Managers
             else
             {
                 logInResponse = LogInResponses.LogInSuccesfull;
+                SecureStorage.SetAsync(SecureStorageTokens.Username, username);
                 return true;
             }
         }

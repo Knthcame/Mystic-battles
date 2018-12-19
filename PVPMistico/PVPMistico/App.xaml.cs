@@ -25,7 +25,7 @@ namespace PVPMistico
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/LogInPage");
+            await NavigationService.NavigateAsync(nameof(StartupPage));
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -34,6 +34,7 @@ namespace PVPMistico
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<LogInPage, LogInPageViewModel>();
             containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
+            containerRegistry.RegisterForNavigation<StartupPage, StartupPageViewmodel>();
 
             containerRegistry.Register<IHttpManager, HttpManager>();
             containerRegistry.Register<ILogInManager, LogInManager>();

@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Threading.Tasks;
 using Acr.UserDialogs;
 using Prism.Commands;
 using Prism.Navigation;
@@ -72,11 +73,11 @@ namespace PVPMistico.ViewModels
 
         public LogInPageViewModel(INavigationService navigationService, ILogInManager logInManager) : base(navigationService)
         {
-            Title = "Inicia sessión";
+            Title = "Inicia sesión";
 
             LogInManager = logInManager;
 
-            LogInCommand = new DelegateCommand(OnLogInButtonPressed);
+            LogInCommand = new DelegateCommand(async () => await OnLogInButtonPressed());
             SignInCommand = new DelegateCommand(OnSignInButtonPressed);
             PasswordVisibilityToggleCommand = new DelegateCommand(OnPasswordVisibilityToggle);
             TextChangedCommand = new DelegateCommand(OnTextChanged);
@@ -109,15 +110,14 @@ namespace PVPMistico.ViewModels
             NavigationService.NavigateAsync(nameof(SignInPage));
         }
 
-        private void OnLogInButtonPressed()
+        private async Task OnLogInButtonPressed()
         {
             if (LogInManager.LogIn(Username, Password, out string logInResponse))
-                NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
+                await NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
             else
             {
                 var toastConfig = new ToastConfig(logInResponse);
                 toastConfig.SetPosition(ToastPosition.Bottom);
-                //toastConfig.SetIcon("error.svg");
                 UserDialogs.Instance.Toast(toastConfig);
                 switch (logInResponse)
                 {
