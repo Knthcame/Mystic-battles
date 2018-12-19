@@ -4,6 +4,10 @@
              x:Class="PVPMistico.Views.MainPage"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <Label Text="Welcome to the Main Page"/>
+        <Label Text="Que mierdas pongo aquí? Ideas pls"
+               FontSize="Large"
+               Margin="50"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
     </ContentPage.Content>
 </ContentPage>

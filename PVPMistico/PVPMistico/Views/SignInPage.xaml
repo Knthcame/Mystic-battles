@@ -1,6 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="PVPMistico.Views.SignInPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="PVPMistico.Views.SignInPage"
+             Title="{Binding Title}">
     <ContentPage.Content>
-        <Label Text="Welcome to the Sig in Page"/>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="5*"/>
+            </Grid.RowDefinitions>
+            
+            <Label Text="Nombre"
+                   Grid.Row="1"/>
+            
+            <Entry Grid.Row="2"/>
+            
+            <Label Text="Email"
+                   Grid.Row="3"/>
+            
+            <Entry Grid.Row="4"/>
+            
+            <Label Text="Usuario"
+                   Grid.Row="5"/>
+            
+            <Entry Grid.Row="6"/>
+            
+            <Label Text="Contraseña"
+                   Grid.Row="7"/>
+            
+            <Grid Grid.Row="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Entry Text="{Binding Password, Mode=OneWayToSource}"
+                       IsPassword="{Binding HidePassword}"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"/>
+                
+                <ImageButton Command="{Binding PasswordVisibilityToggleCommand}"
+                             Grid.Column="1"
+                             BackgroundColor="Transparent"
+                             Source="{Binding PasswordVisibilityIcon}"
+                             HeightRequest="25"
+                             Padding="5"/>
+            </Grid>
+            
+            <Button Text="Registrarse"
+                    Grid.Row="9"/>
+            
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

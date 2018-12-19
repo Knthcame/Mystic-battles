@@ -24,7 +24,8 @@
             
             <Entry Text="{Binding Username, Mode=OneWayToSource}"
                    Grid.Row="2"
-                   TextColor="{Binding UsernameColor}">
+                   TextColor="{Binding UsernameColor}"
+                   Placeholder="Originals">
                 <Entry.Behaviors>
                     <Prism:EventToCommandBehavior EventName="TextChanged"
                                                   Command="{Binding TextChangedCommand}"/>
@@ -44,7 +45,8 @@
                        IsPassword="{Binding HidePassword}"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
-                       TextColor="{Binding PasswordColor}">
+                       TextColor="{Binding PasswordColor}"
+                       Placeholder="test">
                     <Entry.Behaviors>
                         <Prism:EventToCommandBehavior EventName="TextChanged"
                                                       Command="{Binding TextChangedCommand}"/>
