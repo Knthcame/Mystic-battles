@@ -23,7 +23,7 @@ namespace PVPMistico
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("NavigationPage/LogInPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
