@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Entry xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Prism="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             x:Class="PVPMistico.Widgets.ValidationEntry"
+             x:Name="MyValidationEntry"
+             Text="{Binding ValidateString.Value, Source={x:Reference MyValidationEntry}}">
+
+    <Entry.Behaviors>
+        <Prism:EventToCommandBehavior EventName="Unfocused"
+                                      Command="{Binding UnfocusedCommand, Source={x:Reference MyValidationEntry}}"/>
+    </Entry.Behaviors>
+
+    <Entry.Triggers>
+
+        <Trigger TargetType="Entry"
+                            Property="IsFocused"
+                            Value="True">
+            <Setter Property="TextColor"
+                            Value="Black"/>
+        </Trigger>
+
+        <DataTrigger TargetType="Entry"
+                     Binding="{Binding ValidateString.IsValid, Source={x:Reference MyValidationEntry}}"
+                     Value="False">
+            
+            <Setter Property="TextColor" Value="Red"/>
+            
+        </DataTrigger>
+
+    </Entry.Triggers>
+    
+</Entry>

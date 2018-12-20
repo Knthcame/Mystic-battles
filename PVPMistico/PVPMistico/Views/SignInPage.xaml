@@ -2,45 +2,65 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="PVPMistico.Views.SignInPage"
+             xmlns:Prism="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:Converters="clr-namespace:PVPMistico.Converters;assembly=PVPMistico"
+             xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets;assembly=PVPMistico"
              Title="{Binding Title}">
+
     <ContentPage.Content>
         <Grid Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
                 <RowDefinition Height="10*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
                 <RowDefinition Height="10*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
                 <RowDefinition Height="10*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
                 <RowDefinition Height="10*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="10*"/>
+                <RowDefinition Height="5*"/>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="5*"/>
             </Grid.RowDefinitions>
             
             <Label Text="Nombre"
-                   Grid.Row="1"/>
+                   Grid.Row="1"
+                   VerticalOptions="End"/>
             
             <Entry Grid.Row="2"
                    Text="{Binding Name}"/>
             
+            <Label Grid.Row="3"/>
+            
             <Label Text="Email"
-                   Grid.Row="3"/>
-            
-            <Entry Grid.Row="4"
-                   Text="{Binding Email}"/>
-            
+                   Grid.Row="4"
+                   VerticalOptions="End"/>
+
+            <MyWidgets:ValidationEntry Grid.Row="5"
+                                       ValidateString="{Binding Email}"
+                                       UnfocusedCommand="{Binding EmailUnfocusedCommand}"/>
+
+            <Label Grid.Row="6"
+                   Text="{Binding Email.Errors, Converter=Converters:FirstValidationErrorConverter}"/>
+
             <Label Text="Usuario"
-                   Grid.Row="5"/>
+                   Grid.Row="7"
+                   VerticalOptions="End"/>
             
-            <Entry Grid.Row="6"
+            <Entry Grid.Row="8"
                    Text="{Binding Username}"/>
-            
+
+            <Label Grid.Row="9"/>
+
             <Label Text="Contraseña"
-                   Grid.Row="7"/>
+                   Grid.Row="10"
+                   VerticalOptions="End"/>
             
-            <Grid Grid.Row="8">
+            <Grid Grid.Row="11">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="9*"/>
                     <ColumnDefinition Width="*"/>
@@ -58,9 +78,11 @@
                              HeightRequest="25"
                              Padding="5"/>
             </Grid>
-            
+
+            <Label Grid.Row="12"/>
+
             <Button Text="Registrarse"
-                    Grid.Row="9"
+                    Grid.Row="13"
                     Command="{Binding SignInCommand}"/>
             
         </Grid>

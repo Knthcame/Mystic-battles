@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using Prism.Commands;
 using Prism.Navigation;
 using PVPMistico.Managers.Interfaces;
+using PVPMistico.Validation;
+using PVPMistico.Validation.Rules;
 using PVPMistico.Views;
 
 namespace PVPMistico.ViewModels
@@ -16,7 +20,8 @@ namespace PVPMistico.ViewModels
         private bool _hidePassword = true;
         private string _name;
         private string _username;
-        private string _email;
+        private ValidatableObject<string> _email;
+        private bool _isemailValid;
         #endregion
 
         #region Properties
@@ -25,7 +30,7 @@ namespace PVPMistico.ViewModels
             get => _name;
             set => SetProperty(ref _name, value);
         }
-        public string Email
+        public ValidatableObject<string> Email
         {
             get => _email;
             set => SetProperty(ref _email, value);
@@ -48,29 +53,61 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _hidePassword, value);
         }
 
+        public bool IsEmailValid
+        {
+            get => _isemailValid;
+            set => SetProperty(ref _isemailValid, value);
+        }
+
         public string PasswordVisibilityIcon
         {
             get => _passwordVisibilityIcon;
             set => SetProperty(ref _passwordVisibilityIcon, value);
         }
 
+        public Color ErrorColor { get; set; }
+
         public IAccountManager AccountManager { get; private set; }
         public ICommand PasswordVisibilityToggleCommand { get; private set; }
         public ICommand SignInCommand { get; private set; }
+        public ICommand EmailUnfocusedCommand { get; private set; }
         #endregion
 
         public SignInPageViewModel(INavigationService navigationService, IAccountManager accountManager) : base(navigationService) 
         {
             Title = "Registro de cuenta";
             AccountManager = accountManager;
+            ErrorColor = Color.Red;
 
             PasswordVisibilityToggleCommand = new DelegateCommand(OnPasswordVisibilityToggle);
             SignInCommand = new DelegateCommand(OnSignInButtonClicked);
+            EmailUnfocusedCommand = new DelegateCommand(OnEmailUnfocused);
+
+            InitializeValidatableObjects();
+            AddValidations();
+        }
+
+        private void InitializeValidatableObjects()
+        {
+            _email = new ValidatableObject<string>();
+        }
+
+        private void AddValidations()
+        {
+            var emailRule = new IsEmailRule<string>();
+            try
+            {
+                _email.Validations.Add(emailRule);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
         }
 
         private void OnSignInButtonClicked()
         {
-            if (AccountManager.SignIn(Name, Email, Username, Password, out string signInResponse))
+            if (AccountManager.SignIn(Name, Email.Value, Username, Password, out string signInResponse))
                 NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
 
             var toastConfig = new ToastConfig(signInResponse);
@@ -91,6 +128,11 @@ namespace PVPMistico.ViewModels
                     PasswordVisibilityIcon = "ViewPassword.png";
                     break;
             }
+        }
+
+        private void OnEmailUnfocused()
+        {
+            IsEmailValid = Email.Validate();
         }
     }
 }

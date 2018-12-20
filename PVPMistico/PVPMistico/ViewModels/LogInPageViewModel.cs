@@ -78,7 +78,7 @@ namespace PVPMistico.ViewModels
             AccountManager = accountManager;
 
             LogInCommand = new DelegateCommand(async () => await OnLogInButtonPressed());
-            SignInCommand = new DelegateCommand(OnSignInButtonPressed);
+            SignInCommand = new DelegateCommand(async () => await OnSignInButtonPressed());
             PasswordVisibilityToggleCommand = new DelegateCommand(OnPasswordVisibilityToggle);
             TextChangedCommand = new DelegateCommand(OnTextChanged);
         }
@@ -105,9 +105,9 @@ namespace PVPMistico.ViewModels
             }
         }
 
-        private void OnSignInButtonPressed()
+        private async Task OnSignInButtonPressed()
         {
-            NavigationService.NavigateAsync(nameof(SignInPage));
+            await NavigationService.NavigateAsync(nameof(SignInPage));
         }
 
         private async Task OnLogInButtonPressed()
