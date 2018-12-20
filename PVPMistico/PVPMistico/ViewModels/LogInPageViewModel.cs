@@ -64,18 +64,18 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _passwordColor, value);
         }
 
-        public ILogInManager LogInManager { get; private set; }
+        public IAccountManager AccountManager { get; private set; }
         public DelegateCommand LogInCommand { get; private set; }
         public DelegateCommand SignInCommand { get; private set; }
         public DelegateCommand PasswordVisibilityToggleCommand { get; private set; }
         public DelegateCommand TextChangedCommand { get; private set; }
         #endregion
 
-        public LogInPageViewModel(INavigationService navigationService, ILogInManager logInManager) : base(navigationService)
+        public LogInPageViewModel(INavigationService navigationService, IAccountManager accountManager) : base(navigationService)
         {
             Title = "Inicia sesión";
 
-            LogInManager = logInManager;
+            AccountManager = accountManager;
 
             LogInCommand = new DelegateCommand(async () => await OnLogInButtonPressed());
             SignInCommand = new DelegateCommand(OnSignInButtonPressed);
@@ -112,7 +112,7 @@ namespace PVPMistico.ViewModels
 
         private async Task OnLogInButtonPressed()
         {
-            if (LogInManager.LogIn(Username, Password, out string logInResponse))
+            if (AccountManager.LogIn(Username, Password, out string logInResponse))
                 await NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
             else
             {

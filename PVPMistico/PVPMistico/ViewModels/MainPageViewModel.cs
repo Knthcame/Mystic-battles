@@ -1,16 +1,15 @@
-﻿using System;
-using Acr.UserDialogs;
+﻿using Acr.UserDialogs;
 using Prism.Commands;
 using Prism.Navigation;
-using PVPMistico.Constants;
+using PVPMistico.Managers.Interfaces;
 using PVPMistico.Views;
-using Xamarin.Essentials;
 
 namespace PVPMistico.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
         private string _menuText;
+        private IAccountManager AccountManager;
 
         public string MenuText
         {
@@ -20,9 +19,10 @@ namespace PVPMistico.ViewModels
 
         public DelegateCommand MenuItemCommand { get; private set; }
 
-        public MainPageViewModel(INavigationService navigationService)
+        public MainPageViewModel(INavigationService navigationService, IAccountManager accountManager)
             : base(navigationService)
         {
+            AccountManager = accountManager;
             Title = "Main Page";
             MenuText = "Cerrar sesión";
             MenuItemCommand = new DelegateCommand(OnLogOutClicked);
@@ -45,7 +45,7 @@ namespace PVPMistico.ViewModels
         {
             if (confirmed)
             {
-                SecureStorage.Remove(SecureStorageTokens.Username);
+                AccountManager.LogOut();
                 NavigationService.NavigateAsync("/NavigationPage/" + nameof(LogInPage));
             }
         }

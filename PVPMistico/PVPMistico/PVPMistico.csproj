@@ -12,11 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Managers\" />
-    <Folder Include="Managers\Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="Views\StartupPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
