@@ -7,6 +7,16 @@
              xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets;assembly=PVPMistico"
              Title="{Binding Title}">
 
+    <ContentPage.Resources>
+
+        <ResourceDictionary>
+
+            <Converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter"/>
+
+        </ResourceDictionary>
+        
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <Grid Margin="10">
             <Grid.RowDefinitions>
@@ -31,10 +41,13 @@
                    Grid.Row="1"
                    VerticalOptions="End"/>
             
-            <Entry Grid.Row="2"
-                   Text="{Binding Name}"/>
+            <MyWidgets:ValidationEntry Grid.Row="2"
+                                       ValidateString="{Binding Name}"
+                                       UnfocusedCommand="{Binding NameUnfocusedCommand}"/>
             
-            <Label Grid.Row="3"/>
+            <Label Grid.Row="3"
+                   Text="{Binding Name.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                   TextColor="Red"/>
             
             <Label Text="Email"
                    Grid.Row="4"
@@ -45,7 +58,8 @@
                                        UnfocusedCommand="{Binding EmailUnfocusedCommand}"/>
 
             <Label Grid.Row="6"
-                   Text="{Binding Email.Errors, Converter=Converters:FirstValidationErrorConverter}"/>
+                   Text="{Binding Email.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                   TextColor="Red"/>
 
             <Label Text="Usuario"
                    Grid.Row="7"
@@ -83,7 +97,8 @@
 
             <Button Text="Registrarse"
                     Grid.Row="13"
-                    Command="{Binding SignInCommand}"/>
+                    Command="{Binding SignInCommand}"
+                    IsEnabled="{Binding AreCredentialsValid}"/>
             
         </Grid>
     </ContentPage.Content>

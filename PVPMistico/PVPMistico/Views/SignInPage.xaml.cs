@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace PVPMistico.Views
@@ -9,7 +9,14 @@ namespace PVPMistico.Views
     {
         public SignInPage()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.Message);
+            }
         }
     }
 }

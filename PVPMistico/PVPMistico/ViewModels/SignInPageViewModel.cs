@@ -18,14 +18,16 @@ namespace PVPMistico.ViewModels
         private string _password;
         private string _passwordVisibilityIcon = "ViewPassword.png";
         private bool _hidePassword = true;
-        private string _name;
+        private ValidatableObject<string> _name;
         private string _username;
         private ValidatableObject<string> _email;
-        private bool _isemailValid;
+        private bool _isEmailValid;
+        private bool _isNameValid;
+        private bool _areCredentialsValid;
         #endregion
 
         #region Properties
-        public string Name
+        public ValidatableObject<string> Name
         {
             get => _name;
             set => SetProperty(ref _name, value);
@@ -47,22 +49,22 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _password, value);
         }
 
+        public string PasswordVisibilityIcon
+        {
+            get => _passwordVisibilityIcon;
+            set => SetProperty(ref _passwordVisibilityIcon, value);
+        }
+
         public bool HidePassword
         {
             get => _hidePassword;
             set => SetProperty(ref _hidePassword, value);
         }
 
-        public bool IsEmailValid
+        public bool AreCredentialsValid
         {
-            get => _isemailValid;
-            set => SetProperty(ref _isemailValid, value);
-        }
-
-        public string PasswordVisibilityIcon
-        {
-            get => _passwordVisibilityIcon;
-            set => SetProperty(ref _passwordVisibilityIcon, value);
+            get => _areCredentialsValid;
+            set => SetProperty(ref _areCredentialsValid, value);
         }
 
         public Color ErrorColor { get; set; }
@@ -71,6 +73,7 @@ namespace PVPMistico.ViewModels
         public ICommand PasswordVisibilityToggleCommand { get; private set; }
         public ICommand SignInCommand { get; private set; }
         public ICommand EmailUnfocusedCommand { get; private set; }
+        public ICommand NameUnfocusedCommand { get; private set; }
         #endregion
 
         public SignInPageViewModel(INavigationService navigationService, IAccountManager accountManager) : base(navigationService) 
@@ -82,6 +85,7 @@ namespace PVPMistico.ViewModels
             PasswordVisibilityToggleCommand = new DelegateCommand(OnPasswordVisibilityToggle);
             SignInCommand = new DelegateCommand(OnSignInButtonClicked);
             EmailUnfocusedCommand = new DelegateCommand(OnEmailUnfocused);
+            NameUnfocusedCommand = new DelegateCommand(OnNameUnfocused);
 
             InitializeValidatableObjects();
             AddValidations();
@@ -90,24 +94,21 @@ namespace PVPMistico.ViewModels
         private void InitializeValidatableObjects()
         {
             _email = new ValidatableObject<string>();
+            _name = new ValidatableObject<string>();
         }
 
         private void AddValidations()
         {
-            var emailRule = new IsEmailRule<string>();
-            try
-            {
-                _email.Validations.Add(emailRule);
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
-            }
+            _email.Validations.Add(new IsEmailRule<string>());
+            _name.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>() { ValidationMessage = "El nombre no puede estar vacio" });
         }
 
         private void OnSignInButtonClicked()
         {
-            if (AccountManager.SignIn(Name, Email.Value, Username, Password, out string signInResponse))
+            if (!ValidateEmail() || !ValidateName())
+                return;
+
+            if (AccountManager.SignIn(Name.Value, Email.Value, Username, Password, out string signInResponse))
                 NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
 
             var toastConfig = new ToastConfig(signInResponse);
@@ -132,7 +133,29 @@ namespace PVPMistico.ViewModels
 
         private void OnEmailUnfocused()
         {
-            IsEmailValid = Email.Validate();
+            _isEmailValid = ValidateEmail();
+            CheckCredentials();
+        }
+
+        private void OnNameUnfocused()
+        {
+            _isNameValid = ValidateName();
+            CheckCredentials();
+        }
+
+        private bool ValidateEmail()
+        {
+            return _email.Validate();
+        }
+
+        private bool ValidateName()
+        {
+            return _name.Validate();
+        }
+
+        private void CheckCredentials()
+        {
+            AreCredentialsValid = _isEmailValid && _isNameValid;
         }
     }
 }
