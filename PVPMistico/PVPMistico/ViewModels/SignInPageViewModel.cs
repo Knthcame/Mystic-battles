@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Windows.Input;
+using Acr.UserDialogs;
 using Prism.Commands;
 using Prism.Navigation;
+using PVPMistico.Managers.Interfaces;
+using PVPMistico.Views;
 
 namespace PVPMistico.ViewModels
 {
@@ -8,11 +12,30 @@ namespace PVPMistico.ViewModels
     {
         #region Fields
         private string _password;
-        private string _passwordVisibilityIcon = "PasswordVisible.png";
+        private string _passwordVisibilityIcon = "ViewPassword.png";
         private bool _hidePassword = true;
+        private string _name;
+        private string _username;
+        private string _email;
         #endregion
 
         #region Properties
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
+        public string Email
+        {
+            get => _email;
+            set => SetProperty(ref _email, value);
+        }
+        public string Username
+        {
+            get => _username;
+            set => SetProperty(ref _username, value);
+        }
+
         public string Password
         {
             get => _password;
@@ -31,14 +54,27 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _passwordVisibilityIcon, value);
         }
 
-        public DelegateCommand PasswordVisibilityToggleCommand { get; private set; }
+        public IAccountManager AccountManager { get; private set; }
+        public ICommand PasswordVisibilityToggleCommand { get; private set; }
+        public ICommand SignInCommand { get; private set; }
         #endregion
 
-        public SignInPageViewModel(INavigationService navigationService) : base(navigationService) 
+        public SignInPageViewModel(INavigationService navigationService, IAccountManager accountManager) : base(navigationService) 
         {
             Title = "Registro de cuenta";
+            AccountManager = accountManager;
 
             PasswordVisibilityToggleCommand = new DelegateCommand(OnPasswordVisibilityToggle);
+            SignInCommand = new DelegateCommand(OnSignInButtonClicked);
+        }
+
+        private void OnSignInButtonClicked()
+        {
+            if (AccountManager.SignIn(Name, Email, Username, Password, out string signInResponse))
+                NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
+
+            var toastConfig = new ToastConfig(signInResponse);
+            UserDialogs.Instance.Toast(toastConfig);
         }
 
         private void OnPasswordVisibilityToggle()
@@ -47,11 +83,12 @@ namespace PVPMistico.ViewModels
             {
                 case true:
                     HidePassword = false;
-                    PasswordVisibilityIcon = "PasswordVisible.png";
+                    PasswordVisibilityIcon = "HidePassword.png";
                     break;
+
                 case false:
                     HidePassword = true;
-                    PasswordVisibilityIcon = "PasswordHidden.png";
+                    PasswordVisibilityIcon = "ViewPassword.png";
                     break;
             }
         }

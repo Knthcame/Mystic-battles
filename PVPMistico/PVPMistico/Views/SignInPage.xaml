@@ -22,17 +22,20 @@
             <Label Text="Nombre"
                    Grid.Row="1"/>
             
-            <Entry Grid.Row="2"/>
+            <Entry Grid.Row="2"
+                   Text="{Binding Name}"/>
             
             <Label Text="Email"
                    Grid.Row="3"/>
             
-            <Entry Grid.Row="4"/>
+            <Entry Grid.Row="4"
+                   Text="{Binding Email}"/>
             
             <Label Text="Usuario"
                    Grid.Row="5"/>
             
-            <Entry Grid.Row="6"/>
+            <Entry Grid.Row="6"
+                   Text="{Binding Username}"/>
             
             <Label Text="Contraseña"
                    Grid.Row="7"/>
@@ -57,7 +60,8 @@
             </Grid>
             
             <Button Text="Registrarse"
-                    Grid.Row="9"/>
+                    Grid.Row="9"
+                    Command="{Binding SignInCommand}"/>
             
         </Grid>
     </ContentPage.Content>

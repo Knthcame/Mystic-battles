@@ -15,7 +15,7 @@ namespace PVPMistico.ViewModels
         private string _password;
         private string _username;
         private bool _hidePassword = true;
-        private string _passwordVisibilityIcon = "PasswordHidden.png";
+        private string _passwordVisibilityIcon = "ViewPassword.png";
         private bool _signInEnabled;
         private Color _usernameColor = Color.Black;
         private Color _passwordColor = Color.Black;
@@ -96,11 +96,11 @@ namespace PVPMistico.ViewModels
             {
                 case true:
                     HidePassword = false;
-                    PasswordVisibilityIcon = "PasswordVisible.png";
+                    PasswordVisibilityIcon = "HidePassword.png";
                     break;
                 case false:
                     HidePassword = true;
-                    PasswordVisibilityIcon = "PasswordHidden.png";
+                    PasswordVisibilityIcon = "ViewPassword.png";
                     break;
             }
         }

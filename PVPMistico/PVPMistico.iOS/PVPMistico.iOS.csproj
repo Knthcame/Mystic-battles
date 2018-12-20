@@ -181,8 +181,8 @@
     <BundleResource Include="Resources\Default.png" />
     <BundleResource Include="Resources\Default@2x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
-    <BundleResource Include="Resources\PasswordVisible.png" />
-    <BundleResource Include="Resources\PasswordHidden.png" />
+    <BundleResource Include="Resources\HidePassword.png" />
+    <BundleResource Include="Resources\ViewPassword.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

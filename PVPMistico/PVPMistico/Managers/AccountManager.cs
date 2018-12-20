@@ -36,7 +36,7 @@ namespace PVPMistico.Managers
 
         public bool SignIn(string name, string email, string username, string password, out string signInResponse)
         {
-            if(username != "Originals")
+            if(username == "Originals")
             {
                 signInResponse = SignInResponses.UserAlreadyRegistered;
                 return false;
