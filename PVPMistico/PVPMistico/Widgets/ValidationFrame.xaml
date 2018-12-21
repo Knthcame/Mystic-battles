@@ -13,7 +13,7 @@
     </Frame.Resources>
     
     <Frame.Content>
-        <Grid Margin="2">
+        <Grid Margin="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="{Binding TitleHeight, Source={x:Reference MyValidationFrame}}"/>
                 <RowDefinition Height="{Binding EntryHeight, Source={x:Reference MyValidationFrame}}"/>
@@ -24,10 +24,12 @@
                    Grid.Row="0" 
                    Text="{Binding Title, Source={x:Reference MyValidationFrame}}"/>
 
-            <MyWidgets:ValidationEntry x:Name="ValisationEntry" 
+            <MyWidgets:ValidationEntry x:Name="ValidationEntry" 
                                        Grid.Row="1"
                                        ValidatableObject="{Binding ValidatableObject, Source={x:Reference MyValidationFrame}}"
-                                       UnfocusedCommand="{Binding UnfocusedCommand, Source={x:Reference MyValidationFrame}}"/>
+                                       UnfocusedCommand="{Binding UnfocusedCommand, Source={x:Reference MyValidationFrame}}"
+                                       Margin="0"
+                                       VerticalOptions="End"/>
 
             <Label x:Name="ErrorLabel" 
                    Grid.Row="2"

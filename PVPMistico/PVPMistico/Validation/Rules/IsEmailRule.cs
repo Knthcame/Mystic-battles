@@ -29,7 +29,7 @@ namespace PVPMistico.Validation.Rules
 
                 return mailAddress.Address == email;
             }
-            catch (FormatException ex)
+            catch (Exception ex)
             {
                 return false;
             }
