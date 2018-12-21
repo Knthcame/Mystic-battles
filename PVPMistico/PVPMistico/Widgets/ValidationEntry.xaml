@@ -2,6 +2,7 @@
 <Entry xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:Prism="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:MyBehaviors="clr-namespace:PVPMistico.Behaviors"
              x:Class="PVPMistico.Widgets.ValidationEntry"
              x:Name="MyValidationEntry"
              Text="{Binding ValidateString.Value, Source={x:Reference MyValidationEntry}}">
@@ -11,12 +12,25 @@
                                       Command="{Binding UnfocusedCommand, Source={x:Reference MyValidationEntry}}"/>
     </Entry.Behaviors>
 
+    <Entry.Style>
+
+        <Style TargetType="Entry">
+            
+            <Setter Property="MyBehaviors:LineColorBehavior.ApplyLineColor"
+                    Value="True"/>
+
+            <Setter Property="MyBehaviors:LineColorBehavior.LineColor"
+                    Value="Black"/>
+        </Style>
+               
+    </Entry.Style>
+
     <Entry.Triggers>
 
         <Trigger TargetType="Entry"
                             Property="IsFocused"
                             Value="True">
-            <Setter Property="TextColor"
+            <Setter Property="MyBehaviors:LineColorBehavior.LineColor"
                             Value="Black"/>
         </Trigger>
 
@@ -24,7 +38,8 @@
                      Binding="{Binding ValidateString.IsValid, Source={x:Reference MyValidationEntry}}"
                      Value="False">
             
-            <Setter Property="TextColor" Value="Red"/>
+            <Setter Property="MyBehaviors:LineColorBehavior.LineColor" 
+                    Value="Red"/>
             
         </DataTrigger>
 

@@ -23,7 +23,8 @@ namespace PVPMistico.Validation.Rules
                 if (domain.Length <= 1)
                     return false;
 
-                if (domain[domain.GetUpperBound(0)].Length < 2)
+                var domainExtension = domain[domain.GetUpperBound(0)];
+                if (domainExtension.Length < 2 || domainExtension.Length > 3)
                     return false;
 
                 return mailAddress.Address == email;
