@@ -138,24 +138,28 @@ namespace PVPMistico.ViewModels
 
         private void OnEmailUnfocused()
         {
+            Email.Value.Trim();
             _isEmailValid = ValidateEmail();
             CheckCredentials();
         }
 
         private void OnNameUnfocused()
         {
+            Name.Value.Trim();
             _isNameValid = ValidateName();
             CheckCredentials();
         }
 
         private void OnUsernameUnfocused()
         {
+            Username.Value.Trim();
             _isUsernameValid = ValidateUsername();
             CheckCredentials();
         }
 
         private void OnPaswordUnfocused()
         {
+            Password.Value.Trim();
             _isPasswordValid = ValidatePassword();
             CheckCredentials();
         }
@@ -179,7 +183,6 @@ namespace PVPMistico.ViewModels
         {
             return _password.Validate();
         }
-
 
         private void CheckCredentials()
         {
