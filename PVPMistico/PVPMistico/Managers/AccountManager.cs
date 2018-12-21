@@ -34,6 +34,11 @@ namespace PVPMistico.Managers
             }
         }
 
+        public bool CheckUsernameAvailable(string username)
+        {
+            return username != "Originals";
+        }
+
         public bool SignIn(string name, string email, string username, string password, out string signInResponse)
         {
             if(username == "Originals")

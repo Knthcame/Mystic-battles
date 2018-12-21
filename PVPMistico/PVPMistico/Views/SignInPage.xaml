@@ -65,10 +65,13 @@
                    Grid.Row="7"
                    VerticalOptions="End"/>
             
-            <Entry Grid.Row="8"
-                   Text="{Binding Username}"/>
+            <MyWidgets:ValidationEntry Grid.Row="8"
+                                       ValidateString="{Binding Username}"
+                                       UnfocusedCommand="{Binding UsernameUnfocusedCommand}"/>
 
-            <Label Grid.Row="9"/>
+            <Label Grid.Row="9"
+                   Text="{Binding Username.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                   TextColor="Red"/>
 
             <Label Text="Contraseña"
                    Grid.Row="10"
