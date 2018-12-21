@@ -138,28 +138,36 @@ namespace PVPMistico.ViewModels
 
         private void OnEmailUnfocused()
         {
-            Email.Value.Trim();
+            if (Email != null && Email.Value != null)
+                Email.Value.Trim();
+
             _isEmailValid = ValidateEmail();
             CheckCredentials();
         }
 
         private void OnNameUnfocused()
         {
-            Name.Value.Trim();
+            if(Name != null && Name.Value != null)
+                Name.Value.Trim();
+
             _isNameValid = ValidateName();
             CheckCredentials();
         }
 
         private void OnUsernameUnfocused()
         {
-            Username.Value.Trim();
+            if (Username != null && Username.Value != null)
+                Username.Value.Trim();
+
             _isUsernameValid = ValidateUsername();
             CheckCredentials();
         }
 
         private void OnPaswordUnfocused()
         {
-            Password.Value.Trim();
+            if (Password != null && Password.Value != null)
+                Password.Value.Trim();
+
             _isPasswordValid = ValidatePassword();
             CheckCredentials();
         }
