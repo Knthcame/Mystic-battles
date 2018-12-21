@@ -14,8 +14,8 @@ namespace PVPMistico.Widgets
         public static readonly BindableProperty UnfocusedCommandProperty =
             BindableProperty.Create(propertyName: nameof(UnfocusedCommand), returnType: typeof(ICommand), defaultValue: null, declaringType: typeof(ValidationEntry));
 
-        public static readonly BindableProperty ValidateStringProperty =
-            BindableProperty.Create(propertyName: nameof(ValidateString), returnType: typeof(ValidatableObject<string>), defaultValue: null, declaringType: typeof(ValidationEntry));
+        public static readonly BindableProperty ValidatableObjectProperty =
+            BindableProperty.Create(propertyName: nameof(ValidatableObject), returnType: typeof(ValidatableObject<string>), defaultValue: null, declaringType: typeof(ValidationEntry));
         #endregion
 
         #region Properties
@@ -25,10 +25,10 @@ namespace PVPMistico.Widgets
             set => SetValue(UnfocusedCommandProperty, value);
         }
 
-        public ValidatableObject<string> ValidateString
+        public ValidatableObject<string> ValidatableObject
         {
-            get => (ValidatableObject<string>)GetValue(ValidateStringProperty);
-            set => SetValue(ValidateStringProperty, value);
+            get => (ValidatableObject<string>)GetValue(ValidatableObjectProperty);
+            set => SetValue(ValidatableObjectProperty, value);
         }
         #endregion
         public ValidationEntry ()

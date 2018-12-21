@@ -12,8 +12,8 @@ namespace PVPMistico.ViewModels
     public class SignInPageViewModel : BaseViewModel
     {
         #region Fields
-        private string _password;
         private string _passwordVisibilityIcon = "ViewPassword.png";
+        private ValidatableObject<string> _password;
         private ValidatableObject<string> _name;
         private ValidatableObject<string> _username;
         private ValidatableObject<string> _email;
@@ -21,6 +21,7 @@ namespace PVPMistico.ViewModels
         private bool _isEmailValid;
         private bool _isNameValid;
         private bool _isUsernameValid;
+        private bool _isPasswordValid;
         private bool _areCredentialsValid;
         #endregion
 
@@ -41,7 +42,7 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _username, value);
         }
 
-        public string Password
+        public ValidatableObject<string> Password
         {
             get => _password;
             set => SetProperty(ref _password, value);
@@ -71,6 +72,7 @@ namespace PVPMistico.ViewModels
         public ICommand EmailUnfocusedCommand { get; private set; }
         public ICommand NameUnfocusedCommand { get; private set; }
         public ICommand UsernameUnfocusedCommand { get; private set; }
+        public ICommand PasswordUnfocusedCommand { get; private set; }
         #endregion
 
         public SignInPageViewModel(INavigationService navigationService, IAccountManager accountManager) : base(navigationService) 
@@ -83,6 +85,7 @@ namespace PVPMistico.ViewModels
             EmailUnfocusedCommand = new DelegateCommand(OnEmailUnfocused);
             NameUnfocusedCommand = new DelegateCommand(OnNameUnfocused);
             UsernameUnfocusedCommand = new DelegateCommand(OnUsernameUnfocused);
+            PasswordUnfocusedCommand = new DelegateCommand(OnPaswordUnfocused);
 
             InitializeValidatableObjects();
             AddValidations();
@@ -93,6 +96,7 @@ namespace PVPMistico.ViewModels
             _email = new ValidatableObject<string>();
             _name = new ValidatableObject<string>();
             _username = new ValidatableObject<string>();
+            _password = new ValidatableObject<string>();
         }
 
         private void AddValidations()
@@ -101,6 +105,7 @@ namespace PVPMistico.ViewModels
             _name.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>() { ValidationMessage = "El nombre no puede estar vacio" });
             _username.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>() { ValidationMessage = "El usuario no puede estar vacio" });
             _username.Validations.Add(new IsUsernameAvailableRule(AccountManager));
+            _password.Validations.Add(new IsPasswordFormatCorrectRule());
         }
 
         private void OnSignInButtonClicked()
@@ -108,7 +113,7 @@ namespace PVPMistico.ViewModels
             if (!ValidateEmail() || !ValidateName())
                 return;
 
-            if (AccountManager.SignIn(Name.Value, Email.Value, Username.Value, Password, out string signInResponse))
+            if (AccountManager.SignIn(Name.Value, Email.Value, Username.Value, Password.Value, out string signInResponse))
                 NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
 
             var toastConfig = new ToastConfig(signInResponse);
@@ -149,6 +154,12 @@ namespace PVPMistico.ViewModels
             CheckCredentials();
         }
 
+        private void OnPaswordUnfocused()
+        {
+            _isPasswordValid = ValidatePassword();
+            CheckCredentials();
+        }
+
         private bool ValidateEmail()
         {
             return _email.Validate();
@@ -164,9 +175,15 @@ namespace PVPMistico.ViewModels
             return _username.Validate();
         }
 
+        private bool ValidatePassword()
+        {
+            return _password.Validate();
+        }
+
+
         private void CheckCredentials()
         {
-            AreCredentialsValid = _isEmailValid && _isNameValid && _isUsernameValid;
+            AreCredentialsValid = _isEmailValid && _isNameValid && _isUsernameValid && _isPasswordValid;
         }
     }
 }

@@ -5,7 +5,7 @@
              xmlns:MyBehaviors="clr-namespace:PVPMistico.Behaviors"
              x:Class="PVPMistico.Widgets.ValidationEntry"
              x:Name="MyValidationEntry"
-             Text="{Binding ValidateString.Value, Source={x:Reference MyValidationEntry}}">
+             Text="{Binding ValidatableObject.Value, Source={x:Reference MyValidationEntry}}">
 
     <Entry.Behaviors>
         <Prism:EventToCommandBehavior EventName="Unfocused"
@@ -35,7 +35,7 @@
         </Trigger>
 
         <DataTrigger TargetType="Entry"
-                     Binding="{Binding ValidateString.IsValid, Source={x:Reference MyValidationEntry}}"
+                     Binding="{Binding ValidatableObject.IsValid, Source={x:Reference MyValidationEntry}}"
                      Value="False">
             
             <Setter Property="MyBehaviors:LineColorBehavior.LineColor" 
