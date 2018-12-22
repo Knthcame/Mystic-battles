@@ -6,7 +6,7 @@
              xmlns:Converters="clr-namespace:PVPMistico.Converters;assembly=PVPMistico"
              xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets;assembly=PVPMistico"
              Title="{Binding Title}"
-             BackgroundColor="Gray">
+             BackgroundColor="LightGray">
 
     <ContentPage.Resources>
 
@@ -28,15 +28,13 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <MyWidgets:ValidationFrame Title="Nombre"
                                            Grid.Row="0"
                                            ValidatableObject="{Binding Name}"
                                            UnfocusedCommand="{Binding NameUnfocusedCommand}"
-                                           BackgroundColor="LightGray"
+                                           BackgroundColor="White"
                                            BorderColor="Black"
                                            Padding="0"
                                            Margin="0">
@@ -46,31 +44,34 @@
                                            Grid.Row="1"
                                            ValidatableObject="{Binding Email}"
                                            UnfocusedCommand="{Binding EmailUnfocusedCommand}"
-                                           BackgroundColor="LightGray"
+                                           BackgroundColor="White"
                                            BorderColor="Black"
                                            Padding="0"
                                            Margin="0">
                 </MyWidgets:ValidationFrame>
 
-                <MyWidgets:ValidationFrame Title="Nombre de usuario"
-                                           Grid.Row="2"
+                <MyWidgets:ValidationFrame Grid.Row="2"
+                                           Title="Nombre de usuario"
                                            ValidatableObject="{Binding Username}"
                                            UnfocusedCommand="{Binding UsernameUnfocusedCommand}"
-                                           BackgroundColor="LightGray"
+                                           BackgroundColor="White"
                                            BorderColor="Black"
                                            Padding="0"
                                            Margin="0">
                 </MyWidgets:ValidationFrame>
 
-                <Label Text="Contraseña"
+                <!--<Label Text="Contraseña"
                        Grid.Row="3"
-                       VerticalOptions="End"/>
+                       VerticalOptions="End"/>-->
 
-                <MyWidgets:PasswordValidationEntry Grid.Row="4" 
-                                                   IsPassword="{Binding HidePassword}"
+                <MyWidgets:PasswordValidationFrame Grid.Row="3"
+                                                   BorderColor="Black"
+                                                   BackgroundColor="White"
+                                                   Title="Contraseña"
                                                    ValidatableObject="{Binding Password}"
-                                                   PasswordVisibilityIcon="{Binding PasswordVisibilityIcon}"
                                                    UnfocusedCommand="{Binding PasswordUnfocusedCommand}"
+                                                   HidePassword="{Binding HidePassword}"
+                                                   PasswordVisibilityIcon="{Binding PasswordVisibilityIcon}"
                                                    PasswordVisibilityToggleCommand="{Binding PasswordVisibilityToggleCommand}"/>
                 <!--<Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
@@ -92,12 +93,12 @@
                                  Padding="5"/>
                 </Grid>-->
 
-                <Label Grid.Row="5"
+                <!--<Label Grid.Row="5"
                        Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
-                       TextColor="Red"/>
+                       TextColor="Red"/>-->
 
                 <Button Text="Registrarse"
-                        Grid.Row="6"
+                        Grid.Row="4"
                         Command="{Binding SignInCommand}"
                         IsEnabled="{Binding AreCredentialsValid}"/>
             

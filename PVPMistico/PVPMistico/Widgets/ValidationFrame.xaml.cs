@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using System;
+using System.Diagnostics;
+using Xamarin.Forms.Xaml;
 
 namespace PVPMistico.Widgets
 {
@@ -7,7 +9,14 @@ namespace PVPMistico.Widgets
     {
         public ValidationFrame()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
         }
     }
 }

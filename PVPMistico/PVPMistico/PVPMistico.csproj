@@ -20,6 +20,9 @@
     <Compile Update="Widgets\BaseValidationFrame.xaml.cs">
       <DependentUpon>BaseValidationFrame.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Widgets\ValidationFrame.xaml.cs">
+      <DependentUpon>ValidationFrame.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -33,13 +36,16 @@
     <EmbeddedResource Update="Widgets\PasswordValidationEntry.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Widgets\PasswordValidationFrame.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Widgets\ValidationEntry.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Widgets\BaseValidationFrame.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Widgets\ValidationFame.xaml">
+    <EmbeddedResource Update="Widgets\ValidationFrame.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

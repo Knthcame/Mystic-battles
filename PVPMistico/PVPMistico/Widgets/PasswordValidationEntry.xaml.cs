@@ -1,4 +1,6 @@
 ﻿using PVPMistico.Validation;
+using System;
+using System.Diagnostics;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -7,6 +9,7 @@ namespace PVPMistico.Widgets
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PasswordValidationEntry : Grid
+
     {
         #region BindableProperties
         public static readonly BindableProperty UnfocusedCommandProperty =
@@ -58,7 +61,14 @@ namespace PVPMistico.Widgets
         #endregion
         public PasswordValidationEntry ()
 		{
-			InitializeComponent ();
+            try
+            {
+			    InitializeComponent ();
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
 		}
 	}
 }

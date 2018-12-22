@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Diagnostics;
+using System.Drawing;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using Prism.Commands;
@@ -108,7 +110,14 @@ namespace PVPMistico.ViewModels
 
         private async Task OnSignInButtonPressed()
         {
-            await NavigationService.NavigateAsync(nameof(SignInPage));
+            try
+            {
+                await NavigationService.NavigateAsync(nameof(SignInPage));
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
         }
 
         private async Task OnLogInButtonPressed()
