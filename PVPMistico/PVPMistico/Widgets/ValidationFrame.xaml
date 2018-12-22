@@ -1,40 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Frame xmlns="http://xamarin.com/schemas/2014/forms" 
-       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets"
-       xmlns:Converters="clr-namespace:PVPMistico.Converters;assembly=PVPMistico"
-       x:Class="PVPMistico.Widgets.ValidationFrame"
-       x:Name="MyValidationFrame">
+<MyWidgets:BaseValidationFrame xmlns="http://xamarin.com/schemas/2014/forms"
+                               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                               xmlns:MyWidgets ="clr-namespace:PVPMistico.Widgets"
+                               x:Class="PVPMistico.Widgets.ValidationFrame"
+                               x:Name="MyValidationFrame">
 
-    <Frame.Resources>
-        <ResourceDictionary>
-            <Converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter"/>
-        </ResourceDictionary>
-    </Frame.Resources>
+    <MyWidgets:ValidationEntry Grid.Row="1"
+                               ValidatableObject="{Binding ValidatableObject, Source={x:Reference MyValidationFrame}}"
+                               UnfocusedCommand="{Binding UnfocusedCommand, Source={x:Reference MyValidationFrame}}"
+                               Margin="0"/>
     
-    <Frame.Content>
-        <Grid Margin="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="{Binding TitleHeight, Source={x:Reference MyValidationFrame}}"/>
-                <RowDefinition Height="{Binding EntryHeight, Source={x:Reference MyValidationFrame}}"/>
-                <RowDefinition Height="{Binding ErrorHeight, Source={x:Reference MyValidationFrame}}"/>
-            </Grid.RowDefinitions>
-
-            <Label x:Name="TitleLabel" 
-                   Grid.Row="0" 
-                   Text="{Binding Title, Source={x:Reference MyValidationFrame}}"/>
-
-            <MyWidgets:ValidationEntry x:Name="ValidationEntry" 
-                                       Grid.Row="1"
-                                       ValidatableObject="{Binding ValidatableObject, Source={x:Reference MyValidationFrame}}"
-                                       UnfocusedCommand="{Binding UnfocusedCommand, Source={x:Reference MyValidationFrame}}"
-                                       Margin="0"
-                                       VerticalOptions="End"/>
-
-            <Label x:Name="ErrorLabel" 
-                   Grid.Row="2"
-                   Text="{Binding ValidatableObject.Errors, Converter={StaticResource FirstValidationErrorConverter}, Source={x:Reference MyValidationFrame}}"
-                   TextColor="Red"/>
-        </Grid>
-    </Frame.Content>
-</Frame>
+</MyWidgets:BaseValidationFrame>
