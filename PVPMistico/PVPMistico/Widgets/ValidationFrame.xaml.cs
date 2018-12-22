@@ -16,13 +16,13 @@ namespace PVPMistico.Widgets
             BindableProperty.Create(propertyName: nameof(ValidatableObject), returnType: typeof(ValidatableObject<string>), defaultValue: null, declaringType: typeof(ValidationFrame));
 
         public static readonly BindableProperty TitleHeightProperty =
-            BindableProperty.Create(propertyName: nameof(TitleHeight), returnType: typeof(GridLength), defaultValue: new GridLength(22, GridUnitType.Star), declaringType: typeof(ValidationFrame));
+            BindableProperty.Create(propertyName: nameof(TitleHeight), returnType: typeof(GridLength), defaultValue: new GridLength(30, GridUnitType.Auto), declaringType: typeof(ValidationFrame));
 
         public static readonly BindableProperty EntryHeightProperty =
-            BindableProperty.Create(propertyName: nameof(EntryHeight), returnType: typeof(GridLength), defaultValue: new GridLength(58, GridUnitType.Star), declaringType: typeof(ValidationFrame));
+            BindableProperty.Create(propertyName: nameof(EntryHeight), returnType: typeof(GridLength), defaultValue: new GridLength(40, GridUnitType.Auto), declaringType: typeof(ValidationFrame));
 
         public static readonly BindableProperty ErrorHeightProperty =
-            BindableProperty.Create(propertyName: nameof(ErrorHeight), returnType: typeof(GridLength), defaultValue: new GridLength(20, GridUnitType.Star), declaringType: typeof(ValidationFrame));
+            BindableProperty.Create(propertyName: nameof(ErrorHeight), returnType: typeof(GridLength), defaultValue: new GridLength(30, GridUnitType.Auto), declaringType: typeof(ValidationFrame));
 
         public static readonly BindableProperty TitleProperty =
             BindableProperty.Create(propertyName: nameof(Title), returnType: typeof(string), defaultValue: null, declaringType: typeof(ValidationFrame));

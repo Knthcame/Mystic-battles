@@ -3,6 +3,7 @@ using Acr.UserDialogs;
 using Prism.Commands;
 using Prism.Navigation;
 using PVPMistico.Managers.Interfaces;
+using PVPMistico.Resources;
 using PVPMistico.Validation;
 using PVPMistico.Validation.Rules;
 using PVPMistico.Views;
@@ -12,7 +13,7 @@ namespace PVPMistico.ViewModels
     public class SignInPageViewModel : BaseViewModel
     {
         #region Fields
-        private string _passwordVisibilityIcon = "ViewPassword.png";
+        private string _passwordVisibilityIcon = AppImages.ViewPassword;
         private ValidatableObject<string> _password;
         private ValidatableObject<string> _name;
         private ValidatableObject<string> _username;
@@ -126,12 +127,12 @@ namespace PVPMistico.ViewModels
             {
                 case true:
                     HidePassword = false;
-                    PasswordVisibilityIcon = "HidePassword.png";
+                    PasswordVisibilityIcon = AppImages.HidePassword;
                     break;
 
                 case false:
                     HidePassword = true;
-                    PasswordVisibilityIcon = "ViewPassword.png";
+                    PasswordVisibilityIcon = AppImages.ViewPassword;
                     break;
             }
         }

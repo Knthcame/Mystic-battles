@@ -18,6 +18,9 @@ namespace PVPMistico.Validation.Rules
 
         public bool Check(string password)
         {
+            if (password == null)
+                return false;
+
             return _hasNumber.IsMatch(password)
                 && _hasMiniMaxChars.IsMatch(password)
                 && _hasLowerCaseCharacter.IsMatch(password)

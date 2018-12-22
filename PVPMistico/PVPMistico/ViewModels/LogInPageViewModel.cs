@@ -5,6 +5,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using PVPMistico.Constants;
 using PVPMistico.Managers.Interfaces;
+using PVPMistico.Resources;
 using PVPMistico.Views;
 
 namespace PVPMistico.ViewModels
@@ -15,7 +16,7 @@ namespace PVPMistico.ViewModels
         private string _password;
         private string _username;
         private bool _hidePassword = true;
-        private string _passwordVisibilityIcon = "ViewPassword.png";
+        private string _passwordVisibilityIcon = AppImages.ViewPassword;
         private bool _signInEnabled;
         private Color _usernameColor = Color.Black;
         private Color _passwordColor = Color.Black;
@@ -96,11 +97,11 @@ namespace PVPMistico.ViewModels
             {
                 case true:
                     HidePassword = false;
-                    PasswordVisibilityIcon = "HidePassword.png";
+                    PasswordVisibilityIcon = AppImages.HidePassword;
                     break;
                 case false:
                     HidePassword = true;
-                    PasswordVisibilityIcon = "ViewPassword.png";
+                    PasswordVisibilityIcon = AppImages.ViewPassword;
                     break;
             }
         }
