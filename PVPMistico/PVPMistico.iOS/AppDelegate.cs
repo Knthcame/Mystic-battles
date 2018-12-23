@@ -1,6 +1,8 @@
 ﻿using Foundation;
 using Prism;
 using Prism.Ioc;
+using PVPMistico.iOS.Managers;
+using PVPMistico.Managers.Interfaces;
 using UIKit;
 
 
@@ -33,6 +35,7 @@ namespace PVPMistico.iOS
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             // Register any platform specific implementations
+            containerRegistry.Register<IDialogManager, DialogManager>();
         }
     }
 }

@@ -21,6 +21,8 @@ namespace PVPMistico.ViewModels
         protected bool _isUsernameValid;
         protected bool _isPasswordValid;
         protected bool _areCredentialsValid = false;
+        protected readonly IAccountManager _accountManager;
+        protected readonly IDialogManager _dialogManager;
         #endregion
 
         #region Properties
@@ -54,14 +56,14 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _areCredentialsValid, value);
         }
 
-        public IAccountManager AccountManager { get; protected set; }
         public ICommand UsernameUnfocusedCommand { get; protected set; }
         public ICommand PasswordUnfocusedCommand { get; protected set; }
         public ICommand PasswordVisibilityToggleCommand { get; protected set; }
         #endregion
-        public BaseAccountValidationViewModel(INavigationService navigationService, IAccountManager accountManager) : base(navigationService)
+        public BaseAccountValidationViewModel(INavigationService navigationService, IAccountManager accountManager, IDialogManager dialogManager) : base(navigationService)
         {
-            AccountManager = accountManager;
+            _accountManager = accountManager;
+            _dialogManager = dialogManager;
 
             PasswordVisibilityToggleCommand = new DelegateCommand(OnPasswordVisibilityToggle);
             UsernameUnfocusedCommand = new DelegateCommand(OnUsernameUnfocused);

@@ -2,8 +2,11 @@
 using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Plugin.CurrentActivity;
 using Prism;
 using Prism.Ioc;
+using PVPMistico.Droid.Managers;
+using PVPMistico.Managers.Interfaces;
 
 namespace PVPMistico.Droid
 {
@@ -16,6 +19,7 @@ namespace PVPMistico.Droid
             ToolbarResource = Resource.Layout.Toolbar;
 
             UserDialogs.Init(this);
+            CrossCurrentActivity.Current.Init(this, bundle);
 
             base.OnCreate(bundle);
 
@@ -29,6 +33,7 @@ namespace PVPMistico.Droid
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             // Register any platform specific implementations
+            containerRegistry.Register<IDialogManager, DialogManager>();
         }
     }
 }

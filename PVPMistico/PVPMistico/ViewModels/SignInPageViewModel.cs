@@ -35,7 +35,7 @@ namespace PVPMistico.ViewModels
         public ICommand NameUnfocusedCommand { get; private set; }
         #endregion
 
-        public SignInPageViewModel(INavigationService navigationService, IAccountManager accountManager) : base(navigationService, accountManager) 
+        public SignInPageViewModel(INavigationService navigationService, IAccountManager accountManager, IDialogManager dialogManager) : base(navigationService, accountManager, dialogManager) 
         {
             Title = "Registro de cuenta";
 
@@ -54,7 +54,7 @@ namespace PVPMistico.ViewModels
         protected override void AddValidations()
         {
             base.AddValidations();
-            Username.Validations.Add(new IsUsernameAvailableRule(AccountManager));
+            Username.Validations.Add(new IsUsernameAvailableRule(_accountManager));
             Email.Validations.Add(new IsEmailRule<string>());
             Name.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>() { ValidationMessage = "El nombre no puede estar vacio" });
         }
@@ -64,11 +64,10 @@ namespace PVPMistico.ViewModels
             if (!ValidateEmail() || !ValidateName())
                 return;
 
-            if (AccountManager.SignIn(Name.Value, Email.Value, Username.Value, Password.Value, out string signInResponse))
+            if (_accountManager.SignIn(Name.Value, Email.Value, Username.Value, Password.Value, out string signInResponse))
                 NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
 
-            var toastConfig = new ToastConfig(signInResponse);
-            UserDialogs.Instance.Toast(toastConfig);
+            _dialogManager.ShowToast(signInResponse);
         }
 
         private void OnEmailUnfocused()

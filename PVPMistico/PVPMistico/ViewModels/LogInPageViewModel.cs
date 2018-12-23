@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Acr.UserDialogs;
 using Prism.Commands;
 using Prism.Navigation;
 using PVPMistico.Constants;
@@ -19,7 +18,7 @@ namespace PVPMistico.ViewModels
         public DelegateCommand SignInCommand { get; private set; }
         #endregion
 
-        public LogInPageViewModel(INavigationService navigationService, IAccountManager accountManager) : base(navigationService, accountManager)
+        public LogInPageViewModel(INavigationService navigationService, IAccountManager accountManager, IDialogManager dialogManager) : base(navigationService, accountManager, dialogManager)
         {
             Title = "Inicia sesión";
 
@@ -30,7 +29,7 @@ namespace PVPMistico.ViewModels
         protected override void AddValidations()
         {
             base.AddValidations();
-            Username.Validations.Add(new IsUsernameRegisteredRule(AccountManager));
+            Username.Validations.Add(new IsUsernameRegisteredRule(_accountManager));
         }
 
         private async Task OnSignInButtonPressed()
@@ -51,13 +50,11 @@ namespace PVPMistico.ViewModels
             if (!AreCredentialsValid)
                 return;
 
-            if (AccountManager.LogIn(Username.Value, Password.Value, out string logInResponse))
+            if (_accountManager.LogIn(Username.Value, Password.Value, out string logInResponse))
                 await NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
             else
             {
-                var toastConfig = new ToastConfig(logInResponse);
-                toastConfig.SetPosition(ToastPosition.Bottom);
-                UserDialogs.Instance.Toast(toastConfig);
+                _dialogManager.ShowToast(logInResponse);
 
                 var errors = new List<string>
                 {
