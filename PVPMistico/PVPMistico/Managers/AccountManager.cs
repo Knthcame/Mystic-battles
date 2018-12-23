@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using PVPMistico.Constants;
+﻿using PVPMistico.Constants;
 using PVPMistico.Managers.Interfaces;
 using Xamarin.Essentials;
 
@@ -21,7 +19,7 @@ namespace PVPMistico.Managers
                 logInResponse = LogInResponses.UsernameNotFound;
                 return false;
             }
-            else if (!password.Equals("test"))
+            else if (!password.Equals("Test123"))
             {
                 logInResponse = LogInResponses.PasswordIncorrect;
                 return false;
@@ -34,9 +32,9 @@ namespace PVPMistico.Managers
             }
         }
 
-        public bool CheckUsernameAvailable(string username)
+        public bool CheckUsernameRegistered(string username)
         {
-            return username != "Originals";
+            return username == "Originals";
         }
 
         public bool SignIn(string name, string email, string username, string password, out string signInResponse)

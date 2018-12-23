@@ -9,7 +9,7 @@ namespace PVPMistico.Validation.Rules
         private Regex _hasNumber = new Regex(@"[0-9]+");
         private Regex _hasUpperCaseCharacter = new Regex(@"[A-Z]+");
         private Regex _hasLowerCaseCharacter = new Regex(@"[a-z]+");
-        private Regex _hasMiniMaxChars = new Regex(@".{8,15}");
+        private Regex _hasMiniMaxChars = new Regex(@".{" + PasswordValidationConstants.MinimumCharacters + "," + PasswordValidationConstants.MaximumCharacters + "}");
         private Regex _hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
 
         public string ValidationMessage { get; set; } = 

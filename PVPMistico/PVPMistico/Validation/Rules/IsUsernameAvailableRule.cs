@@ -14,7 +14,7 @@ namespace PVPMistico.Validation.Rules
 
         public bool Check(string value)
         {
-            return AccountManager.CheckUsernameAvailable(value);
+            return !AccountManager.CheckUsernameRegistered(value);
         }
     }
 }

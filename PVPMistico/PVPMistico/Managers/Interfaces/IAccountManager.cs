@@ -3,7 +3,7 @@ namespace PVPMistico.Managers.Interfaces
 {
     public interface IAccountManager
     {
-        bool CheckUsernameAvailable(string username);
+        bool CheckUsernameRegistered(string username);
 
         bool LogIn(string username, string password, out string logInResponse);
 

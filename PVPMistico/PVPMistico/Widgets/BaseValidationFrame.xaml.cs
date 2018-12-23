@@ -7,7 +7,7 @@ using Xamarin.Forms.Xaml;
 
 namespace PVPMistico.Widgets
 {
-    [ContentProperty(nameof(ValidationEntry))]
+    [ContentProperty(nameof(ValidationContent))]
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class BaseValidationFrame : Frame
     {
@@ -68,7 +68,7 @@ namespace PVPMistico.Widgets
             set => SetValue(TitleProperty, value);
         }
 
-        public View ValidationEntry
+        public View ValidationContent
         {
             get => (View)MyContentView.Content;
             set => MyContentView.Content = value;

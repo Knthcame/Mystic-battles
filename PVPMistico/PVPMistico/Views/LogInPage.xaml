@@ -1,67 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets"
              x:Class="PVPMistico.Views.LogInPage"
-             xmlns:Prism="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             BackgroundColor="LightGray"
              Title="{Binding Title}">
     
     <ContentPage.Content>
 
         <Grid Margin="10">
-            
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="10*"/>
-                <RowDefinition Height="40*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-            <Label Text="Nombre de usuario"
-                   Grid.Row="1"/>
-            
-            <Entry Text="{Binding Username, Mode=OneWayToSource}"
-                   Grid.Row="2"
-                   TextColor="{Binding UsernameColor}"
-                   Placeholder="Originals">
-                <Entry.Behaviors>
-                    <Prism:EventToCommandBehavior EventName="TextChanged"
-                                                  Command="{Binding TextChangedCommand}"/>
-                </Entry.Behaviors>
-            </Entry>
-            
-            <Label Text="Contraseña"
-                   Grid.Row="3"/>
-            
-            <Grid Grid.Row="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="9*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                
-                <Entry Text="{Binding Password, Mode=OneWayToSource}"
-                       IsPassword="{Binding HidePassword}"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="2"
-                       TextColor="{Binding PasswordColor}"
-                       Placeholder="test">
-                    <Entry.Behaviors>
-                        <Prism:EventToCommandBehavior EventName="TextChanged"
-                                                      Command="{Binding TextChangedCommand}"/>
-                    </Entry.Behaviors>
-                </Entry>
-                
-                <ImageButton Command="{Binding PasswordVisibilityToggleCommand}"
-                             Grid.Column="1"
-                             BackgroundColor="Transparent"
-                             Source="{Binding PasswordVisibilityIcon}"
-                             HeightRequest="25"
-                             Padding="5"/>
-            </Grid>
-            
-            <Grid Grid.Row="5">
+
+            <MyWidgets:ValidationFrame Grid.Row="0" Title="Nombre de usuario"
+                                       ValidatableObject="{Binding Username}"
+                                       UnfocusedCommand="{Binding UsernameUnfocusedCommand}"
+                                       BackgroundColor="White"
+                                       BorderColor="Black"
+                                       Padding="5"
+                                       Margin="0"/>
+
+            <MyWidgets:PasswordValidationFrame Grid.Row="1"
+                                               Title="Contraseña"
+                                               ValidatableObject="{Binding Password}"
+                                               UnfocusedCommand="{Binding PasswordUnfocusedCommand}"
+                                               HidePassword="{Binding HidePassword}"
+                                               PasswordVisibilityToggleCommand="{Binding PasswordVisibilityToggleCommand}"
+                                               PasswordVisibilityIcon="{Binding PasswordVisibilityIcon}"
+                                               BackgroundColor="White"
+                                               BorderColor="Black"
+                                               Padding="5"
+                                               Margin="0"/>
+
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
@@ -70,7 +45,7 @@
             <Button Text="Iniciar sesión"
                     Command="{Binding LogInCommand}"
                     Grid.Column="0"
-                    IsEnabled="{Binding SignInEnabled}"/>
+                    IsEnabled="{Binding AreCredentialsValid}"/>
         
             <Button Text="Registro"
                     Command="{Binding SignInCommand}"

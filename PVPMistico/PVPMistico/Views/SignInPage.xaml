@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="PVPMistico.Views.SignInPage"
-             xmlns:Prism="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              xmlns:Converters="clr-namespace:PVPMistico.Converters;assembly=PVPMistico"
              xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets;assembly=PVPMistico"
              Title="{Binding Title}"
@@ -36,7 +35,7 @@
                                            UnfocusedCommand="{Binding NameUnfocusedCommand}"
                                            BackgroundColor="White"
                                            BorderColor="Black"
-                                           Padding="0"
+                                           Padding="5"
                                            Margin="0">
                 </MyWidgets:ValidationFrame>
 
@@ -46,7 +45,7 @@
                                            UnfocusedCommand="{Binding EmailUnfocusedCommand}"
                                            BackgroundColor="White"
                                            BorderColor="Black"
-                                           Padding="0"
+                                           Padding="5"
                                            Margin="0">
                 </MyWidgets:ValidationFrame>
 
@@ -56,13 +55,9 @@
                                            UnfocusedCommand="{Binding UsernameUnfocusedCommand}"
                                            BackgroundColor="White"
                                            BorderColor="Black"
-                                           Padding="0"
+                                           Padding="5"
                                            Margin="0">
                 </MyWidgets:ValidationFrame>
-
-                <!--<Label Text="Contraseña"
-                       Grid.Row="3"
-                       VerticalOptions="End"/>-->
 
                 <MyWidgets:PasswordValidationFrame Grid.Row="3"
                                                    BorderColor="Black"
@@ -72,30 +67,9 @@
                                                    UnfocusedCommand="{Binding PasswordUnfocusedCommand}"
                                                    HidePassword="{Binding HidePassword}"
                                                    PasswordVisibilityIcon="{Binding PasswordVisibilityIcon}"
-                                                   PasswordVisibilityToggleCommand="{Binding PasswordVisibilityToggleCommand}"/>
-                <!--<Grid Grid.Row="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="9*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <MyWidgets:ValidationEntry ValidatableObject="{Binding Password}"
-                                               IsPassword="{Binding HidePassword}"
-                                               Grid.Column="0"
-                                               Grid.ColumnSpan="2"
-                                               UnfocusedCommand="{Binding PasswordUnfocusedCommand}"/>
-
-                    <ImageButton Command="{Binding PasswordVisibilityToggleCommand}"
-                                 Grid.Column="1"
-                                 BackgroundColor="Transparent"
-                                 Source="{Binding PasswordVisibilityIcon}"
-                                 HeightRequest="25"
-                                 Padding="5"/>
-                </Grid>-->
-
-                <!--<Label Grid.Row="5"
-                       Text="{Binding Password.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
-                       TextColor="Red"/>-->
+                                                   PasswordVisibilityToggleCommand="{Binding PasswordVisibilityToggleCommand}"
+                                                   Padding="5"
+                                                   Margin="0"/>
 
                 <Button Text="Registrarse"
                         Grid.Row="4"

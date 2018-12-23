@@ -5,8 +5,11 @@
                                x:Class="PVPMistico.Widgets.ValidationFrame"
                                x:Name="MyValidationFrame">
 
-    <MyWidgets:ValidationEntry ValidatableObject="{Binding ValidatableObject, Source={x:Reference MyValidationFrame}}"
-                               UnfocusedCommand="{Binding UnfocusedCommand, Source={x:Reference MyValidationFrame}}"
-                               Margin="0"/>
-    
+    <MyWidgets:BaseValidationFrame.ValidationContent>
+
+        <MyWidgets:ValidationEntry ValidatableObject="{Binding ValidatableObject, Source={x:Reference MyValidationFrame}}"
+                                   UnfocusedCommand="{Binding UnfocusedCommand, Source={x:Reference MyValidationFrame}}"/>
+
+    </MyWidgets:BaseValidationFrame.ValidationContent>
+
 </MyWidgets:BaseValidationFrame>
