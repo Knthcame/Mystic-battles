@@ -1,11 +1,12 @@
-﻿using PVPMistico.Validation.Rules.Interfaces;
+﻿using PVPMistico.Resources;
+using PVPMistico.Validation.Rules.Interfaces;
 using System;
 
 namespace PVPMistico.Validation.Rules
 {
     public class IsEmailRule<T> : IValidationRule<T>
     {
-        public string ValidationMessage { get; set; } = "Porfavor inserte un formato de e-mail válido.";
+        public string ValidationMessage { get; set; } = AppResources.WrongEmailFormatError;
 
         public bool Check(T value)
         {

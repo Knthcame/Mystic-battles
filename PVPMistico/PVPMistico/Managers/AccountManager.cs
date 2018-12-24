@@ -7,10 +7,10 @@ namespace PVPMistico.Managers
 {
     public class AccountManager : IAccountManager
     {
-        IHttpManager HttpManager;
+        private readonly IHttpManager _httpManager;
         public AccountManager(IHttpManager httpManager)
         {
-            HttpManager = httpManager;
+            _httpManager = httpManager;
         }
 
         public async Task<string> LogInAsync(string username, string password)
@@ -26,7 +26,7 @@ namespace PVPMistico.Managers
             else
             {
                 await SecureStorage.SetAsync(SecureStorageTokens.Username, username);
-                return LogInResponses.LogInSuccesfull;
+                return LogInResponses.LogInSuccesful;
             }
         }
 

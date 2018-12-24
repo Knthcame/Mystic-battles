@@ -4,6 +4,7 @@
              x:Class="PVPMistico.Views.SignInPage"
              xmlns:Converters="clr-namespace:PVPMistico.Converters;assembly=PVPMistico"
              xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets;assembly=PVPMistico"
+             xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
              Title="{Binding Title}"
              BackgroundColor="LightGray">
 
@@ -29,7 +30,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <MyWidgets:ValidationFrame Title="Nombre"
+                <MyWidgets:ValidationFrame Title="{Localization:Translate Name}"
                                            Grid.Row="0"
                                            ValidatableObject="{Binding Name}"
                                            UnfocusedCommand="{Binding NameUnfocusedCommand}"
@@ -39,7 +40,7 @@
                                            Margin="0">
                 </MyWidgets:ValidationFrame>
 
-                <MyWidgets:ValidationFrame Title="Email"
+                <MyWidgets:ValidationFrame Title="{Localization:Translate Email}"
                                            Grid.Row="1"
                                            ValidatableObject="{Binding Email}"
                                            UnfocusedCommand="{Binding EmailUnfocusedCommand}"
@@ -50,7 +51,7 @@
                 </MyWidgets:ValidationFrame>
 
                 <MyWidgets:ValidationFrame Grid.Row="2"
-                                           Title="Nombre de usuario"
+                                           Title="{Localization:Translate Username}"
                                            ValidatableObject="{Binding Username}"
                                            UnfocusedCommand="{Binding UsernameUnfocusedCommand}"
                                            BackgroundColor="White"
@@ -62,7 +63,7 @@
                 <MyWidgets:PasswordValidationFrame Grid.Row="3"
                                                    BorderColor="Black"
                                                    BackgroundColor="White"
-                                                   Title="Contraseña"
+                                                   Title="{Localization:Translate Password}"
                                                    ValidatableObject="{Binding Password}"
                                                    UnfocusedCommand="{Binding PasswordUnfocusedCommand}"
                                                    HidePassword="{Binding HidePassword}"
@@ -71,7 +72,7 @@
                                                    Padding="5"
                                                    Margin="0"/>
 
-                <Button Text="Registrarse"
+                <Button Text="{Localization:Translate SignIn}"
                         Grid.Row="4"
                         Command="{Binding SignInCommand}"
                         IsEnabled="{Binding AreCredentialsValid}"/>

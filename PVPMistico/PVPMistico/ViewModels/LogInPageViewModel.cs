@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using Prism.Commands;
 using Prism.Navigation;
 using PVPMistico.Constants;
@@ -54,28 +55,26 @@ namespace PVPMistico.ViewModels
 
             var logInResponse = await _accountManager.LogInAsync(Username.Value, Password.Value);
 
-            if (logInResponse == LogInResponses.LogInSuccesfull)
+            if (logInResponse == LogInResponses.LogInSuccesful)
                 await NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
             else
             {
-                _dialogManager.ShowToast(logInResponse);
+                _dialogManager.ShowToast(new ToastConfig(logInResponse));
 
                 var errors = new List<string>
                 {
                     logInResponse
                 };
 
-                switch (logInResponse)
+                if (logInResponse.Equals(LogInResponses.UsernameNotFound))
                 {
-                    case LogInResponses.UsernameNotFound:
-                        Username.Errors = errors;
-                        Username.IsValid = false;
-                        break;
-
-                    case LogInResponses.PasswordIncorrect:
-                        Password.Errors = errors;
-                        Password.IsValid = false;
-                        break;
+                    Username.Errors = errors;
+                    Username.IsValid = false;
+                }
+                else if (logInResponse.Equals(LogInResponses.PasswordIncorrect))
+                {
+                    Password.Errors = errors;
+                    Password.IsValid = false;
                 }
             }
         }

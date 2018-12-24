@@ -1,5 +1,4 @@
-﻿using System;
-using PVPMistico.Managers.Interfaces;
+﻿using PVPMistico.Managers.Interfaces;
 
 namespace PVPMistico.Managers
 {

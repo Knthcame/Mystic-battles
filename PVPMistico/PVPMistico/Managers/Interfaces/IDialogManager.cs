@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Acr.UserDialogs;
+using System;
 
 namespace PVPMistico.Managers.Interfaces
 {
     public interface IDialogManager
     {
-        void ShowToast(string message);
+        void ShowToast(ToastConfig config);
 
-        void ShowAlert(string Title, string message, string okButton);
+        void ShowAlert(AlertConfig config);
 
-        void ShowConfirmationDialog(string title, string message, Action<bool> onAction, string okButton, string cancelText, Action cancelAction = null);
+        void ShowConfirmationDialog(ConfirmConfig config);
     }
 }

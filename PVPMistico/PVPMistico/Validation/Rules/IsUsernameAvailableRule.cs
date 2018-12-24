@@ -1,4 +1,5 @@
 ﻿using PVPMistico.Managers.Interfaces;
+using PVPMistico.Resources;
 using PVPMistico.Validation.Rules.Interfaces;
 
 namespace PVPMistico.Validation.Rules
@@ -10,7 +11,7 @@ namespace PVPMistico.Validation.Rules
         {
             AccountManager = accountManager;
         }
-        public string ValidationMessage { get; set; } = "Este usuario ya existe";
+        public string ValidationMessage { get; set; } = AppResources.UserAlreadyExistsError;
 
         public bool Check(string value)
         {

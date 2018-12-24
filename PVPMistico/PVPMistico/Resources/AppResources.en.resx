@@ -117,10 +117,86 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConfirmationDialogCancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ConfirmationDialogOkButton" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailAlreadyUsedResponse" xml:space="preserve">
+    <value>This email is registered with another user</value>
+  </data>
+  <data name="EmptyEntryError" xml:space="preserve">
+    <value>This entry can not be empty.</value>
+  </data>
+  <data name="EmptyNameError" xml:space="preserve">
+    <value>Name can not be empty.</value>
+  </data>
+  <data name="EmptyUsernameError" xml:space="preserve">
+    <value>Username can not be empty.</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
   <data name="LogInPageTitle" xml:space="preserve">
     <value>Log in</value>
   </data>
+  <data name="LogInSuccesfulResponse" xml:space="preserve">
+    <value>Log in successful</value>
+  </data>
+  <data name="LogOutButtonText" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="LogOutConfirmationMessage" xml:space="preserve">
+    <value>Are you sure you want to log out?</value>
+  </data>
+  <data name="LogOutConfirmationTitle" xml:space="preserve">
+    <value>Loging out</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>Main page</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordFormatInvalidPlaceholder" xml:space="preserve">
+    <value>Password must have between minimum and maximum characters, including an uppercase, a lowercase and a number.</value>
+    <comment>'minimum' and 'maximum' must be replaced by their corresponding values.</comment>
+  </data>
+  <data name="PasswordIncorrectResponse" xml:space="preserve">
+    <value>Wrong password</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="SignInPageTitle" xml:space="preserve">
+    <value>Registro de cuenta</value>
+  </data>
+  <data name="SignInSuccessfulResponse" xml:space="preserve">
+    <value>User successfully signed in</value>
+  </data>
+  <data name="UserAlreadyExistsError" xml:space="preserve">
+    <value>User already exists.</value>
+  </data>
+  <data name="UserAlreadyRegisteredResponse" xml:space="preserve">
+    <value>User already registered</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
+  </data>
+  <data name="UsernameNotFoundResponse" xml:space="preserve">
+    <value>There is no account registered with this username</value>
+  </data>
+  <data name="UserNotRegisteredError" xml:space="preserve">
+    <value>User not registered.</value>
+  </data>
+  <data name="WrongEmailFormatError" xml:space="preserve">
+    <value>Please inseert a valid email format.</value>
   </data>
 </root>

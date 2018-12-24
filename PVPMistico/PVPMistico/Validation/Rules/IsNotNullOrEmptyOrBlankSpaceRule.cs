@@ -1,10 +1,11 @@
-﻿using PVPMistico.Validation.Rules.Interfaces;
+﻿using PVPMistico.Resources;
+using PVPMistico.Validation.Rules.Interfaces;
 
 namespace PVPMistico.Validation.Rules
 {
     public class IsNotNullOrEmptyOrBlankSpaceRule<T> : IValidationRule<T>
     {
-        public string ValidationMessage { get; set; } = "Este campo no puede estar vacío";
+        public string ValidationMessage { get; set; } = AppResources.EmptyEntryError;
 
         public bool Check(T value)
         {

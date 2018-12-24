@@ -1,12 +1,14 @@
-﻿namespace PVPMistico.Constants
+﻿using PVPMistico.Resources;
+
+namespace PVPMistico.Constants
 {
-    public abstract class SignInResponses
+    public static class SignInResponses
     {
-        public const string UserAlreadyRegistered = "Este usuario ya está registrado";
+        public static string UserAlreadyRegistered = AppResources.UserAlreadyRegisteredResponse;
 
-        public const string SignInSuccessful = "Usuario registrado correctamente";
+        public static string SignInSuccessful = AppResources.SignInSuccessfulResponse;
 
-        public const string EmailAlreadyUsed = "Este email ya está registrado";
+        public static string EmailAlreadyUsed = AppResources.EmailAlreadyUsedResponse;
 
         public static string PasswordFormatInvalid = PasswordValidationConstants.PasswordFormatInvalid;
     }

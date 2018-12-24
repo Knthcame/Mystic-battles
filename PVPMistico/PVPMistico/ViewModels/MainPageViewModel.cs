@@ -3,6 +3,7 @@ using Prism.Commands;
 using Prism.Navigation;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
+using PVPMistico.Resources;
 using PVPMistico.Views;
 
 namespace PVPMistico.ViewModels
@@ -10,7 +11,8 @@ namespace PVPMistico.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         private string _menuText;
-        private IAccountManager AccountManager;
+        private IAccountManager _accountManager;
+        private IDialogManager _dialogManager;
 
         public string MenuText
         {
@@ -20,34 +22,35 @@ namespace PVPMistico.ViewModels
 
         public DelegateCommand MenuItemCommand { get; private set; }
 
-        public MainPageViewModel(INavigationService navigationService, IAccountManager accountManager, ICustomLogger logger)
+        public MainPageViewModel(INavigationService navigationService, IAccountManager accountManager, ICustomLogger logger, IDialogManager dialogManager)
             : base(navigationService, logger)
         {
-            AccountManager = accountManager;
-            Title = "Main Page";
-            MenuText = "Cerrar sesión";
+            _accountManager = accountManager;
+            _dialogManager = dialogManager;
+            Title = AppResources.MainPageTitle;
+            MenuText = AppResources.LogOutButtonText;
             MenuItemCommand = new DelegateCommand(OnLogOutClicked);
         }
 
         private void OnLogOutClicked()
         {
-            var confirmConfig = new ConfirmConfig()
+            var config = new ConfirmConfig()
             {
-                Title = "Cerrando sesión",
-                Message = "Estás seguro de que quieres cerrar sesión?",
-                OkText = "Si, seguro",
-                CancelText = "No, cancelar",
+                Title = AppResources.LogOutConfirmationTitle,
+                Message = AppResources.LogOutConfirmationMessage,
+                OkText = AppResources.ConfirmationDialogOkButton,
+                CancelText = AppResources.ConfirmationDialogCancelButton,
                 OnAction = OnLogOutAction
             };
-            UserDialogs.Instance.Confirm(confirmConfig);
+            _dialogManager.ShowConfirmationDialog(config);
         }
 
-        private void OnLogOutAction(bool confirmed)
+        private async void OnLogOutAction(bool confirmed)
         {
             if (confirmed)
             {
-                AccountManager.LogOut();
-                NavigationService.NavigateAsync("/NavigationPage/" + nameof(LogInPage));
+                _accountManager.LogOut();
+                await NavigationService.NavigateAsync("/NavigationPage/" + nameof(LogInPage));
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace PVPMistico.Constants
+﻿using PVPMistico.Resources;
+
+namespace PVPMistico.Constants
 {
     public static class PasswordValidationConstants
     {
@@ -6,8 +8,14 @@
 
         public const string MaximumCharacters = "15";
 
-        public static string PasswordFormatInvalid =
-                        $"La contraseña debe contener entre {MinimumCharacters} y {MaximumCharacters} carácteres, " +
-                        $"incluyendo una letra mayúscula, una minúscula y un número.";
+        public static string PasswordFormatInvalid => GetPasswordFormatErrorString();
+
+        private static string GetPasswordFormatErrorString()
+        {
+            string message = AppResources.PasswordFormatInvalidPlaceholder;
+            message = message.Replace("minimum", MinimumCharacters)
+                             .Replace("maximum", MaximumCharacters);
+            return message;
+        }
     }
 }

@@ -117,10 +117,86 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConfirmationDialogCancelButton" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ConfirmationDialogOkButton" xml:space="preserve">
+    <value>Si</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Correu electrònic</value>
+  </data>
+  <data name="EmailAlreadyUsedResponse" xml:space="preserve">
+    <value>Aquest correu electrònic està registrat amb un altre usuari</value>
+  </data>
+  <data name="EmptyEntryError" xml:space="preserve">
+    <value>Aquest camp no pot estar buit.</value>
+  </data>
+  <data name="EmptyNameError" xml:space="preserve">
+    <value>El nom no pot estar buit.</value>
+  </data>
+  <data name="EmptyUsernameError" xml:space="preserve">
+    <value>El nom de usuari no pot estar buit.</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Inicia sessió</value>
+  </data>
   <data name="LogInPageTitle" xml:space="preserve">
     <value>Inici de sessió</value>
   </data>
+  <data name="LogInSuccesfulResponse" xml:space="preserve">
+    <value>Sessió iniciada correctament</value>
+  </data>
+  <data name="LogOutButtonText" xml:space="preserve">
+    <value>Tancar la sessió</value>
+  </data>
+  <data name="LogOutConfirmationMessage" xml:space="preserve">
+    <value>Estàs segur que vols tancar la sessió?</value>
+  </data>
+  <data name="LogOutConfirmationTitle" xml:space="preserve">
+    <value>Tancant la sessió</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>Pàgina principal</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Contrasenya</value>
+  </data>
+  <data name="PasswordFormatInvalidPlaceholder" xml:space="preserve">
+    <value>La contrasenya ha de tenir entre minimum i maximum caràcters, inclòs una lletra majúscula, una minúscula i un nombre.</value>
+    <comment>Es necessari substituir 'minimum' i 'maximum' pels corresponents valors</comment>
+  </data>
+  <data name="PasswordIncorrectResponse" xml:space="preserve">
+    <value>Contrasenya incorrecte</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Registrar-se</value>
+  </data>
+  <data name="SignInPageTitle" xml:space="preserve">
+    <value>Registre de compte</value>
+  </data>
+  <data name="SignInSuccessfulResponse" xml:space="preserve">
+    <value>Usuari registrat correctament</value>
+  </data>
+  <data name="UserAlreadyExistsError" xml:space="preserve">
+    <value>Aquest nom de usuari ja existeix.</value>
+  </data>
+  <data name="UserAlreadyRegisteredResponse" xml:space="preserve">
+    <value>Aquest nom de usuari ja està registrat</value>
+  </data>
   <data name="Username" xml:space="preserve">
-    <value>Nom de usuari</value>
+    <value>Nom d'usuari</value>
+  </data>
+  <data name="UsernameNotFoundResponse" xml:space="preserve">
+    <value>No s'ha trobat cap usuari registrat amb aquest nom</value>
+  </data>
+  <data name="UserNotRegisteredError" xml:space="preserve">
+    <value>Aquest usari no existeix.</value>
+  </data>
+  <data name="WrongEmailFormatError" xml:space="preserve">
+    <value>Inserti un format de coreu electrònic vàlid.</value>
   </data>
 </root>

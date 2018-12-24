@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using Prism.Commands;
 using Prism.Navigation;
 using PVPMistico.Constants;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
+using PVPMistico.Resources;
 using PVPMistico.Validation;
 using PVPMistico.Validation.Rules;
 using PVPMistico.Views;
@@ -40,7 +42,7 @@ namespace PVPMistico.ViewModels
         public SignInPageViewModel(INavigationService navigationService, IAccountManager accountManager, IDialogManager dialogManager, ICustomLogger logger) 
             : base(navigationService, accountManager, dialogManager, logger) 
         {
-            Title = "Registro de cuenta";
+            Title = AppResources.SignInPageTitle;
 
             SignInCommand = new DelegateCommand(async() => await OnSignInButtonClickedAsync());
             EmailUnfocusedCommand = new DelegateCommand(OnEmailUnfocused);
@@ -59,7 +61,7 @@ namespace PVPMistico.ViewModels
             base.AddValidations();
             Username.Validations.Add(new IsUsernameAvailableRule(_accountManager));
             Email.Validations.Add(new IsEmailRule<string>());
-            Name.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>() { ValidationMessage = "El nombre no puede estar vacio" });
+            Name.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>() { ValidationMessage = AppResources.EmptyNameError });
         }
 
         private async Task OnSignInButtonClickedAsync()
@@ -72,13 +74,13 @@ namespace PVPMistico.ViewModels
             if (signInResponse == SignInResponses.SignInSuccessful)
                 await NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
 
-            _dialogManager.ShowToast(signInResponse);
+            _dialogManager.ShowToast(new ToastConfig(signInResponse));
         }
 
         private void OnEmailUnfocused()
         {
             if (Email != null && Email.Value != null)
-                Email.Value.Trim();
+                Email.Value = Email.Value.Trim();
 
             _isEmailValid = ValidateEmail();
             CheckCredentials();
@@ -87,7 +89,7 @@ namespace PVPMistico.ViewModels
         private void OnNameUnfocused()
         {
             if(Name != null && Name.Value != null)
-                Name.Value.Trim();
+                Name.Value = Name.Value.Trim();
 
             _isNameValid = ValidateName();
             CheckCredentials();

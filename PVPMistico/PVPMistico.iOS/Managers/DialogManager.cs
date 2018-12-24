@@ -1,37 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Acr.UserDialogs;
-using Foundation;
+﻿using Acr.UserDialogs;
 using PVPMistico.Managers.Interfaces;
-using UIKit;
 
 namespace PVPMistico.iOS.Managers
 {
     public class DialogManager : IDialogManager
     {
-        public void ShowAlert(string title, string message, string okText)
+        public void ShowAlert(AlertConfig config)
         {
-            UserDialogs.Instance.Alert(message, title, okText);
+            UserDialogs.Instance.Alert(config);
         }
 
-        public void ShowConfirmationDialog(string title, string message, Action<bool> onAction, string okButton, string cancelText, Action cancelAction = null)
+        public void ShowConfirmationDialog(ConfirmConfig config)
         {
-            ConfirmConfig confirmConfig = new ConfirmConfig()
-            {
-                Title = title,
-                Message = message,
-                OkText = okButton,
-                CancelText = cancelText,
-                OnAction = onAction
-            };
-            UserDialogs.Instance.Confirm(confirmConfig);
+            UserDialogs.Instance.Confirm(config);
         }
 
-        public void ShowToast(string message)
+        public void ShowToast(ToastConfig config)
         {
-            UserDialogs.Instance.Toast(message);
+            UserDialogs.Instance.Toast(config);
         }
     }
 }

@@ -61,6 +61,78 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancelar.
+        /// </summary>
+        public static string ConfirmationDialogCancelButton {
+            get {
+                return ResourceManager.GetString("ConfirmationDialogCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Si.
+        /// </summary>
+        public static string ConfirmationDialogOkButton {
+            get {
+                return ResourceManager.GetString("ConfirmationDialogOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Correo electrónico.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Este correo electrónico está registrado con otro usuario.
+        /// </summary>
+        public static string EmailAlreadyUsedResponse {
+            get {
+                return ResourceManager.GetString("EmailAlreadyUsedResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Este campo no puede estar vacío..
+        /// </summary>
+        public static string EmptyEntryError {
+            get {
+                return ResourceManager.GetString("EmptyEntryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El nombre no puede estar vacío..
+        /// </summary>
+        public static string EmptyNameError {
+            get {
+                return ResourceManager.GetString("EmptyNameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El nombre de usuario no puede estar vacio.
+        /// </summary>
+        public static string EmptyUsernameError {
+            get {
+                return ResourceManager.GetString("EmptyUsernameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iniciar sesión.
+        /// </summary>
+        public static string LogIn {
+            get {
+                return ResourceManager.GetString("LogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inicio de sesión.
         /// </summary>
         public static string LogInPageTitle {
@@ -70,11 +142,164 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sesión iniciada correctamente.
+        /// </summary>
+        public static string LogInSuccesfulResponse {
+            get {
+                return ResourceManager.GetString("LogInSuccesfulResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cerrar sesión.
+        /// </summary>
+        public static string LogOutButtonText {
+            get {
+                return ResourceManager.GetString("LogOutButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ¿Estás seguro que quieres cerrar la sesión?.
+        /// </summary>
+        public static string LogOutConfirmationMessage {
+            get {
+                return ResourceManager.GetString("LogOutConfirmationMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cerrando sesión.
+        /// </summary>
+        public static string LogOutConfirmationTitle {
+            get {
+                return ResourceManager.GetString("LogOutConfirmationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Página principal.
+        /// </summary>
+        public static string MainPageTitle {
+            get {
+                return ResourceManager.GetString("MainPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contraseña.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to La contraseña debe contener entre minimum y maximum carácteres, incluyendo una letra mayúscula, una minúscula y un número..
+        /// </summary>
+        public static string PasswordFormatInvalidPlaceholder {
+            get {
+                return ResourceManager.GetString("PasswordFormatInvalidPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contraseña incorrecta.
+        /// </summary>
+        public static string PasswordIncorrectResponse {
+            get {
+                return ResourceManager.GetString("PasswordIncorrectResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Resgistrarse.
+        /// </summary>
+        public static string SignIn {
+            get {
+                return ResourceManager.GetString("SignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign in.
+        /// </summary>
+        public static string SignInPageTitle {
+            get {
+                return ResourceManager.GetString("SignInPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuario registrado correctamente.
+        /// </summary>
+        public static string SignInSuccessfulResponse {
+            get {
+                return ResourceManager.GetString("SignInSuccessfulResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Este usuario ya existe..
+        /// </summary>
+        public static string UserAlreadyExistsError {
+            get {
+                return ResourceManager.GetString("UserAlreadyExistsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Este usuario ya está registrado.
+        /// </summary>
+        public static string UserAlreadyRegisteredResponse {
+            get {
+                return ResourceManager.GetString("UserAlreadyRegisteredResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nombre de usuario.
         /// </summary>
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No se ha encontrado a ningún usuario registrado con ese nombre.
+        /// </summary>
+        public static string UsernameNotFoundResponse {
+            get {
+                return ResourceManager.GetString("UsernameNotFoundResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El usuario no está registrado..
+        /// </summary>
+        public static string UserNotRegisteredError {
+            get {
+                return ResourceManager.GetString("UserNotRegisteredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Porfavor inserte un formato de e-mail válido..
+        /// </summary>
+        public static string WrongEmailFormatError {
+            get {
+                return ResourceManager.GetString("WrongEmailFormatError", resourceCulture);
             }
         }
     }

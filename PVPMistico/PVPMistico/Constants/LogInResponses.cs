@@ -1,12 +1,13 @@
-﻿using System;
+﻿using PVPMistico.Resources;
+
 namespace PVPMistico.Constants
 {
-    public abstract class LogInResponses
+    public static class LogInResponses
     {
-        public const string LogInSuccesfull = "Sesión iniciada correctamente";
+        public static string LogInSuccesful = AppResources.LogInSuccesfulResponse;
 
-        public const string UsernameNotFound = "No se ha encontrado a ningún usuario registrado con ese nombre";
+        public static string UsernameNotFound = AppResources.UsernameNotFoundResponse;
 
-        public const string PasswordIncorrect = "Contraseña incorrecta";
+        public static string PasswordIncorrect = AppResources.PasswordIncorrectResponse;
     }
 }

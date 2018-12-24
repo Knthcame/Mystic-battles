@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets"
+             xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
              x:Class="PVPMistico.Views.LogInPage"
              BackgroundColor="LightGray"
              Title="{Binding Title}">
@@ -17,7 +18,7 @@
             </Grid.RowDefinitions>
 
             <MyWidgets:ValidationFrame Grid.Row="0" 
-                                       Title="Nombre de Usuario"
+                                       Title="{Localization:Translate Username}"
                                        ValidatableObject="{Binding Username}"
                                        UnfocusedCommand="{Binding UsernameUnfocusedCommand}"
                                        BackgroundColor="White"
@@ -26,7 +27,7 @@
                                        Margin="0"/>
 
             <MyWidgets:PasswordValidationFrame Grid.Row="1"
-                                               Title="Contraseña"
+                                               Title="{Localization:Translate Password}"
                                                ValidatableObject="{Binding Password}"
                                                UnfocusedCommand="{Binding PasswordUnfocusedCommand}"
                                                HidePassword="{Binding HidePassword}"
@@ -43,12 +44,12 @@
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
                 
-            <Button Text="Iniciar sesión"
+            <Button Text="{Localization:Translate LogIn}"
                     Command="{Binding LogInCommand}"
                     Grid.Column="0"
                     IsEnabled="{Binding AreCredentialsValid}"/>
         
-            <Button Text="Registro"
+            <Button Text="{Localization:Translate SignIn}"
                     Command="{Binding SignInCommand}"
                     Grid.Column="1"/>
             

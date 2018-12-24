@@ -90,7 +90,7 @@ namespace PVPMistico.ViewModels
         protected virtual void OnUsernameUnfocused()
         {
             if (Username != null && Username.Value != null)
-                Username.Value.Trim();
+                Username.Value = Username.Value.Trim();
 
             _isUsernameValid = ValidateUsername();
             CheckCredentials();
@@ -99,7 +99,7 @@ namespace PVPMistico.ViewModels
         protected virtual void OnPaswordUnfocused()
         {
             if (Password != null && Password.Value != null)
-                Password.Value.Trim();
+                Password.Value = Password.Value.Trim();
 
             _isPasswordValid = ValidatePassword();
             CheckCredentials();
@@ -107,7 +107,7 @@ namespace PVPMistico.ViewModels
 
         protected virtual void AddValidations()
         {
-            Username.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>() { ValidationMessage = "El usuario no puede estar vacio" });
+            Username.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>() { ValidationMessage = AppResources.EmptyUsernameError });
             Password.Validations.Add(new IsPasswordFormatCorrectRule());
         }
 

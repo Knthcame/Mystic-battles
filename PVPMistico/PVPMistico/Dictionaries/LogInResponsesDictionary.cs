@@ -8,7 +8,7 @@ namespace PVPMistico.Dictionaries
     {
         private static Dictionary<LogInResponseCode, string> _dictionary = new Dictionary<LogInResponseCode, string>()
         {
-            { LogInResponseCode.LogInSuccessful, LogInResponses.LogInSuccesfull },
+            { LogInResponseCode.LogInSuccessful, LogInResponses.LogInSuccesful },
             { LogInResponseCode.PasswordIncorrect, LogInResponses.PasswordIncorrect },
             { LogInResponseCode.UsernameNotRegistered, LogInResponses.UsernameNotFound }
         };
