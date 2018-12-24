@@ -16,7 +16,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <MyWidgets:ValidationFrame Grid.Row="0" Title="Nombre de usuario"
+            <MyWidgets:ValidationFrame Grid.Row="0" 
+                                       Title="Nombre de Usuario"
                                        ValidatableObject="{Binding Username}"
                                        UnfocusedCommand="{Binding UsernameUnfocusedCommand}"
                                        BackgroundColor="White"

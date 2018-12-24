@@ -6,6 +6,7 @@ using Prism.Navigation;
 using PVPMistico.Constants;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
+using PVPMistico.Resources;
 using PVPMistico.Validation.Rules;
 using PVPMistico.Views;
 
@@ -21,7 +22,7 @@ namespace PVPMistico.ViewModels
         public LogInPageViewModel(INavigationService navigationService, IAccountManager accountManager, IDialogManager dialogManager, ICustomLogger logger) 
             : base(navigationService, accountManager, dialogManager, logger)
         {
-            Title = "Inicia sesión";
+            Title = AppResources.LogInPageTitle;
 
             LogInCommand = new DelegateCommand(async () => await OnLogInButtonPressed());
             SignInCommand = new DelegateCommand(async () => await OnSignInButtonPressed());
