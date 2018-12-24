@@ -2,6 +2,7 @@
 using Acr.UserDialogs;
 using Prism.Commands;
 using Prism.Navigation;
+using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Validation;
 using PVPMistico.Validation.Rules;
@@ -35,7 +36,8 @@ namespace PVPMistico.ViewModels
         public ICommand NameUnfocusedCommand { get; private set; }
         #endregion
 
-        public SignInPageViewModel(INavigationService navigationService, IAccountManager accountManager, IDialogManager dialogManager) : base(navigationService, accountManager, dialogManager) 
+        public SignInPageViewModel(INavigationService navigationService, IAccountManager accountManager, IDialogManager dialogManager, ICustomLogger logger) 
+            : base(navigationService, accountManager, dialogManager, logger) 
         {
             Title = "Registro de cuenta";
 

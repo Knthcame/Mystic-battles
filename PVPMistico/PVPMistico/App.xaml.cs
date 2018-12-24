@@ -1,5 +1,7 @@
 ﻿using Prism;
 using Prism.Ioc;
+using PVPMistico.Logging;
+using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.ViewModels;
@@ -38,6 +40,7 @@ namespace PVPMistico
 
             containerRegistry.Register<IHttpManager, HttpManager>();
             containerRegistry.Register<IAccountManager, AccountManager>();
+            containerRegistry.Register<ICustomLogger, CustomLogger>();
         }
     }
 }

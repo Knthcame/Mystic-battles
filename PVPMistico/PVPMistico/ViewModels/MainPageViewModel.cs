@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using Prism.Commands;
 using Prism.Navigation;
+using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Views;
 
@@ -19,8 +20,8 @@ namespace PVPMistico.ViewModels
 
         public DelegateCommand MenuItemCommand { get; private set; }
 
-        public MainPageViewModel(INavigationService navigationService, IAccountManager accountManager)
-            : base(navigationService)
+        public MainPageViewModel(INavigationService navigationService, IAccountManager accountManager, ICustomLogger logger)
+            : base(navigationService, logger)
         {
             AccountManager = accountManager;
             Title = "Main Page";

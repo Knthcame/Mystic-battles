@@ -1,12 +1,10 @@
 ﻿using Prism.Commands;
 using Prism.Navigation;
+using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
 using PVPMistico.Validation;
 using PVPMistico.Validation.Rules;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
 namespace PVPMistico.ViewModels
@@ -60,7 +58,7 @@ namespace PVPMistico.ViewModels
         public ICommand PasswordUnfocusedCommand { get; protected set; }
         public ICommand PasswordVisibilityToggleCommand { get; protected set; }
         #endregion
-        public BaseAccountValidationViewModel(INavigationService navigationService, IAccountManager accountManager, IDialogManager dialogManager) : base(navigationService)
+        public BaseAccountValidationViewModel(INavigationService navigationService, IAccountManager accountManager, IDialogManager dialogManager, ICustomLogger logger) : base(navigationService, logger)
         {
             _accountManager = accountManager;
             _dialogManager = dialogManager;

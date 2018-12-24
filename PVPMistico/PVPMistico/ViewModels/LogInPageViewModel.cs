@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Prism.Commands;
 using Prism.Navigation;
 using PVPMistico.Constants;
+using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Validation.Rules;
 using PVPMistico.Views;
@@ -18,7 +19,8 @@ namespace PVPMistico.ViewModels
         public DelegateCommand SignInCommand { get; private set; }
         #endregion
 
-        public LogInPageViewModel(INavigationService navigationService, IAccountManager accountManager, IDialogManager dialogManager) : base(navigationService, accountManager, dialogManager)
+        public LogInPageViewModel(INavigationService navigationService, IAccountManager accountManager, IDialogManager dialogManager, ICustomLogger logger) 
+            : base(navigationService, accountManager, dialogManager, logger)
         {
             Title = "Inicia sesión";
 
@@ -40,7 +42,7 @@ namespace PVPMistico.ViewModels
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.ToString());
+                _logger.Log(e.Message, e, Prism.Logging.Category.Exception, Prism.Logging.Priority.High);
             }
         }
 

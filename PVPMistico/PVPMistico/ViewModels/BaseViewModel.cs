@@ -1,15 +1,13 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using PVPMistico.Logging.Interfaces;
 
 namespace PVPMistico.ViewModels
 {
     public class BaseViewModel : BindableBase, INavigationAware, IDestructible
     {
         protected INavigationService NavigationService { get; private set; }
+        protected ICustomLogger _logger;
 
         private string _title;
         public string Title
@@ -18,9 +16,10 @@ namespace PVPMistico.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        public BaseViewModel(INavigationService navigationService)
+        public BaseViewModel(INavigationService navigationService, ICustomLogger logger)
         {
             NavigationService = navigationService;
+            _logger = logger;
         }
 
         public virtual void OnNavigatedFrom(INavigationParameters parameters)

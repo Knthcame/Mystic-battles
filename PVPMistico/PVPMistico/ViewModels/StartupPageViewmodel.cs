@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Prism.Navigation;
 using PVPMistico.Constants;
+using PVPMistico.Logging.Interfaces;
 using PVPMistico.Views;
 using Xamarin.Essentials;
 
@@ -9,7 +9,8 @@ namespace PVPMistico.ViewModels
 {
     public class StartupPageViewmodel : BaseViewModel
     {
-        public StartupPageViewmodel(INavigationService navigationService) : base(navigationService) { }
+        public StartupPageViewmodel(INavigationService navigationService, ICustomLogger logger) 
+        : base(navigationService, logger) { }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -21,7 +22,7 @@ namespace PVPMistico.ViewModels
             var username = await SecureStorage.GetAsync(SecureStorageTokens.Username);
             if (username != null)
             {
-                Debug.WriteLine("Registered account username: " + username);
+                _logger.Debug("Registered account username: " + username);
                 await NavigationService.NavigateAsync("NavigationPage/" + nameof(MainPage));
             }
             else
