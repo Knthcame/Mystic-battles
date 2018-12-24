@@ -4,7 +4,7 @@ using PVPMistico.Constants;
 
 namespace PVPMistico.Dictionaries
 {
-    public class SignInResponsesDictionary
+    public static class SignInResponsesDictionary
     {
         private static Dictionary<SignInResponseCode, string> _dictionary = new Dictionary<SignInResponseCode, string>()
         {
