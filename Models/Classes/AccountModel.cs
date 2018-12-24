@@ -1,4 +1,4 @@
-﻿namespace Models
+﻿namespace Models.Classes
 {
     public class AccountModel
     {
