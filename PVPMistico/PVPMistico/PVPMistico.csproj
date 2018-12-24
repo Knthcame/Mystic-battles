@@ -55,6 +55,7 @@
     <Folder Include="Properties\" />
     <Folder Include="Logging\" />
     <Folder Include="Logging\Interfaces\" />
+    <Folder Include="Dictionaries\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Models\Models.csproj" />

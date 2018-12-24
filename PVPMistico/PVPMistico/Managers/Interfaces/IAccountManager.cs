@@ -1,13 +1,14 @@
-﻿using System;
+﻿using System.Threading.Tasks;
+
 namespace PVPMistico.Managers.Interfaces
 {
     public interface IAccountManager
     {
         bool CheckUsernameRegistered(string username);
 
-        bool LogIn(string username, string password, out string logInResponse);
+        Task<string> LogInAsync(string username, string password);
 
-        bool SignIn(string name, string email, string username, string password, out string signInResponse);
+        Task<string> SignInAsync(string name, string email, string username, string password);
 
         void LogOut();
     }

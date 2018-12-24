@@ -12,9 +12,7 @@ namespace PVPMistico.Validation.Rules
         private Regex _hasMiniMaxChars = new Regex(@".{" + PasswordValidationConstants.MinimumCharacters + "," + PasswordValidationConstants.MaximumCharacters + "}");
         private Regex _hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
 
-        public string ValidationMessage { get; set; } = 
-            $"La contraseña debe contener entre {PasswordValidationConstants.MinimumCharacters} y {PasswordValidationConstants.MaximumCharacters} carácteres, " +
-            $"incluyendo una letra mayúscula, una minúscula y un número.";
+        public string ValidationMessage { get; set; } = PasswordValidationConstants.PasswordFormatInvalid;
 
         public bool Check(string password)
         {

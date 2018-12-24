@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Prism.Commands;
 using Prism.Navigation;
@@ -52,7 +51,9 @@ namespace PVPMistico.ViewModels
             if (!AreCredentialsValid)
                 return;
 
-            if (_accountManager.LogIn(Username.Value, Password.Value, out string logInResponse))
+            var logInResponse = await _accountManager.LogInAsync(Username.Value, Password.Value);
+
+            if (logInResponse == LogInResponses.LogInSuccesfull)
                 await NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
             else
             {

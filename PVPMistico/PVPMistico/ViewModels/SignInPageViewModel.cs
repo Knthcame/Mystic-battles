@@ -1,7 +1,8 @@
-﻿using System.Windows.Input;
-using Acr.UserDialogs;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
 using Prism.Commands;
 using Prism.Navigation;
+using PVPMistico.Constants;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Validation;
@@ -41,7 +42,7 @@ namespace PVPMistico.ViewModels
         {
             Title = "Registro de cuenta";
 
-            SignInCommand = new DelegateCommand(OnSignInButtonClicked);
+            SignInCommand = new DelegateCommand(async() => await OnSignInButtonClickedAsync());
             EmailUnfocusedCommand = new DelegateCommand(OnEmailUnfocused);
             NameUnfocusedCommand = new DelegateCommand(OnNameUnfocused);
         }
@@ -61,13 +62,15 @@ namespace PVPMistico.ViewModels
             Name.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>() { ValidationMessage = "El nombre no puede estar vacio" });
         }
 
-        private void OnSignInButtonClicked()
+        private async Task OnSignInButtonClickedAsync()
         {
             if (!ValidateEmail() || !ValidateName())
                 return;
 
-            if (_accountManager.SignIn(Name.Value, Email.Value, Username.Value, Password.Value, out string signInResponse))
-                NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
+            var signInResponse = await _accountManager.SignInAsync(Name.Value, Email.Value, Username.Value, Password.Value);
+
+            if (signInResponse == SignInResponses.SignInSuccessful)
+                await NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
 
             _dialogManager.ShowToast(signInResponse);
         }
