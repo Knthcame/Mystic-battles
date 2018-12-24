@@ -89,6 +89,9 @@ namespace PVPMistico.ViewModels
 
         protected virtual void OnUsernameUnfocused()
         {
+            if (string.IsNullOrEmpty(Username.Value))
+                return;
+
             if (Username != null && Username.Value != null)
                 Username.Value = Username.Value.Trim();
 
@@ -98,6 +101,9 @@ namespace PVPMistico.ViewModels
 
         protected virtual void OnPaswordUnfocused()
         {
+            if (string.IsNullOrEmpty(Password.Value))
+                return;
+
             if (Password != null && Password.Value != null)
                 Password.Value = Password.Value.Trim();
 

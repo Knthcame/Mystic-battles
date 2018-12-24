@@ -79,6 +79,9 @@ namespace PVPMistico.ViewModels
 
         private void OnEmailUnfocused()
         {
+            if (string.IsNullOrEmpty(Email.Value))
+                return;
+
             if (Email != null && Email.Value != null)
                 Email.Value = Email.Value.Trim();
 
@@ -88,7 +91,10 @@ namespace PVPMistico.ViewModels
 
         private void OnNameUnfocused()
         {
-            if(Name != null && Name.Value != null)
+            if (string.IsNullOrEmpty(Name.Value))
+                return;
+
+            if (Name != null && Name.Value != null)
                 Name.Value = Name.Value.Trim();
 
             _isNameValid = ValidateName();

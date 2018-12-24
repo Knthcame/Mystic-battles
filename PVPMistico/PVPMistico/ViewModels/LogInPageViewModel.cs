@@ -43,7 +43,7 @@ namespace PVPMistico.ViewModels
             }
             catch (Exception e)
             {
-                _logger.Log(e.Message, e, Prism.Logging.Category.Exception, Prism.Logging.Priority.High);
+                _logger.Error(e.Message, e);
             }
         }
 
