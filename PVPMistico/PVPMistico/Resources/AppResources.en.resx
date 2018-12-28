@@ -199,4 +199,19 @@
   <data name="WrongEmailFormatError" xml:space="preserve">
     <value>Please inseert a valid email format.</value>
   </data>
+  <data name="LeaderboardsHeader" xml:space="preserve">
+    <value>Leaderboards</value>
+  </data>
+  <data name="LosesLabel" xml:space="preserve">
+    <value>Loses</value>
+  </data>
+  <data name="PointsLabel" xml:space="preserve">
+    <value>Points</value>
+  </data>
+  <data name="PositionLabel" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="WinsLabel" xml:space="preserve">
+    <value>Wins</value>
+  </data>
 </root>

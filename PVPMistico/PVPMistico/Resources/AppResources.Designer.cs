@@ -124,6 +124,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clasificaciones.
+        /// </summary>
+        public static string LeaderboardsHeader {
+            get {
+                return ResourceManager.GetString("LeaderboardsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Iniciar sesión.
         /// </summary>
         public static string LogIn {
@@ -178,6 +187,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Derrotas.
+        /// </summary>
+        public static string LosesLabel {
+            get {
+                return ResourceManager.GetString("LosesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Página principal.
         /// </summary>
         public static string MainPageTitle {
@@ -219,6 +237,24 @@ namespace PVPMistico.Resources {
         public static string PasswordIncorrectResponse {
             get {
                 return ResourceManager.GetString("PasswordIncorrectResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Puntos.
+        /// </summary>
+        public static string PointsLabel {
+            get {
+                return ResourceManager.GetString("PointsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Posición.
+        /// </summary>
+        public static string PositionLabel {
+            get {
+                return ResourceManager.GetString("PositionLabel", resourceCulture);
             }
         }
         
@@ -291,6 +327,15 @@ namespace PVPMistico.Resources {
         public static string UserNotRegisteredError {
             get {
                 return ResourceManager.GetString("UserNotRegisteredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Victorias.
+        /// </summary>
+        public static string WinsLabel {
+            get {
+                return ResourceManager.GetString("WinsLabel", resourceCulture);
             }
         }
         

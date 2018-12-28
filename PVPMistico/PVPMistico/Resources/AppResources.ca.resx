@@ -199,4 +199,19 @@
   <data name="WrongEmailFormatError" xml:space="preserve">
     <value>Inserti un format de coreu electrònic vàlid.</value>
   </data>
+  <data name="LeaderboardsHeader" xml:space="preserve">
+    <value>Classificacions</value>
+  </data>
+  <data name="LosesLabel" xml:space="preserve">
+    <value>Derrotes</value>
+  </data>
+  <data name="PointsLabel" xml:space="preserve">
+    <value>Punts</value>
+  </data>
+  <data name="PositionLabel" xml:space="preserve">
+    <value>Posició</value>
+  </data>
+  <data name="WinsLabel" xml:space="preserve">
+    <value>Victòries</value>
+  </data>
 </root>

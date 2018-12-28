@@ -1,17 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
              x:Class="PVPMistico.Views.MainPage"
              Title="{Binding Title}">
     
     <ContentPage.Content>
-        
-        <Label Text="Que mierdas pongo aquí? Ideas pls"
-               FontSize="Large"
-               Margin="50"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"/>
-        
+        <ScrollView>
+            <ListView ItemsSource="{Binding LeaderboardPreviews}"
+                      Header="{Localization:Translate LeaderboardsHeader}"
+                      HasUnevenRows="True">
+                
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+                        
+                        <ViewCell>
+                            <Frame BorderColor="Black"
+                                   Margin="0"
+                                   Padding="1">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="{Binding Name}"
+                                           Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="3"/>
+
+                                    <Label Text="{Binding LeagueType}"
+                                           Grid.Row="0"
+                                           Grid.Column="3"
+                                           Grid.ColumnSpan="2"/>
+
+                                    <Label Text="{Localization:Translate PositionLabel}"
+                                           Grid.Row="1"
+                                           Grid.Column="0"/>
+
+                                    <Label Text="{Localization:Translate Username}"
+                                           Grid.Row="1"
+                                           Grid.Column="1"/>
+
+                                    <Label Text="{Localization:Translate WinsLabel}"
+                                           Grid.Row="1"
+                                           Grid.Column="2"/>
+
+                                    <Label Text="{Localization:Translate LosesLabel}"
+                                           Grid.Row="1"
+                                           Grid.Column="3"/>
+
+                                    <Label Text="{Localization:Translate PointsLabel}"
+                                           Grid.Row="1"
+                                           Grid.Column="4"/>
+
+                                    <Label Text="{Binding Participant.Position}"
+                                           Grid.Row="2"
+                                           Grid.Column="0"/>
+
+                                    <Label Text="{Binding Participant.Username}"
+                                           Grid.Row="2"
+                                           Grid.Column="1"/>
+
+                                    <Label Text="{Binding Participant.Wins}"
+                                           Grid.Row="2"
+                                           Grid.Column="2"/>
+
+                                    <Label Text="{Binding Participant.Losses}"
+                                           Grid.Row="2"
+                                           Grid.Column="3"/>
+
+                                    <Label Text="{Binding Participant.Points}"
+                                           Grid.Row="2"
+                                           Grid.Column="4"/>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                        
+                    </DataTemplate>
+                    
+                </ListView.ItemTemplate>
+                
+            </ListView>
+            
+        </ScrollView>
+
     </ContentPage.Content>
 
     <ContentPage.ToolbarItems>
