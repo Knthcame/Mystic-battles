@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using Models.Classes;
+using Models.Enums;
 using PVPMistico.Managers.Interfaces;
 
 namespace PVPMistico.Managers
@@ -32,16 +33,17 @@ namespace PVPMistico.Managers
                 new LeaderboardModel()
                 {
                     ID = 1,
-                    LeagueType = "Great League",
+                    LeagueType = LeagueTypes.GreatLeague,
                     Name = "Originals great",
-                    Participants = new ObservableCollection<ParticipantsModel>()
+                    Participants = new ObservableCollection<ParticipantModel>()
                     {
-                        new ParticipantsModel()
+                        new ParticipantModel()
                         {
                             Level = 40,
                             Losses = 0,
                             Username = "Originals",
                             Wins = 2,
+                            IsAdmin = true,
                             Position = 1,
                             Points = 6,
                             Matches = new ObservableCollection<MatchModel>()
@@ -49,7 +51,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = "Great League",
+                                    LeagueType = LeagueTypes.GreatLeague,
                                     ID = 1,
                                     Winner = "Originals",
                                     Loser = "No originals"
@@ -57,18 +59,18 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = "GreatLeague",
+                                    LeagueType = LeagueTypes.GreatLeague,
                                     ID = 2,
                                     Winner = "Originals",
                                     Loser = "No originals"
                                 }
                             }
                         },
-                        new ParticipantsModel()
+                        new ParticipantModel()
                         {
                             Level = 40,
                             Losses = 2,
-                            Username = "No originals",
+                            Username = "No Originals",
                             Wins = 0,
                             Position = 2,
                             Points = 0,
@@ -77,7 +79,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = "Great League",
+                                    LeagueType = LeagueTypes.GreatLeague,
                                     ID = 1,
                                     Winner = "Originals",
                                     Loser = "No originals"
@@ -85,7 +87,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = "GreatLeague",
+                                    LeagueType = LeagueTypes.GreatLeague,
                                     ID = 2,
                                     Loser = "Originals",
                                     Winner = "No originals"
@@ -97,11 +99,11 @@ namespace PVPMistico.Managers
                 new LeaderboardModel()
                 {
                     ID = 2,
-                    LeagueType = "Ultra League",
+                    LeagueType = LeagueTypes.UltraLeague,
                     Name = "Originals ultra",
-                    Participants = new ObservableCollection<ParticipantsModel>()
+                    Participants = new ObservableCollection<ParticipantModel>()
                     {
-                        new ParticipantsModel()
+                        new ParticipantModel()
                         {
                             Level = 40,
                             Losses = 0,
@@ -114,7 +116,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = "Ultra League",
+                                    LeagueType = LeagueTypes.UltraLeague,
                                     ID = 1,
                                     Winner = "Originals",
                                     Loser = "No originals"
@@ -122,14 +124,14 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = "Ultra League",
+                                    LeagueType = LeagueTypes.UltraLeague,
                                     ID = 2,
                                     Loser = "Originals",
                                     Winner = "No originals"
                                 }
                             }
                         },
-                        new ParticipantsModel()
+                        new ParticipantModel()
                         {
                             Level = 40,
                             Losses = 2,
@@ -142,7 +144,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = "Ultra League",
+                                    LeagueType = LeagueTypes.UltraLeague,
                                     ID = 3,
                                     Winner = "Originals",
                                     Loser = "No originals"
@@ -150,7 +152,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = "Ultra League",
+                                    LeagueType = LeagueTypes.UltraLeague,
                                     ID = 4,
                                     Loser = "Originals",
                                     Winner = "No originals"

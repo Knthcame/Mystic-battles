@@ -18,6 +18,7 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
@@ -117,7 +118,14 @@
             
                 </ListView>
             </ScrollView>
-            
+
+            <Button Text="{Localization:Translate AddTrainerButtonText}"
+                    IsVisible="{Binding IsCurrentUserAdmin}"
+                    HorizontalOptions="End"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="6"/>
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>

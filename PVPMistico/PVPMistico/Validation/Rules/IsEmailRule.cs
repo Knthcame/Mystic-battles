@@ -4,7 +4,7 @@ using System;
 
 namespace PVPMistico.Validation.Rules
 {
-    public class IsEmailRule<T> : IValidationRule<T>
+    public class IsEmailRule<T> : IValidationRule<T> where T: class
     {
         public string ValidationMessage { get; set; } = AppResources.WrongEmailFormatError;
 

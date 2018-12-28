@@ -1,4 +1,6 @@
-﻿namespace Models.Classes
+﻿using Models.Enums;
+
+namespace Models.Classes
 {
     public class MatchModel
     {
@@ -10,6 +12,6 @@
 
         public string League { get; set; }
 
-        public string LeagueType { get; set; }
+        public LeagueTypes LeagueType { get; set; }
     }
 }

@@ -2,9 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
+             xmlns:MyConverters="clr-namespace:PVPMistico.Converters"
              xmlns:PrismBehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:MyViews="clr-namespace:PVPMistico.Views"
              x:Class="PVPMistico.Views.MainPage"
              Title="{Binding Title}">
+
+    <ContentPage.Resources>
+
+        <MyConverters:LeagueTypeConverter x:Key="LeagueTypeConverter"/>
+
+    </ContentPage.Resources>
     
     <ContentPage.Content>
         <StackLayout>
@@ -43,7 +51,7 @@
 
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
@@ -55,7 +63,7 @@
                                                Grid.ColumnSpan="3"
                                                FontAttributes="Bold"/>
 
-                                        <Label Text="{Binding LeagueType}"
+                                        <Label Text="{Binding LeagueType, Converter=LeagueTypeConverter}"
                                                Grid.Row="0"
                                                Grid.Column="3"
                                                Grid.ColumnSpan="2"
@@ -113,8 +121,11 @@
             </ScrollView>
 
             <Button Text="{Localization:Translate CreateLeadearboard}"
+                    Command="{Binding CreateTournamentCommand}"
                     HorizontalOptions="End"
                     IsEnabled="False"/>
+
+            <!--<MyViews:CreateTournamentContentView IsVisible="{Binding IsCreateTournamentViewVisible}"/>-->
 
         </StackLayout>
     </ContentPage.Content>

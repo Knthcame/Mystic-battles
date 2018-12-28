@@ -61,6 +61,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Añadir entrenador.
+        /// </summary>
+        public static string AddTrainerButtonText {
+            get {
+                return ResourceManager.GetString("AddTrainerButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancelar.
         /// </summary>
         public static string ConfirmationDialogCancelButton {
@@ -129,6 +138,15 @@ namespace PVPMistico.Resources {
         public static string EmptyUsernameError {
             get {
                 return ResourceManager.GetString("EmptyUsernameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liga super ball.
+        /// </summary>
+        public static string GreatLeague {
+            get {
+                return ResourceManager.GetString("GreatLeague", resourceCulture);
             }
         }
         
@@ -223,6 +241,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Liga master ball.
+        /// </summary>
+        public static string MasterLeague {
+            get {
+                return ResourceManager.GetString("MasterLeague", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Historial de partidas.
         /// </summary>
         public static string MatchHistoryButtonText {
@@ -309,6 +336,15 @@ namespace PVPMistico.Resources {
         public static string SignInSuccessfulResponse {
             get {
                 return ResourceManager.GetString("SignInSuccessfulResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Liga ultra ball.
+        /// </summary>
+        public static string UltraLeague {
+            get {
+                return ResourceManager.GetString("UltraLeague", resourceCulture);
             }
         }
         

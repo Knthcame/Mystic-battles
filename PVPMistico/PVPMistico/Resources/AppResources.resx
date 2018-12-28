@@ -220,7 +220,19 @@
   <data name="WinsLabel" xml:space="preserve">
     <value>Victorias</value>
   </data>
+  <data name="AddTrainerButtonText" xml:space="preserve">
+    <value>Añadir entrenador</value>
+  </data>
   <data name="CreateLeadearboard" xml:space="preserve">
     <value>Crear nuevo torneo</value>
+  </data>
+  <data name="GreatLeague" xml:space="preserve">
+    <value>Liga super ball</value>
+  </data>
+  <data name="MasterLeague" xml:space="preserve">
+    <value>Liga master ball</value>
+  </data>
+  <data name="UltraLeague" xml:space="preserve">
+    <value>Liga ultra ball</value>
   </data>
 </root>

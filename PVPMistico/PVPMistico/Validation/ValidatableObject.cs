@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace PVPMistico.Validation
 {
-    public class ValidatableObject<T> : BindableBase, IValidity
+    public class ValidatableObject<T> : BindableBase, IValidity where T: class
     {
         #region Fields
         private List<IValidationRule<T>> _validations;

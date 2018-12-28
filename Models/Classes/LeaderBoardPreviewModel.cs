@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Models.Enums;
 
 namespace Models.Classes
 {
@@ -10,8 +8,8 @@ namespace Models.Classes
 
         public string Name { get; set; }
 
-        public ParticipantsModel Participant { get; set; }
+        public ParticipantModel Participant { get; set; }
 
-        public string LeagueType { get; set; }
+        public LeagueTypes LeagueType { get; set; }
     }
 }

@@ -2,6 +2,8 @@
 using Models.Classes;
 using Prism.Commands;
 using Prism.Navigation;
+using Prism.Plugin.Popups.Extensions;
+using Prism.Plugin.Popups;
 using PVPMistico.Constants;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
@@ -19,10 +21,11 @@ namespace PVPMistico.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         private string _menuText;
-        private IAccountManager _accountManager;
-        private IDialogManager _dialogManager;
         private LeaderBoardPreviewModel _selectedLeaderboard;
+        private bool _isCreateTournamentViewVisible;
         private readonly ITournamentManager _tournamentManager;
+        private readonly IAccountManager _accountManager;
+        private readonly IDialogManager _dialogManager;
 
         public string MenuText
         {
@@ -36,9 +39,16 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _selectedLeaderboard, value);
         }
 
+        public bool IsCreateTournamentViewVisible
+        {
+            get => _isCreateTournamentViewVisible;
+            set => SetProperty(ref _isCreateTournamentViewVisible, value);
+        }
+
         public ObservableCollection<LeaderBoardPreviewModel> LeaderboardPreviews { get; set; }
 
         public ICommand MenuItemCommand { get; private set; }
+        public ICommand CreateTournamentCommand { get; private set; }
         public ICommand SelectedLeaderboardCommand { get; private set; }
 
         public MainPageViewModel(INavigationService navigationService, IAccountManager accountManager, ICustomLogger logger, IDialogManager dialogManager, ITournamentManager tournamentManager)
@@ -50,16 +60,24 @@ namespace PVPMistico.ViewModels
             Title = AppResources.MainPageTitle;
             MenuText = AppResources.LogOutButtonText;
             MenuItemCommand = new DelegateCommand(OnLogOutClicked);
+            CreateTournamentCommand = new DelegateCommand(async () => await OnCreateTournamentButtonClickedAsync());
             SelectedLeaderboardCommand = new DelegateCommand(async () => await OnLeaderboardSelectedAsync());
             LeaderboardPreviews = LoadMyLeaderboards();
+        }
+
+        private async Task OnCreateTournamentButtonClickedAsync()
+        {
+            await NavigationService.NavigateAsync(nameof(CreateTournamentPopUp));
         }
 
         private async Task OnLeaderboardSelectedAsync()
         {
             if (SelectedLeaderboard == null)
                 return;
-            var parameters = new NavigationParameters();
-            parameters.Add(NavigationParameterKeys.LeaderboardIdKey, SelectedLeaderboard.ID);
+            var parameters = new NavigationParameters
+            {
+                { NavigationParameterKeys.LeaderboardIdKey, SelectedLeaderboard.ID }
+            };
             await NavigationService.NavigateAsync(nameof(LeaderboardPage), parameters);
         }
 

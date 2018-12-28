@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Models.Enums;
+using System.Collections.ObjectModel;
 
 namespace Models.Classes
 {
@@ -8,8 +9,8 @@ namespace Models.Classes
 
         public string Name { get; set; }
 
-        public ObservableCollection<ParticipantsModel> Participants { get; set; }
+        public ObservableCollection<ParticipantModel> Participants { get; set; }
 
-        public string LeagueType { get; set; }
+        public LeagueTypes LeagueType { get; set; }
     }
 }

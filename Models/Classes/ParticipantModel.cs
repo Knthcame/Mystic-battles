@@ -2,7 +2,7 @@
 
 namespace Models.Classes
 {
-    public class ParticipantsModel
+    public class ParticipantModel
     {
         public string Username { get; set; }
 
@@ -15,6 +15,8 @@ namespace Models.Classes
         public int Points { get; set; }
 
         public int Position { get; set; }
+
+        public bool IsAdmin { get; set; }
 
         public ObservableCollection<MatchModel> Matches { get; set; }
     }

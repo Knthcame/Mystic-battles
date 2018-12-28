@@ -3,7 +3,7 @@ using PVPMistico.Validation.Rules.Interfaces;
 
 namespace PVPMistico.Validation.Rules
 {
-    public class IsNotNullOrEmptyOrBlankSpaceRule<T> : IValidationRule<T>
+    public class IsNotNullOrEmptyOrBlankSpaceRule<T> : IValidationRule<T> where T : class
     {
         public string ValidationMessage { get; set; } = AppResources.EmptyEntryError;
 
