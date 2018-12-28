@@ -107,7 +107,9 @@
       <Name>PVPMistico</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\planning.png" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\HidePassword.png" />
   </ItemGroup>

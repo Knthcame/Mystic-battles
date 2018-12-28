@@ -79,6 +79,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Crear nuevo torneo.
+        /// </summary>
+        public static string CreateLeadearboard {
+            get {
+                return ResourceManager.GetString("CreateLeadearboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Correo electrónico.
         /// </summary>
         public static string Email {

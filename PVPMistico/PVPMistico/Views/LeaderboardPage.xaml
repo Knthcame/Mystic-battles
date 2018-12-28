@@ -23,31 +23,36 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="20*"/>
-                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="30*"/>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="20*"/>
                 <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="10*"/>
             </Grid.ColumnDefinitions>
 
             <Label Text="{Localization:Translate Username}"
                    Grid.Row="0"
-                   Grid.Column="1"/>
+                   Grid.Column="1"
+                   FontAttributes="Bold"
+                   MaxLines="1"/>
 
             <Label Text="{Localization:Translate WinsLabel}"
                    Grid.Row="0"
                    Grid.Column="2"
-                   HorizontalOptions="End"/>
+                   HorizontalOptions="End"
+                   FontAttributes="Bold"/>
 
             <Label Text="{Localization:Translate LosesLabel}"
                    Grid.Row="0"
                    Grid.Column="3"
-                   HorizontalOptions="End"/>
+                   HorizontalOptions="End"
+                   FontAttributes="Bold"/>
 
             <Label Text="{Localization:Translate PointsLabel}"
                    Grid.Row="0"
                    Grid.Column="4"
-                   HorizontalOptions="End"/>
+                   HorizontalOptions="End"
+                   FontAttributes="Bold"/>
 
             <ScrollView Grid.Row="1"
                         Grid.Column="0"
@@ -69,18 +74,19 @@
 
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="5*"/>
-                                            <ColumnDefinition Width="20*"/>
-                                            <ColumnDefinition Width="20*"/>
+                                            <ColumnDefinition Width="30*"/>
                                             <ColumnDefinition Width="20*"/>
                                             <ColumnDefinition Width="20*"/>
                                             <ColumnDefinition Width="15*"/>
+                                            <ColumnDefinition Width="10*"/>
                                         </Grid.ColumnDefinitions>
 
                                         <Label Text="{Binding Position, Converter={StaticResource IntToStringConverter}}"
                                                Grid.Column="0"/>
 
                                         <Label Text="{Binding Username}"
-                                               Grid.Column="1"/>
+                                               Grid.Column="1"
+                                               FontAttributes="Italic"/>
 
                                         <Label Text="{Binding Wins, Converter={StaticResource IntToStringConverter}}"
                                                Grid.Column="2"
@@ -94,9 +100,10 @@
                                                Grid.Column="4"
                                                HorizontalTextAlignment="End"/>
 
-                                        <Button Text="{Localization:Translate MatchHistoryButtonText}"
-                                                IsEnabled="False"
-                                                Grid.Column="5"/>
+                                        <ImageButton Grid.Column="5"
+                                                     IsEnabled="False"
+                                                     Source="planning.png"
+                                                     BackgroundColor="Transparent"/>
 
                                     </Grid>
 

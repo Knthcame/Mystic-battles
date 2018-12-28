@@ -220,4 +220,7 @@
   <data name="WinsLabel" xml:space="preserve">
     <value>Wins</value>
   </data>
+  <data name="CreateLeadearboard" xml:space="preserve">
+    <value>Create new tournament</value>
+  </data>
 </root>

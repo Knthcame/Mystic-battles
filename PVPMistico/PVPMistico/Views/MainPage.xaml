@@ -7,103 +7,116 @@
              Title="{Binding Title}">
     
     <ContentPage.Content>
-        <ScrollView>
-            <ListView ItemsSource="{Binding LeaderboardPreviews}"
-                      Header="{Localization:Translate LeaderboardsHeader}"
-                      HasUnevenRows="True"
-                      SelectedItem="{Binding SelectedLeaderboard, Mode=TwoWay}">
+        <StackLayout>
 
-                <ListView.Behaviors>
-
-                    <PrismBehaviors:EventToCommandBehavior EventName="ItemSelected"
-                                                           Command="{Binding SelectedLeaderboardCommand}"/>
-
-                </ListView.Behaviors>
-                
-                <ListView.ItemTemplate>
-
-                    <DataTemplate>
-                        
-                        <ViewCell>
-                            <Frame BorderColor="Black"
-                                   Margin="0"
-                                   Padding="3">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Label Text="{Binding Name}"
-                                           Grid.Row="0"
-                                           Grid.Column="0"
-                                           Grid.ColumnSpan="3"/>
-
-                                    <Label Text="{Binding LeagueType}"
-                                           Grid.Row="0"
-                                           Grid.Column="3"
-                                           Grid.ColumnSpan="2"/>
-
-                                    <Label Text="{Localization:Translate PositionLabel}"
-                                           Grid.Row="1"
-                                           Grid.Column="0"/>
-
-                                    <Label Text="{Localization:Translate Username}"
-                                           Grid.Row="1"
-                                           Grid.Column="1"/>
-
-                                    <Label Text="{Localization:Translate WinsLabel}"
-                                           Grid.Row="1"
-                                           Grid.Column="2"/>
-
-                                    <Label Text="{Localization:Translate LosesLabel}"
-                                           Grid.Row="1"
-                                           Grid.Column="3"/>
-
-                                    <Label Text="{Localization:Translate PointsLabel}"
-                                           Grid.Row="1"
-                                           Grid.Column="4"/>
-
-                                    <Label Text="{Binding Participant.Position}"
-                                           Grid.Row="2"
-                                           Grid.Column="0"/>
-
-                                    <Label Text="{Binding Participant.Username}"
-                                           Grid.Row="2"
-                                           Grid.Column="1"/>
-
-                                    <Label Text="{Binding Participant.Wins}"
-                                           Grid.Row="2"
-                                           Grid.Column="2"/>
-
-                                    <Label Text="{Binding Participant.Losses}"
-                                           Grid.Row="2"
-                                           Grid.Column="3"/>
-
-                                    <Label Text="{Binding Participant.Points}"
-                                           Grid.Row="2"
-                                           Grid.Column="4"/>
-                                </Grid>
-                            </Frame>
-                        </ViewCell>
-                        
-                    </DataTemplate>
-                    
-                </ListView.ItemTemplate>
-                
-            </ListView>
+            <Label Margin="10"
+                   Text="{Localization:Translate LeaderboardsHeader}"
+                   FontSize="Medium"/>
             
-        </ScrollView>
+            <ScrollView>
 
+                <ListView ItemsSource="{Binding LeaderboardPreviews}"
+                          HasUnevenRows="True"
+                          SelectedItem="{Binding SelectedLeaderboard, Mode=TwoWay}">
+
+                    <ListView.Behaviors>
+
+                        <PrismBehaviors:EventToCommandBehavior EventName="ItemSelected"
+                                                               Command="{Binding SelectedLeaderboardCommand}"/>
+
+                    </ListView.Behaviors>
+                
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+                        
+                            <ViewCell>
+                                <Frame BorderColor="Black"
+                                       Margin="0"
+                                       Padding="3">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Text="{Binding Name}"
+                                               Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.ColumnSpan="3"
+                                               FontAttributes="Bold"/>
+
+                                        <Label Text="{Binding LeagueType}"
+                                               Grid.Row="0"
+                                               Grid.Column="3"
+                                               Grid.ColumnSpan="2"
+                                               FontAttributes="Italic"/>
+
+                                        <Label Text="{Localization:Translate PositionLabel}"
+                                               Grid.Row="1"
+                                               Grid.Column="0"/>
+
+                                        <Label Text="{Localization:Translate Username}"
+                                               Grid.Row="1"
+                                               Grid.Column="1"/>
+
+                                        <Label Text="{Localization:Translate WinsLabel}"
+                                               Grid.Row="1"
+                                               Grid.Column="2"/>
+
+                                        <Label Text="{Localization:Translate LosesLabel}"
+                                               Grid.Row="1"
+                                               Grid.Column="3"/>
+
+                                        <Label Text="{Localization:Translate PointsLabel}"
+                                               Grid.Row="1"
+                                               Grid.Column="4"/>
+
+                                        <Label Text="{Binding Participant.Position}"
+                                               Grid.Row="2"
+                                               Grid.Column="0"/>
+
+                                        <Label Text="{Binding Participant.Username}"
+                                               Grid.Row="2"
+                                               Grid.Column="1"/>
+
+                                        <Label Text="{Binding Participant.Wins}"
+                                               Grid.Row="2"
+                                               Grid.Column="2"/>
+
+                                        <Label Text="{Binding Participant.Losses}"
+                                               Grid.Row="2"
+                                               Grid.Column="3"/>
+
+                                        <Label Text="{Binding Participant.Points}"
+                                               Grid.Row="2"
+                                               Grid.Column="4"/>
+                                    </Grid>
+                                </Frame>
+                            </ViewCell>
+                        
+                        </DataTemplate>
+                    
+                    </ListView.ItemTemplate>
+                
+                </ListView>
+            
+            </ScrollView>
+
+            <Button Text="{Localization:Translate CreateLeadearboard}"
+                    HorizontalOptions="End"
+                    IsEnabled="False"/>
+
+        </StackLayout>
     </ContentPage.Content>
 
     <ContentPage.ToolbarItems>
