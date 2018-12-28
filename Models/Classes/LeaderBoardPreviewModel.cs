@@ -10,6 +10,6 @@ namespace Models.Classes
 
         public ParticipantModel Participant { get; set; }
 
-        public LeagueTypes LeagueType { get; set; }
+        public LeagueTypesEnum LeagueType { get; set; }
     }
 }

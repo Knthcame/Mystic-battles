@@ -11,6 +11,6 @@ namespace Models.Classes
 
         public ObservableCollection<ParticipantModel> Participants { get; set; }
 
-        public LeagueTypes LeagueType { get; set; }
+        public LeagueTypesEnum LeagueType { get; set; }
     }
 }

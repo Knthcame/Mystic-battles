@@ -11,14 +11,24 @@ namespace PVPMistico.Managers
     {
         private readonly IHttpManager _httpManager;
 
+        private static List<LeaderboardModel> leaderboards = LeaderboarsMock();
+
         public TournamentManager(IHttpManager httpManager)
         {
             _httpManager = httpManager;
         }
 
-        public LeaderboardModel CreateTournament()
+        public bool CreateTournament(string name, LeagueTypesEnum leagueType)
         {
-            throw new System.NotImplementedException();
+            //TODO: Add user who created the league as participant
+            leaderboards.Add(new LeaderboardModel()
+            {
+                ID = leaderboards.Count + 1,
+                LeagueType = leagueType,
+                Name = name,
+                Participants = new ObservableCollection<ParticipantModel>()
+            });
+            return true;
         }
 
         public LeaderboardModel GetLeaderboard(int id)
@@ -28,12 +38,22 @@ namespace PVPMistico.Managers
 
         public List<LeaderboardModel> GetLeaderboards()
         {
+            return leaderboards;
+        }
+
+        public IEnumerable<LeaderboardModel> GetMyLeaderboards(string username)
+        {
+            return GetLeaderboards().Where((boards) => boards.Participants.Any((participant) => participant.Username == username));
+        }
+
+        private static List<LeaderboardModel> LeaderboarsMock()
+        {
             return new List<LeaderboardModel>()
             {
                 new LeaderboardModel()
                 {
                     ID = 1,
-                    LeagueType = LeagueTypes.GreatLeague,
+                    LeagueType = LeagueTypesEnum.GreatLeague,
                     Name = "Originals great",
                     Participants = new ObservableCollection<ParticipantModel>()
                     {
@@ -51,7 +71,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = LeagueTypes.GreatLeague,
+                                    LeagueType = LeagueTypesEnum.GreatLeague,
                                     ID = 1,
                                     Winner = "Originals",
                                     Loser = "No originals"
@@ -59,7 +79,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = LeagueTypes.GreatLeague,
+                                    LeagueType = LeagueTypesEnum.GreatLeague,
                                     ID = 2,
                                     Winner = "Originals",
                                     Loser = "No originals"
@@ -79,7 +99,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = LeagueTypes.GreatLeague,
+                                    LeagueType = LeagueTypesEnum.GreatLeague,
                                     ID = 1,
                                     Winner = "Originals",
                                     Loser = "No originals"
@@ -87,7 +107,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = LeagueTypes.GreatLeague,
+                                    LeagueType = LeagueTypesEnum.GreatLeague,
                                     ID = 2,
                                     Loser = "Originals",
                                     Winner = "No originals"
@@ -99,7 +119,7 @@ namespace PVPMistico.Managers
                 new LeaderboardModel()
                 {
                     ID = 2,
-                    LeagueType = LeagueTypes.UltraLeague,
+                    LeagueType = LeagueTypesEnum.UltraLeague,
                     Name = "Originals ultra",
                     Participants = new ObservableCollection<ParticipantModel>()
                     {
@@ -116,7 +136,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = LeagueTypes.UltraLeague,
+                                    LeagueType = LeagueTypesEnum.UltraLeague,
                                     ID = 1,
                                     Winner = "Originals",
                                     Loser = "No originals"
@@ -124,7 +144,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = LeagueTypes.UltraLeague,
+                                    LeagueType = LeagueTypesEnum.UltraLeague,
                                     ID = 2,
                                     Loser = "Originals",
                                     Winner = "No originals"
@@ -144,7 +164,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = LeagueTypes.UltraLeague,
+                                    LeagueType = LeagueTypesEnum.UltraLeague,
                                     ID = 3,
                                     Winner = "Originals",
                                     Loser = "No originals"
@@ -152,7 +172,7 @@ namespace PVPMistico.Managers
                                 new MatchModel()
                                 {
                                     League = "Originals",
-                                    LeagueType = LeagueTypes.UltraLeague,
+                                    LeagueType = LeagueTypesEnum.UltraLeague,
                                     ID = 4,
                                     Loser = "Originals",
                                     Winner = "No originals"
@@ -162,11 +182,6 @@ namespace PVPMistico.Managers
                     }
                 }
             };
-        }
-
-        public IEnumerable<LeaderboardModel> GetMyLeaderboards(string username)
-        {
-            return GetLeaderboards().Where((boards) => boards.Participants.Any((participant) => participant.Username == username));
         }
     }
 }

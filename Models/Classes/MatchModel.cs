@@ -12,6 +12,6 @@ namespace Models.Classes
 
         public string League { get; set; }
 
-        public LeagueTypes LeagueType { get; set; }
+        public LeagueTypesEnum LeagueType { get; set; }
     }
 }

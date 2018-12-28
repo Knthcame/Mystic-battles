@@ -1,4 +1,6 @@
-﻿using Prism.Mvvm;
+﻿using System;
+using System.Threading.Tasks;
+using Prism.Mvvm;
 using Prism.Navigation;
 using PVPMistico.Logging.Interfaces;
 
@@ -14,6 +16,12 @@ namespace PVPMistico.ViewModels
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
+        }
+
+        public virtual bool OnBackButtonPressed()
+        {
+            NavigationService.GoBackAsync();
+            return true;
         }
 
         public BaseViewModel(INavigationService navigationService, ICustomLogger logger)

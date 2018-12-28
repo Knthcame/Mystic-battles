@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-
-namespace PVPMistico.Views
+﻿namespace PVPMistico.Views
 {
-    public partial class LogInPage : ContentPage
+    public partial class LogInPage : BasePage
     {
         public LogInPage()
         {

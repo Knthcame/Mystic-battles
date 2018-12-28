@@ -1,6 +1,6 @@
 ﻿namespace Models.Enums
 {
-    public enum LeagueTypes
+    public enum LeagueTypesEnum
     {
         GreatLeague,
         UltraLeague,

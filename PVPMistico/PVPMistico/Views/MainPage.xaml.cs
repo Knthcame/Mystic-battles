@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-
-namespace PVPMistico.Views
+﻿namespace PVPMistico.Views
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : BasePage
     {
         public MainPage()
         {

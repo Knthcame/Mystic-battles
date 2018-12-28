@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets"
-             xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
-             x:Class="PVPMistico.Views.LogInPage"
-             BackgroundColor="LightGray"
-             Title="{Binding Title}">
+<MyPages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets"
+                  xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
+                  xmlns:MyPages="clr-namespace:PVPMistico.Views"
+                  x:Class="PVPMistico.Views.LogInPage"
+                  BackgroundColor="LightGray"
+                  Title="{Binding Title}">
     
     <ContentPage.Content>
 
@@ -59,4 +60,4 @@
         
     </ContentPage.Content>
     
-</ContentPage>
+</MyPages:BasePage>

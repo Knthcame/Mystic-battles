@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="PVPMistico.Views.SignInPage"
-             xmlns:Converters="clr-namespace:PVPMistico.Converters;assembly=PVPMistico"
-             xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets;assembly=PVPMistico"
-             xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
-             Title="{Binding Title}"
-             BackgroundColor="LightGray">
+<MyPages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Class="PVPMistico.Views.SignInPage"
+                  xmlns:Converters="clr-namespace:PVPMistico.Converters;assembly=PVPMistico"
+                  xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets;assembly=PVPMistico"
+                  xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
+                  xmlns:MyPages="clr-namespace:PVPMistico.Views"
+                  Title="{Binding Title}"
+                  BackgroundColor="LightGray">
 
     <ContentPage.Resources>
 
@@ -80,4 +81,4 @@
             </Grid>
         </ScrollView>
     </ContentPage.Content>
-</ContentPage>
+</MyPages:BasePage>

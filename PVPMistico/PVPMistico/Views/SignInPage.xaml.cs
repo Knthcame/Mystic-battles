@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
-using Xamarin.Forms;
 
 namespace PVPMistico.Views
 {
-    public partial class SignInPage : ContentPage
+    public partial class SignInPage : BasePage
     {
         public SignInPage()
         {

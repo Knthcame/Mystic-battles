@@ -1,14 +1,21 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Popups:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
-                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                  xmlns:Popups="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-                  xmlns:Animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-                  x:Class="PVPMistico.Views.CreateTournamentPopUp"
-                  Opacity="50"
-                  SystemPaddingSides="All"
-                  HasSystemPadding="True">
+<MyViews:BasePopup xmlns="http://xamarin.com/schemas/2014/forms"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:Animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                   xmlns:MyConverters="clr-namespace:PVPMistico.Converters"
+                   xmlns:MyViews="clr-namespace:PVPMistico.Views"
+                   xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
+                   x:Class="PVPMistico.Views.CreateTournamentPopUp"
+                   SystemPaddingSides="All"
+                   HasSystemPadding="True">
 
-    <Popups:PopupPage.Animation>
+    <ContentPage.Resources>
+
+        <MyConverters:LeagueTypeConverter x:Key="LeagueTypeConverter"/>
+
+    </ContentPage.Resources>
+
+    <MyViews:BasePopup.Animation>
 
         <Animations:ScaleAnimation PositionIn="Center"
                                    PositionOut="Center"
@@ -20,28 +27,22 @@
                                    EasingOut="SinIn"
                                    HasBackgroundAnimation="True"/>
 
-    </Popups:PopupPage.Animation>
+    </MyViews:BasePopup.Animation>
 
     <StackLayout VerticalOptions="Center"
                  HorizontalOptions="Center"
-                 Padding="20">
+                 Padding="20"
+                 BackgroundColor="White">
 
-        <Label Text="League name"/>
-        <Entry/>
-        <Label Text="League type"/>
-        <Picker/>
-        <Button Text="Create league"/>
+        <Label Text="{Localization:Translate LeagueNameLabel}"/>
+        <Entry Text="{Binding LeagueName}"/>
+        <Label Text="{Localization:Translate LeagueTypeLabel}"/>
+        <Picker ItemsSource="{Binding LeagueTypes}"
+                ItemDisplayBinding="{Binding LeagueTypeName}"
+                SelectedItem="{Binding SelectedLeagueType}"/>
+        <Button Text="{Localization:Translate CreateLeadearboard}"
+                Command="{Binding CreateTournamentCommand}"/>
 
     </StackLayout>
 
-</Popups:PopupPage>
-
-
-<!--<ContentView x:Name="popupListView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
-    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-        <StackLayout Orientation="Vertical" HeightRequest="200" WidthRequest="300" BackgroundColor="White">
-            <ListView x:Name="sampleList">
-            </ListView>
-        </StackLayout>
-    </StackLayout>
-</ContentView>-->
+</MyViews:BasePopup>

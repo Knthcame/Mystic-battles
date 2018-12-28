@@ -8,14 +8,14 @@ namespace PVPMistico.Dictionaries
 {
     public static class LeagueTypesDictionary
     {
-        private static Dictionary<LeagueTypes, string> _dictionary = new Dictionary<LeagueTypes, string>()
+        private static Dictionary<LeagueTypesEnum, string> _dictionary = new Dictionary<LeagueTypesEnum, string>()
         {
-            {LeagueTypes.GreatLeague, AppResources.GreatLeague },
-            {LeagueTypes.UltraLeague, AppResources.UltraLeague },
-            {LeagueTypes.MasterLeague, AppResources.MasterLeague }
+            {LeagueTypesEnum.GreatLeague, AppResources.GreatLeague },
+            {LeagueTypesEnum.UltraLeague, AppResources.UltraLeague },
+            {LeagueTypesEnum.MasterLeague, AppResources.MasterLeague }
         };
 
-        public static bool GetLeagueTypeString(LeagueTypes leagueType, out string str)
+        public static bool GetLeagueTypeString(LeagueTypesEnum leagueType, out string str)
         {
             return _dictionary.TryGetValue(leagueType, out str);
         }

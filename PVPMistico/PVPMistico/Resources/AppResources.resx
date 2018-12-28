@@ -229,6 +229,12 @@
   <data name="GreatLeague" xml:space="preserve">
     <value>Liga super ball</value>
   </data>
+  <data name="LeagueNameLabel" xml:space="preserve">
+    <value>Nombre de la liga</value>
+  </data>
+  <data name="LeagueTypeLabel" xml:space="preserve">
+    <value>Tipo de liga</value>
+  </data>
   <data name="MasterLeague" xml:space="preserve">
     <value>Liga master ball</value>
   </data>

@@ -23,6 +23,7 @@ namespace PVPMistico.ViewModels
         private string _menuText;
         private LeaderBoardPreviewModel _selectedLeaderboard;
         private bool _isCreateTournamentViewVisible;
+        private ObservableCollection<LeaderBoardPreviewModel> _leaderboardPreviews;
         private readonly ITournamentManager _tournamentManager;
         private readonly IAccountManager _accountManager;
         private readonly IDialogManager _dialogManager;
@@ -45,7 +46,11 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _isCreateTournamentViewVisible, value);
         }
 
-        public ObservableCollection<LeaderBoardPreviewModel> LeaderboardPreviews { get; set; }
+        public ObservableCollection<LeaderBoardPreviewModel> LeaderboardPreviews
+        {
+            get => _leaderboardPreviews;
+            set => SetProperty(ref _leaderboardPreviews, value);
+        }
 
         public ICommand MenuItemCommand { get; private set; }
         public ICommand CreateTournamentCommand { get; private set; }
@@ -62,7 +67,6 @@ namespace PVPMistico.ViewModels
             MenuItemCommand = new DelegateCommand(OnLogOutClicked);
             CreateTournamentCommand = new DelegateCommand(async () => await OnCreateTournamentButtonClickedAsync());
             SelectedLeaderboardCommand = new DelegateCommand(async () => await OnLeaderboardSelectedAsync());
-            LeaderboardPreviews = LoadMyLeaderboards();
         }
 
         private async Task OnCreateTournamentButtonClickedAsync()
@@ -130,6 +134,8 @@ namespace PVPMistico.ViewModels
         {
             base.OnNavigatedTo(parameters);
             SelectedLeaderboard = null;
+
+            LeaderboardPreviews = new ObservableCollection<LeaderBoardPreviewModel>(LoadMyLeaderboards());
         }
     }
 }

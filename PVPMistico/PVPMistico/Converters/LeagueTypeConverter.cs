@@ -13,7 +13,7 @@ namespace PVPMistico.Converters
         {
             try
             {
-                var leagueType = (LeagueTypes) value;
+                var leagueType = (LeagueTypesEnum) value;
                 if (LeagueTypesDictionary.GetLeagueTypeString(leagueType, out string str))
                     return str;
             }

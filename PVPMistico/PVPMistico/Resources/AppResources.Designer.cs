@@ -169,6 +169,24 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nombre de la liga.
+        /// </summary>
+        public static string LeagueNameLabel {
+            get {
+                return ResourceManager.GetString("LeagueNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo de liga.
+        /// </summary>
+        public static string LeagueTypeLabel {
+            get {
+                return ResourceManager.GetString("LeagueTypeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Iniciar sesión.
         /// </summary>
         public static string LogIn {

@@ -1,21 +1,13 @@
-﻿using Rg.Plugins.Popup.Pages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace PVPMistico.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class CreateTournamentPopUp : PopupPage
-	{
-		public CreateTournamentPopUp()
-		{
-			InitializeComponent ();
-		}
-	}
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class CreateTournamentPopUp : BasePopup
+    {
+        public CreateTournamentPopUp()
+        {
+            InitializeComponent();
+        }
+    }
 }

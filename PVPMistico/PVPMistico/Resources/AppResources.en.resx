@@ -229,6 +229,12 @@
   <data name="GreatLeague" xml:space="preserve">
     <value>Great league</value>
   </data>
+  <data name="LeagueNameLabel" xml:space="preserve">
+    <value>League name</value>
+  </data>
+  <data name="LeagueTypeLabel" xml:space="preserve">
+    <value>League type</value>
+  </data>
   <data name="MasterLeague" xml:space="preserve">
     <value>Master league</value>
   </data>
