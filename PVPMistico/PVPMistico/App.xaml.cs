@@ -37,6 +37,7 @@ namespace PVPMistico
             containerRegistry.RegisterForNavigation<LogInPage, LogInPageViewModel>();
             containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
             containerRegistry.RegisterForNavigation<StartupPage, StartupPageViewmodel>();
+            containerRegistry.RegisterForNavigation<LeaderboardPage, LeaderboardPageViewModel>();
 
             containerRegistry.Register<IHttpManager, HttpManager>();
             containerRegistry.Register<IAccountManager, AccountManager>();

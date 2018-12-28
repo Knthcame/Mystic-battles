@@ -199,11 +199,17 @@
   <data name="WrongEmailFormatError" xml:space="preserve">
     <value>Inserti un format de coreu electrònic vàlid.</value>
   </data>
+  <data name="LeaderboardNotFoundToast" xml:space="preserve">
+    <value>No s'ha pogut carregar aquesta classificació</value>
+  </data>
   <data name="LeaderboardsHeader" xml:space="preserve">
     <value>Classificacions</value>
   </data>
   <data name="LosesLabel" xml:space="preserve">
     <value>Derrotes</value>
+  </data>
+  <data name="MatchHistoryButtonText" xml:space="preserve">
+    <value>Historial de partides</value>
   </data>
   <data name="PointsLabel" xml:space="preserve">
     <value>Punts</value>

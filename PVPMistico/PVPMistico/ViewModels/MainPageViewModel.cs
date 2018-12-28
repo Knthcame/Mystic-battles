@@ -7,8 +7,11 @@ using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
 using PVPMistico.Views;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Essentials;
 
 namespace PVPMistico.ViewModels
@@ -18,6 +21,7 @@ namespace PVPMistico.ViewModels
         private string _menuText;
         private IAccountManager _accountManager;
         private IDialogManager _dialogManager;
+        private LeaderBoardPreviewModel _selectedLeaderboard;
         private readonly ITournamentManager _tournamentManager;
 
         public string MenuText
@@ -26,9 +30,16 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _menuText, value);
         }
 
+        public LeaderBoardPreviewModel SelectedLeaderboard
+        {
+            get => _selectedLeaderboard;
+            set => SetProperty(ref _selectedLeaderboard, value);
+        }
+
         public ObservableCollection<LeaderBoardPreviewModel> LeaderboardPreviews { get; set; }
 
-        public DelegateCommand MenuItemCommand { get; private set; }
+        public ICommand MenuItemCommand { get; private set; }
+        public ICommand SelectedLeaderboardCommand { get; private set; }
 
         public MainPageViewModel(INavigationService navigationService, IAccountManager accountManager, ICustomLogger logger, IDialogManager dialogManager, ITournamentManager tournamentManager)
             : base(navigationService, logger)
@@ -39,7 +50,17 @@ namespace PVPMistico.ViewModels
             Title = AppResources.MainPageTitle;
             MenuText = AppResources.LogOutButtonText;
             MenuItemCommand = new DelegateCommand(OnLogOutClicked);
+            SelectedLeaderboardCommand = new DelegateCommand(async () => await OnLeaderboardSelectedAsync());
             LeaderboardPreviews = LoadMyLeaderboards();
+        }
+
+        private async Task OnLeaderboardSelectedAsync()
+        {
+            if (SelectedLeaderboard == null)
+                return;
+            var parameters = new NavigationParameters();
+            parameters.Add(NavigationParameterKeys.LeaderboardIdKey, SelectedLeaderboard.ID);
+            await NavigationService.NavigateAsync(nameof(LeaderboardPage), parameters);
         }
 
         private ObservableCollection<LeaderBoardPreviewModel> LoadMyLeaderboards()
@@ -50,7 +71,7 @@ namespace PVPMistico.ViewModels
 
             var leaderboardPreviews = new ObservableCollection<LeaderBoardPreviewModel>();
 
-            foreach(LeaderboardModel leaderboard in leaderboards)
+            foreach (LeaderboardModel leaderboard in leaderboards)
             {
                 var leaderboardPreview = new LeaderBoardPreviewModel()
                 {
@@ -85,6 +106,12 @@ namespace PVPMistico.ViewModels
                 _accountManager.LogOut();
                 await NavigationService.NavigateAsync("/NavigationPage/" + nameof(LogInPage));
             }
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+            SelectedLeaderboard = null;
         }
     }
 }

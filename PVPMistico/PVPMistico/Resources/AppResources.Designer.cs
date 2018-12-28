@@ -124,6 +124,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No se ha podido cargar esta clasificación.
+        /// </summary>
+        public static string LeaderboardNotFoundToast {
+            get {
+                return ResourceManager.GetString("LeaderboardNotFoundToast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clasificaciones.
         /// </summary>
         public static string LeaderboardsHeader {
@@ -201,6 +210,15 @@ namespace PVPMistico.Resources {
         public static string MainPageTitle {
             get {
                 return ResourceManager.GetString("MainPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Historial de partidas.
+        /// </summary>
+        public static string MatchHistoryButtonText {
+            get {
+                return ResourceManager.GetString("MatchHistoryButtonText", resourceCulture);
             }
         }
         

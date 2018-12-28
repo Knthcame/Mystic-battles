@@ -199,11 +199,17 @@
   <data name="WrongEmailFormatError" xml:space="preserve">
     <value>Please inseert a valid email format.</value>
   </data>
+  <data name="LeaderboardNotFoundToast" xml:space="preserve">
+    <value>Could not load this leaderboard</value>
+  </data>
   <data name="LeaderboardsHeader" xml:space="preserve">
     <value>Leaderboards</value>
   </data>
   <data name="LosesLabel" xml:space="preserve">
     <value>Loses</value>
+  </data>
+  <data name="MatchHistoryButtonText" xml:space="preserve">
+    <value>Match history</value>
   </data>
   <data name="PointsLabel" xml:space="preserve">
     <value>Points</value>

@@ -43,6 +43,7 @@ namespace PVPMistico.Managers
                             Username = "Originals",
                             Wins = 2,
                             Position = 1,
+                            Points = 6,
                             Matches = new ObservableCollection<MatchModel>()
                             {
                                 new MatchModel()
@@ -70,6 +71,7 @@ namespace PVPMistico.Managers
                             Username = "No originals",
                             Wins = 0,
                             Position = 2,
+                            Points = 0,
                             Matches = new ObservableCollection<MatchModel>()
                             {
                                 new MatchModel()
@@ -106,6 +108,7 @@ namespace PVPMistico.Managers
                             Username = "Originals",
                             Wins = 2,
                             Position = 1,
+                            Points = 6,
                             Matches = new ObservableCollection<MatchModel>()
                             {
                                 new MatchModel()
@@ -133,6 +136,7 @@ namespace PVPMistico.Managers
                             Username = "No originals",
                             Wins = 0,
                             Position = 2,
+                            Points = 0,
                             Matches = new ObservableCollection<MatchModel>()
                             {
                                 new MatchModel()
