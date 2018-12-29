@@ -10,7 +10,7 @@ namespace PVPMistico.Managers.Interfaces
 
         LeaderboardModel GetLeaderboard(int id);
 
-        bool CreateTournament(string name, LeagueTypesEnum leagueType);
+        bool CreateTournament(string name, LeagueTypesEnum leagueType, ParticipantModel creator);
 
         IEnumerable<LeaderboardModel> GetMyLeaderboards(string username);
     }

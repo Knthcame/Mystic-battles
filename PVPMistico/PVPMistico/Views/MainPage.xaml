@@ -65,9 +65,10 @@
 
                                         <Label Text="{Binding LeagueType, Converter={StaticResource LeagueTypeConverter}}"
                                                Grid.Row="0"
-                                               Grid.Column="3"
-                                               Grid.ColumnSpan="2"
-                                               FontAttributes="Italic"/>
+                                               Grid.Column="2"
+                                               Grid.ColumnSpan="3"
+                                               FontAttributes="Italic"
+                                               MaxLines="1"/>
 
                                         <Label Text="{Localization:Translate PositionLabel}"
                                                Grid.Row="1"

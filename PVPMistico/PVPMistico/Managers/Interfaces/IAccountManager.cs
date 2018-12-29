@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Models.Classes;
+using System.Threading.Tasks;
 
 namespace PVPMistico.Managers.Interfaces
 {
@@ -11,5 +12,9 @@ namespace PVPMistico.Managers.Interfaces
         Task<string> SignInAsync(string name, string email, string username, string password);
 
         void LogOut();
+
+        ParticipantModel CreateParticipant(string id);
+
+        TrainerModel GetTrainer(string id);
     }
 }

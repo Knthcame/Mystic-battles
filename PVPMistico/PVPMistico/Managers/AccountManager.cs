@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Models.Classes;
 using PVPMistico.Constants;
 using PVPMistico.Managers.Interfaces;
 using Xamarin.Essentials;
@@ -46,6 +47,7 @@ namespace PVPMistico.Managers
                 await SecureStorage.SetAsync(SecureStorageTokens.Username, username);
                 await SecureStorage.SetAsync(SecureStorageTokens.Name, name);
                 await SecureStorage.SetAsync(SecureStorageTokens.Email, email);
+                await SecureStorage.SetAsync(SecureStorageTokens.Id, "1");
 
                 return SignInResponses.SignInSuccessful;
             }
@@ -56,6 +58,38 @@ namespace PVPMistico.Managers
             SecureStorage.Remove(SecureStorageTokens.Username);
             SecureStorage.Remove(SecureStorageTokens.Email);
             SecureStorage.Remove(SecureStorageTokens.Name);
+            SecureStorage.Remove(SecureStorageTokens.Id);
+        }
+
+        /* Creates new ParticipantModel if user exists*/
+        public ParticipantModel CreateParticipant(string username)
+        {
+            if (username == "Originals")
+                return new ParticipantModel()
+                {
+                    IsAdmin = true,
+                    Level = 40,
+                    Losses = 0,
+                    Wins = 0,
+                    Matches = null,
+                    Points = 0,
+                    Position = 1,
+                    Username = "Originals"
+                };
+            else
+                return null;
+        }
+
+        public TrainerModel GetTrainer(string username)
+        {
+            if (username == "Originals")
+                return new TrainerModel()
+                {
+                    Username = "Originals",
+                    Level = 40
+                };
+            else
+                return null;
         }
     }
 }

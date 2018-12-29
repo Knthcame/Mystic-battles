@@ -1,6 +1,8 @@
-﻿using Models.Enums;
+﻿using Models.Classes;
+using Models.Enums;
 using Prism.Commands;
 using Prism.Navigation;
+using PVPMistico.Constants;
 using PVPMistico.Dictionaries;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
@@ -9,12 +11,14 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 
 namespace PVPMistico.ViewModels
 {
     public class CreateTournamentPopUpVIewModel : BaseViewModel
     {
         private readonly ITournamentManager _tournamentManager;
+        private readonly IAccountManager _accountManager;
 
         public List<LeagueTypePickerItemModel> LeagueTypes { get; set; } = CreateLeagueTypesList();
 
@@ -24,10 +28,11 @@ namespace PVPMistico.ViewModels
 
         public ICommand CreateTournamentCommand { get; private set; }
 
-        public CreateTournamentPopUpVIewModel(INavigationService navigationService, ICustomLogger logger, ITournamentManager tournamentManager)
+        public CreateTournamentPopUpVIewModel(INavigationService navigationService, ICustomLogger logger, ITournamentManager tournamentManager, IAccountManager accountManager)
             : base(navigationService, logger)
         {
             _tournamentManager = tournamentManager;
+            _accountManager = accountManager;
             CreateTournamentCommand = new DelegateCommand(async() => await OnCreateTournamentButtonPressedAsync());
         }
 
@@ -46,7 +51,9 @@ namespace PVPMistico.ViewModels
 
         private async Task OnCreateTournamentButtonPressedAsync()
         {
-            _tournamentManager.CreateTournament(LeagueName, SelectedLeagueType.LeagueTypesEnum);
+            var username = await SecureStorage.GetAsync(SecureStorageTokens.Username);
+            var participant =_accountManager.CreateParticipant(username);
+            _tournamentManager.CreateTournament(LeagueName, SelectedLeagueType.LeagueTypesEnum, participant);
             await NavigationService.ClearPopupStackAsync();
         }
 

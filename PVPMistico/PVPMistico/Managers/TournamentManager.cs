@@ -18,15 +18,21 @@ namespace PVPMistico.Managers
             _httpManager = httpManager;
         }
 
-        public bool CreateTournament(string name, LeagueTypesEnum leagueType)
+        public bool CreateTournament(string name, LeagueTypesEnum leagueType, ParticipantModel creator)
         {
-            //TODO: Add user who created the league as participant
+            if (creator == null)
+                return false;
+
+            creator.IsAdmin = true;
             leaderboards.Add(new LeaderboardModel()
             {
                 ID = leaderboards.Count + 1,
                 LeagueType = leagueType,
                 Name = name,
                 Participants = new ObservableCollection<ParticipantModel>()
+                {
+                    creator
+                }
             });
             return true;
         }
