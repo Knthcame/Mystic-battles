@@ -9,9 +9,6 @@ namespace PVPMistico.Logging
     {
         public void Debug(string message, object obj = null, Priority priority = Priority.Low)
         {
-            //if (obj == null)
-            //    Log(message, Category.Debug, priority);
-            //else
                 Log(message, obj, Category.Debug, priority);
         }
 
@@ -42,7 +39,10 @@ namespace PVPMistico.Logging
         {
             try
             {
-                Log($"{message} {JsonConvert.SerializeObject(obj)}", category, priority);
+                if (obj == null)
+                    Log(message, category, priority);
+                else
+                    Log($"{message} {JsonConvert.SerializeObject(obj)}", category, priority);
             }
             catch (JsonSerializationException ex)
             {
@@ -51,7 +51,6 @@ namespace PVPMistico.Logging
                 else
                     Log(message, category, priority);
             }
-
         }
 
         public void Warn(string message, object obj = null, Priority priority = Priority.Medium)
