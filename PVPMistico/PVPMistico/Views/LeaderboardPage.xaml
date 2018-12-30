@@ -122,6 +122,7 @@
 
             <Button Text="{Localization:Translate AddTrainerButtonText}"
                     IsVisible="{Binding IsCurrentUserAdmin}"
+                    Command="{Binding AddTrainerCommand}"
                     HorizontalOptions="End"
                     Grid.Row="2"
                     Grid.Column="0"

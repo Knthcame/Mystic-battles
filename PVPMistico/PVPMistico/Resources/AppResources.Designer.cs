@@ -70,6 +70,33 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Buscar por usuario.
+        /// </summary>
+        public static string AddTrainerSearchPlaceholder {
+            get {
+                return ResourceManager.GetString("AddTrainerSearchPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De acuerdo.
+        /// </summary>
+        public static string AlertDialogOkButton {
+            get {
+                return ResourceManager.GetString("AlertDialogOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No se ha podido añadir a este entrenador.
+        /// </summary>
+        public static string CannotAddTrainer {
+            get {
+                return ResourceManager.GetString("CannotAddTrainer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancelar.
         /// </summary>
         public static string ConfirmationDialogCancelButton {
@@ -142,6 +169,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Liga super ball.
         /// </summary>
         public static string GreatLeague {
@@ -183,6 +219,15 @@ namespace PVPMistico.Resources {
         public static string LeagueTypeLabel {
             get {
                 return ResourceManager.GetString("LeagueTypeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nivel.
+        /// </summary>
+        public static string Level {
+            get {
+                return ResourceManager.GetString("Level", resourceCulture);
             }
         }
         
@@ -282,6 +327,15 @@ namespace PVPMistico.Resources {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No quedan usuarios registrados por añadir.
+        /// </summary>
+        public static string NoTrainersLeftToAdd {
+            get {
+                return ResourceManager.GetString("NoTrainersLeftToAdd", resourceCulture);
             }
         }
         

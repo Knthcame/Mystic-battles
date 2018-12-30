@@ -13,5 +13,9 @@ namespace PVPMistico.Managers.Interfaces
         bool CreateTournament(string name, LeagueTypesEnum leagueType, ParticipantModel creator);
 
         IEnumerable<LeaderboardModel> GetMyLeaderboards(string username);
+
+        bool AddTrainer(LeaderboardModel leaderboard, TrainerModel trainer);
+
+        bool RemoveTrainer(LeaderboardModel leaderboard, ParticipantModel participant);
     }
 }

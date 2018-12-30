@@ -6,8 +6,6 @@ using Plugin.CurrentActivity;
 using Prism;
 using Prism.Ioc;
 using Prism.Plugin.Popups;
-using PVPMistico.Droid.Managers;
-using PVPMistico.Managers.Interfaces;
 using Rg.Plugins.Popup;
 
 namespace PVPMistico.Droid
@@ -37,9 +35,6 @@ namespace PVPMistico.Droid
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterPopupNavigationService();
-
-            // Register any platform specific implementations
-            containerRegistry.Register<IDialogManager, DialogManager>();
         }
     }
 }

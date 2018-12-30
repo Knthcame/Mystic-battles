@@ -1,11 +1,11 @@
 ﻿using Acr.UserDialogs;
-using System;
+using PVPMistico.Enums;
 
 namespace PVPMistico.Managers.Interfaces
 {
     public interface IDialogManager
     {
-        void ShowToast(ToastConfig config);
+        void ShowToast(ToastConfig config, ToastModes mode = ToastModes.Info);
 
         void ShowAlert(AlertConfig config);
 

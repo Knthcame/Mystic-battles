@@ -1,4 +1,5 @@
 ﻿using Models.Classes;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PVPMistico.Managers.Interfaces
@@ -16,5 +17,7 @@ namespace PVPMistico.Managers.Interfaces
         ParticipantModel CreateParticipant(string id);
 
         TrainerModel GetTrainer(string id);
+
+        IList<TrainerModel> GetRegisteredTrainers();
     }
 }

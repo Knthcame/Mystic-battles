@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Models.Classes;
 using PVPMistico.Constants;
 using PVPMistico.Managers.Interfaces;
@@ -88,6 +89,23 @@ namespace PVPMistico.Managers
                 };
             else
                 return null;
+        }
+
+        public IList<TrainerModel> GetRegisteredTrainers()
+        {
+            return new List<TrainerModel>()
+            {
+                new TrainerModel()
+                {
+                    Level = 40,
+                    Username = "Originals"
+                },
+                new TrainerModel()
+                {
+                    Level = 39,
+                    Username = "No originals"
+                }
+            };
         }
     }
 }

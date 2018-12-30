@@ -39,11 +39,13 @@ namespace PVPMistico
             containerRegistry.RegisterForNavigation<StartupPage, StartupPageViewmodel>();
             containerRegistry.RegisterForNavigation<LeaderboardPage, LeaderboardPageViewModel>();
             containerRegistry.RegisterForNavigation<CreateTournamentPopUp, CreateTournamentPopUpVIewModel>();
+            containerRegistry.RegisterForNavigation<AddTrainerPopup, AddTrainerPopupViewModel>();
 
             containerRegistry.Register<IHttpManager, HttpManager>();
             containerRegistry.Register<IAccountManager, AccountManager>();
             containerRegistry.Register<ICustomLogger, CustomLogger>();
             containerRegistry.Register<ITournamentManager, TournamentManager>();
+            containerRegistry.Register<IDialogManager, DialogManager>();
         }
     }
 }

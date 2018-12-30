@@ -3,5 +3,7 @@
     public static class NavigationParameterKeys
     {
         public const string LeaderboardIdKey = "leaderboard_id";
+
+        public const string LeaderboardKey = "leaderboard";
     }
 }

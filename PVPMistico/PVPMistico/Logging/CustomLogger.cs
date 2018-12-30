@@ -9,7 +9,7 @@ namespace PVPMistico.Logging
     {
         public void Debug(string message, object obj = null, Priority priority = Priority.Low)
         {
-                Log(message, obj, Category.Debug, priority);
+            Log(message, obj, Category.Debug, priority);
         }
 
         public void Error(string message, object obj = null, Priority priority = Priority.High)

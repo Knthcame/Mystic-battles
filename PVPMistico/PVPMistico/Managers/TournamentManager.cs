@@ -11,7 +11,7 @@ namespace PVPMistico.Managers
     {
         private readonly IHttpManager _httpManager;
 
-        private static List<LeaderboardModel> leaderboards = LeaderboarsMock();
+        private static List<LeaderboardModel> leaderboards = LeaderboardMock();
 
         public TournamentManager(IHttpManager httpManager)
         {
@@ -52,7 +52,33 @@ namespace PVPMistico.Managers
             return GetLeaderboards().Where((boards) => boards.Participants.Any((participant) => participant.Username == username));
         }
 
-        private static List<LeaderboardModel> LeaderboarsMock()
+        public bool AddTrainer(LeaderboardModel leaderboard, TrainerModel trainer)
+        {
+            if (TrainerAlreadyParticipates(leaderboard, trainer))
+                return false;
+
+            var participant = new ParticipantModel()
+            {
+                Username = trainer.Username,
+                Level = trainer.Level,
+                Position = leaderboard.Participants.Count + 1
+            };
+            leaderboard.Participants.Add(participant);
+            return true;
+        }
+
+        public bool RemoveTrainer(LeaderboardModel leaderboard, ParticipantModel participant)
+        {
+            return leaderboard.Participants.Remove(participant);
+        }
+
+        private bool TrainerAlreadyParticipates(LeaderboardModel leaderboard, TrainerModel trainer)
+        {
+            var matchingUsernames = leaderboard.Participants.Where((participant) => participant.Username == trainer.Username);
+            return matchingUsernames.Count() > 0;
+        }
+
+        private static List<LeaderboardModel> LeaderboardMock()
         {
             return new List<LeaderboardModel>()
             {
@@ -96,7 +122,7 @@ namespace PVPMistico.Managers
                         {
                             Level = 40,
                             Losses = 2,
-                            Username = "No Originals",
+                            Username = "No originals",
                             Wins = 0,
                             Position = 2,
                             Points = 0,

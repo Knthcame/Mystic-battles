@@ -241,4 +241,22 @@
   <data name="UltraLeague" xml:space="preserve">
     <value>Liga ultra ball</value>
   </data>
+  <data name="AddTrainerSearchPlaceholder" xml:space="preserve">
+    <value>Buscar por usuario</value>
+  </data>
+  <data name="AlertDialogOkButton" xml:space="preserve">
+    <value>De acuerdo</value>
+  </data>
+  <data name="CannotAddTrainer" xml:space="preserve">
+    <value>No se ha podido añadir a este entrenador</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Nivel</value>
+  </data>
+  <data name="NoTrainersLeftToAdd" xml:space="preserve">
+    <value>No quedan usuarios registrados por añadir</value>
+  </data>
 </root>

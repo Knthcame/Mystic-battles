@@ -97,7 +97,6 @@
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
-    <Compile Include="Managers\DialogManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <ITunesArtwork Include="iTunesArtwork@1x.png" />
     <ITunesArtwork Include="iTunesArtwork@2x.png" />
@@ -228,6 +227,15 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\planning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Info.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
