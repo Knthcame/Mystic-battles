@@ -47,7 +47,6 @@ namespace PVPMistico.Managers
                 await SecureStorage.SetAsync(SecureStorageTokens.Username, username);
                 await SecureStorage.SetAsync(SecureStorageTokens.Name, name);
                 await SecureStorage.SetAsync(SecureStorageTokens.Email, email);
-                await SecureStorage.SetAsync(SecureStorageTokens.Id, "1");
 
                 return SignInResponses.SignInSuccessful;
             }
@@ -58,7 +57,6 @@ namespace PVPMistico.Managers
             SecureStorage.Remove(SecureStorageTokens.Username);
             SecureStorage.Remove(SecureStorageTokens.Email);
             SecureStorage.Remove(SecureStorageTokens.Name);
-            SecureStorage.Remove(SecureStorageTokens.Id);
         }
 
         /* Creates new ParticipantModel if user exists*/
