@@ -8,6 +8,7 @@ using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
 using PVPMistico.Views.Popups;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -22,6 +23,7 @@ namespace PVPMistico.ViewModels
         private readonly IDialogManager _dialogManager;
         private LeaderboardModel _leaderboard;
         private bool _isCurrentUserAdmin;
+        private ObservableCollection<ParticipantModel> _participants;
         #endregion
 
         #region Properties
@@ -29,6 +31,12 @@ namespace PVPMistico.ViewModels
         {
             get => _leaderboard;
             set => SetProperty(ref _leaderboard, value);
+        }
+
+        public ObservableCollection<ParticipantModel> Participants
+        {
+            get => _participants;
+            set => SetProperty(ref _participants, value);
         }
 
         public bool IsCurrentUserAdmin
@@ -81,6 +89,8 @@ namespace PVPMistico.ViewModels
                 _dialogManager.ShowToast(new ToastConfig(AppResources.LeaderboardNotFoundToast), ToastModes.Error);
                 return;
             }
+
+            Participants = new ObservableCollection<ParticipantModel>(Leaderboard.Participants);
 
             var myUsername = await SecureStorage.GetAsync(SecureStorageTokens.Username);
 

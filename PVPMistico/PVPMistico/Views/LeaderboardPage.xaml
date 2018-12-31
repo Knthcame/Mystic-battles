@@ -60,7 +60,7 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="6">
                 
-                <ListView ItemsSource="{Binding Leaderboard.Participants}"
+                <ListView ItemsSource="{Binding Participants}"
                           HasUnevenRows="True">
 
                     <ListView.ItemTemplate>
