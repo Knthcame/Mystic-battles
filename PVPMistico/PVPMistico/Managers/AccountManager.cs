@@ -68,10 +68,6 @@ namespace PVPMistico.Managers
                 {
                     IsAdmin = true,
                     Level = 40,
-                    Losses = 0,
-                    Wins = 0,
-                    Matches = null,
-                    Points = 0,
                     Position = 1,
                     Username = "Originals"
                 };

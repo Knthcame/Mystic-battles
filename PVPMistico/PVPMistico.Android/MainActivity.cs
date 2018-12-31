@@ -10,7 +10,7 @@ using Rg.Plugins.Popup;
 
 namespace PVPMistico.Droid
 {
-    [Activity(Label = "PVPMistico", Icon = "@mipmap/ic_launcher", Theme = "@style/SplashScreen", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Mystic Battles", Icon = "@mipmap/ic_launcher", Theme = "@style/SplashScreen", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)

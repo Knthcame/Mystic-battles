@@ -19,5 +19,10 @@ namespace Models.Classes
         public bool IsAdmin { get; set; }
 
         public ObservableCollection<MatchModel> Matches { get; set; }
+
+        public ParticipantModel()
+        {
+            Matches = new ObservableCollection<MatchModel>();
+        }
     }
 }
