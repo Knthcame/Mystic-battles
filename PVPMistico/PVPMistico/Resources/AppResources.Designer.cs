@@ -205,6 +205,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ya existe una liga con este nombre.
+        /// </summary>
+        public static string LeagueNameAlreadyUsed {
+            get {
+                return ResourceManager.GetString("LeagueNameAlreadyUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nombre de la liga.
         /// </summary>
         public static string LeagueNameLabel {

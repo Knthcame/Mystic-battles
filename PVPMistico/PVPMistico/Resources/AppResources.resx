@@ -259,4 +259,7 @@
   <data name="NoTrainersLeftToAdd" xml:space="preserve">
     <value>No quedan usuarios registrados por añadir</value>
   </data>
+  <data name="LeagueNameAlreadyUsed" xml:space="preserve">
+    <value>Ya existe una liga con este nombre</value>
+  </data>
 </root>

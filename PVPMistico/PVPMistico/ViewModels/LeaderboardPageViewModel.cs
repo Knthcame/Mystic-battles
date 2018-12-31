@@ -57,19 +57,19 @@ namespace PVPMistico.ViewModels
         {
             base.OnNavigatingTo(parameters);
 
-            if (parameters.TryGetValue(NavigationParameterKeys.LeaderboardIdKey, out int id) && Leaderboard != null)
+            if (parameters.TryGetValue(NavigationParameterKeys.LeaderboardIdKey, out int id))
                 Leaderboard = _tournamentManager.GetLeaderboard(id);
-            else
+
+            else if(Leaderboard == null)
             {
                 await NavigationService.GoBackAsync();
                 _dialogManager.ShowToast(new ToastConfig(AppResources.LeaderboardNotFoundToast), ToastModes.Error);
                 return;
             }
 
-            var usernameTask = SecureStorage.GetAsync(SecureStorageTokens.Username);
-            var username = usernameTask.Result;
+            var myUsername = await SecureStorage.GetAsync(SecureStorageTokens.Username);
 
-            var currentUser = Leaderboard.Participants.FirstOrDefault((trainer) => trainer.Username == username);
+            var currentUser = Leaderboard.Participants.FirstOrDefault((trainer) => trainer.Username == myUsername);
             if (currentUser != null && currentUser.IsAdmin == true)
                 IsCurrentUserAdmin = true;
 

@@ -89,11 +89,11 @@ namespace PVPMistico.ViewModels
 
         protected virtual void OnUsernameUnfocused()
         {
-            if (string.IsNullOrEmpty(Username.Value))
-                return;
-
             if (Username != null && Username.Value != null)
                 Username.Value = Username.Value.Trim();
+
+            if (string.IsNullOrEmpty(Username.Value))
+                return;
 
             _isUsernameValid = ValidateUsername();
             CheckCredentials();

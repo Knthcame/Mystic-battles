@@ -6,6 +6,8 @@ using PVPMistico.Dictionaries;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Models;
+using PVPMistico.Validation;
+using PVPMistico.Validation.Rules;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,20 +21,67 @@ namespace PVPMistico.ViewModels
         private readonly ITournamentManager _tournamentManager;
         private readonly IAccountManager _accountManager;
 
-        public List<LeagueTypePickerItemModel> LeagueTypes { get; set; } = CreateLeagueTypesList();
+        private bool _buttonEnabled;
+        private ValidatableObject<string> _leagueName;
+        private bool _isLeagueNameValid;
+        private bool _isLeagueTypeValid;
 
-        public string LeagueName { get; set; }
+        public List<LeagueTypePickerItemModel> LeagueTypes { get; set; } = CreateLeagueTypesList();
 
         public LeagueTypePickerItemModel SelectedLeagueType { get; set; }
 
         public ICommand CreateTournamentCommand { get; private set; }
+
+        public ICommand NameUnfocusedComamand { get; private set; }
+
+        public ICommand LeagueTypeSelectedCommand { get; private set; }
+
+        public bool ButtonEnabled
+        {
+            get => _buttonEnabled;
+            set => SetProperty(ref _buttonEnabled, value);
+        }
+
+        public ValidatableObject<string> LeagueName
+        {
+            get => _leagueName;
+            set => SetProperty(ref _leagueName, value);
+        }
 
         public CreateTournamentPopUpVIewModel(INavigationService navigationService, ICustomLogger logger, ITournamentManager tournamentManager, IAccountManager accountManager)
             : base(navigationService, logger)
         {
             _tournamentManager = tournamentManager;
             _accountManager = accountManager;
-            CreateTournamentCommand = new DelegateCommand(async() => await OnCreateTournamentButtonPressedAsync());
+            NameUnfocusedComamand = new DelegateCommand(OnNameUnfocused);
+            LeagueTypeSelectedCommand = new DelegateCommand(OnLeagueTypeSelected);
+            CreateTournamentCommand = new DelegateCommand(async () => await OnCreateTournamentButtonPressedAsync());
+            LeagueName = new ValidatableObject<string>();
+            LeagueName.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>());
+            LeagueName.Validations.Add(new IsLeagueNameAvailableRule(_tournamentManager));
+        }
+
+        private void OnLeagueTypeSelected()
+        {
+            _isLeagueTypeValid = SelectedLeagueType != null;
+            CheckValidations();
+        }
+
+        private void OnNameUnfocused()
+        {
+            if (LeagueName != null && LeagueName.Value != null)
+                LeagueName.Value = LeagueName.Value.Trim();
+
+            if (string.IsNullOrEmpty(LeagueName.Value))
+                return;
+
+            _isLeagueNameValid = LeagueName.Validate();
+            CheckValidations();
+        }
+
+        private void CheckValidations()
+        {
+            ButtonEnabled = _isLeagueNameValid && _isLeagueTypeValid;
         }
 
         private static List<LeagueTypePickerItemModel> CreateLeagueTypesList()
@@ -51,8 +100,8 @@ namespace PVPMistico.ViewModels
         private async Task OnCreateTournamentButtonPressedAsync()
         {
             var username = await SecureStorage.GetAsync(SecureStorageTokens.Username);
-            var participant =_accountManager.CreateParticipant(username);
-            _tournamentManager.CreateTournament(LeagueName, SelectedLeagueType.LeagueTypesEnum, participant);
+            var participant = _accountManager.CreateParticipant(username);
+            _tournamentManager.CreateTournament(LeagueName.Value, SelectedLeagueType.LeagueTypesEnum, participant);
             await NavigationService.ClearPopupStackAsync();
         }
 

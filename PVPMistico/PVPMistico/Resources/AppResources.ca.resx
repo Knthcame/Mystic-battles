@@ -259,4 +259,7 @@
   <data name="NoTrainersLeftToAdd" xml:space="preserve">
     <value>No hi ha més entrenadors registrats per afegir</value>
   </data>
+  <data name="LeagueNameAlreadyUsed" xml:space="preserve">
+    <value>Ja existeix una lliga amb aquest nom</value>
+  </data>
 </root>
