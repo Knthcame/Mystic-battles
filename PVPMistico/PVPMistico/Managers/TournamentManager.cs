@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Models.Classes;
@@ -214,6 +215,25 @@ namespace PVPMistico.Managers
                     }
                 }
             };
+        }
+
+        public bool InputMatch(LeaderboardModel leaderboard, MatchModel match)
+        {
+            if (leaderboard == null || match == null)
+                return false;
+
+            match.DateTime = DateTime.Now;
+
+            var winner = leaderboard.Participants.FirstOrDefault((participant => participant.Username == match.Winner));
+            winner.Wins++;
+            winner.Points += 3;
+            winner.Matches.Add(match);
+
+            var loser = leaderboard.Participants.FirstOrDefault((participant => participant.Username == match.Loser));
+            loser.Losses++;
+            loser.Matches.Add(match);
+
+            return true;
         }
     }
 }

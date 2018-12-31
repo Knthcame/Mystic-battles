@@ -262,4 +262,13 @@
   <data name="LeagueNameAlreadyUsed" xml:space="preserve">
     <value>Ya existe una liga con este nombre</value>
   </data>
+  <data name="InputMatch" xml:space="preserve">
+    <value>Añadir resultado</value>
+  </data>
+  <data name="Opponent" xml:space="preserve">
+    <value>Contrincante</value>
+  </data>
+  <data name="Winner" xml:space="preserve">
+    <value>Ganador</value>
+  </data>
 </root>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MyPopups:BasePopup xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:PrismBehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+                    xmlns:Animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                    xmlns:MyConvertes="clr-namespace:PVPMistico.Converters"
+                    xmlns:MyPopups="clr-namespace:PVPMistico.Views.Popups"
+                    xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
+                    x:Class="PVPMistico.Views.Popups.AddTrainerPopup">
+
+    <MyPopups:BasePopup.Resources>
+
+        <MyConvertes:LevelDetailConverter x:Key="LevelDetailConverter"/>
+
+    </MyPopups:BasePopup.Resources>
+
+    <MyPopups:BasePopup.Content>
+        
+        <StackLayout VerticalOptions="Center"
+                     HorizontalOptions="Center"
+                     Padding="20"
+                     BackgroundColor="White">
+
+            <SearchBar Placeholder="{Localization:Translate AddTrainerSearchPlaceholder}"
+                       Text="{Binding SearchText}">
+
+                <SearchBar.Behaviors>
+
+                    <PrismBehaviors:EventToCommandBehavior EventName="TextChanged"
+                                                           Command="{Binding SearchTrainerCommand}"/>
+
+                </SearchBar.Behaviors>
+
+            </SearchBar>
+
+            <ListView ItemsSource="{Binding TrainerList}"
+                      SelectedItem="{Binding SelectedTrainer}">
+
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <TextCell Text="{Binding Username}"
+                                  Detail="{Binding Level, Converter={StaticResource LevelDetailConverter}}"/>
+
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+
+                <ListView.Behaviors>
+
+                    <PrismBehaviors:EventToCommandBehavior EventName="ItemSelected"
+                                                           Command="{Binding TrainerSelectedCommand}"/>
+
+                </ListView.Behaviors>
+
+            </ListView>
+
+        </StackLayout>
+
+    </MyPopups:BasePopup.Content>
+
+</MyPopups:BasePopup>

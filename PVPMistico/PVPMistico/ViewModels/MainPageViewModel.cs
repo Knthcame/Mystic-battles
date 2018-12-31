@@ -2,19 +2,17 @@
 using Models.Classes;
 using Prism.Commands;
 using Prism.Navigation;
-using Prism.Plugin.Popups.Extensions;
-using Prism.Plugin.Popups;
 using PVPMistico.Constants;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
 using PVPMistico.Views;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
+using PVPMistico.Views.Popups;
 
 namespace PVPMistico.ViewModels
 {

@@ -118,16 +118,35 @@
                     </ListView.ItemTemplate>
             
                 </ListView>
+                
             </ScrollView>
 
-            <Button Text="{Localization:Translate AddTrainerButtonText}"
-                    IsVisible="{Binding IsCurrentUserAdmin}"
-                    Command="{Binding AddTrainerCommand}"
-                    HorizontalOptions="End"
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="6"/>
+            <Grid Grid.Row="2"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="6">
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+
+                </Grid.ColumnDefinitions>
+                
+                <Button Text="{Localization:Translate InputMatch}"
+                        Command="{Binding InputMatchCommand}"
+                        Grid.Column="0"
+                        HorizontalOptions="FillAndExpand"/>
+
+                <Button Text="{Localization:Translate AddTrainerButtonText}"
+                        IsVisible="{Binding IsCurrentUserAdmin}"
+                        Command="{Binding AddTrainerCommand}"
+                        Grid.Column="1"
+                        HorizontalOptions="FillAndExpand"/>
+
+            </Grid>
 
         </Grid>
+        
     </ContentPage.Content>
+    
 </MyPages:BasePage>

@@ -6,6 +6,7 @@ using PVPMistico.Managers;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.ViewModels;
 using PVPMistico.Views;
+using PVPMistico.Views.Popups;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -40,6 +41,7 @@ namespace PVPMistico
             containerRegistry.RegisterForNavigation<LeaderboardPage, LeaderboardPageViewModel>();
             containerRegistry.RegisterForNavigation<CreateTournamentPopUp, CreateTournamentPopUpVIewModel>();
             containerRegistry.RegisterForNavigation<AddTrainerPopup, AddTrainerPopupViewModel>();
+            containerRegistry.RegisterForNavigation<InputMatchPopup, InputMatchPopupViewModel>();
 
             containerRegistry.Register<IHttpManager, HttpManager>();
             containerRegistry.Register<IAccountManager, AccountManager>();

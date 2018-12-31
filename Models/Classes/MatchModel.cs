@@ -1,4 +1,5 @@
 ﻿using Models.Enums;
+using System;
 
 namespace Models.Classes
 {
@@ -13,5 +14,7 @@ namespace Models.Classes
         public string League { get; set; }
 
         public LeagueTypesEnum LeagueType { get; set; }
+
+        public DateTime DateTime { get; set; }
     }
 }

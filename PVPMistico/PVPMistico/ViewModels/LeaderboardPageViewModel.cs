@@ -7,7 +7,7 @@ using PVPMistico.Enums;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
-using PVPMistico.Views;
+using PVPMistico.Views.Popups;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -17,11 +17,14 @@ namespace PVPMistico.ViewModels
 {
     public class LeaderboardPageViewModel : BaseViewModel
     {
+        #region Fields
         private readonly ITournamentManager _tournamentManager;
         private readonly IDialogManager _dialogManager;
         private LeaderboardModel _leaderboard;
         private bool _isCurrentUserAdmin;
+        #endregion
 
+        #region Properties
         public LeaderboardModel Leaderboard
         {
             get => _leaderboard;
@@ -35,6 +38,8 @@ namespace PVPMistico.ViewModels
         }
 
         public ICommand AddTrainerCommand { get; private set; }
+        public ICommand InputMatchCommand { get; private set; }
+        #endregion
 
         public LeaderboardPageViewModel(INavigationService navigationService, ICustomLogger logger, ITournamentManager tournamentManager, IDialogManager dialogManager)
             : base(navigationService, logger)
@@ -42,6 +47,16 @@ namespace PVPMistico.ViewModels
             _tournamentManager = tournamentManager;
             _dialogManager = dialogManager;
             AddTrainerCommand = new DelegateCommand(async () => await OnAddTrainerButtonPressedAsync());
+            InputMatchCommand = new DelegateCommand(async () => await OnInputMatchButtonPressedAsync());
+        }
+
+        private async Task OnInputMatchButtonPressedAsync()
+        {
+            var parameters = new NavigationParameters()
+            {
+                {NavigationParameterKeys.LeaderboardKey, Leaderboard }
+            };
+            await NavigationService.NavigateAsync(nameof(InputMatchPopup), parameters);
         }
 
         private async Task OnAddTrainerButtonPressedAsync()

@@ -1,11 +1,11 @@
 ﻿using Xamarin.Forms.Xaml;
 
-namespace PVPMistico.Views
+namespace PVPMistico.Views.Popups
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddTrainerPopup : BasePopup
+    public partial class CreateTournamentPopUp : BasePopup
     {
-        public AddTrainerPopup()
+        public CreateTournamentPopUp()
         {
             InitializeComponent();
         }

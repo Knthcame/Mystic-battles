@@ -22,7 +22,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\CreateTournamentPopUp.xaml.cs">
+    <Compile Update="Views\Popups\CreateTournamentPopUp.xaml.cs">
       <DependentUpon>CreateTournamentPopUp.xaml</DependentUpon>
     </Compile>
     <Compile Update="Widgets\BaseValidationFrame.xaml.cs">
@@ -44,10 +44,16 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\AddTrainerPopup.xaml">
+    <EmbeddedResource Update="Views\Popups\AddTrainerPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\CreateTournamentPopUp.xaml">
+    <EmbeddedResource Update="Views\Popups\BasePopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Popups\CreateTournamentPopUp.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Popups\InputMatchPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\LeaderboardPage.xaml">

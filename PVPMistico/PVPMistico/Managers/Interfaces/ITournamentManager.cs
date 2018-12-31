@@ -17,5 +17,6 @@ namespace PVPMistico.Managers.Interfaces
         bool AddTrainer(LeaderboardModel leaderboard, TrainerModel trainer);
 
         bool RemoveTrainer(LeaderboardModel leaderboard, ParticipantModel participant);
+        bool InputMatch(LeaderboardModel leaderboard, MatchModel match);
     }
 }

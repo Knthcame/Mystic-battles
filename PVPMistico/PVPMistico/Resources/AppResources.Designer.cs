@@ -187,6 +187,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Añadir resultado.
+        /// </summary>
+        public static string InputMatch {
+            get {
+                return ResourceManager.GetString("InputMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No se ha podido cargar esta clasificación.
         /// </summary>
         public static string LeaderboardNotFoundToast {
@@ -349,6 +358,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contrincante.
+        /// </summary>
+        public static string Opponent {
+            get {
+                return ResourceManager.GetString("Opponent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contraseña.
         /// </summary>
         public static string Password {
@@ -471,6 +489,15 @@ namespace PVPMistico.Resources {
         public static string UserNotRegisteredError {
             get {
                 return ResourceManager.GetString("UserNotRegisteredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ganador.
+        /// </summary>
+        public static string Winner {
+            get {
+                return ResourceManager.GetString("Winner", resourceCulture);
             }
         }
         
