@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Models.ApiResponses;
 using Models.Classes;
 using Models.Enums;
 using PVPMistico.Constants;
+using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using Xamarin.Essentials;
 
@@ -12,10 +14,12 @@ namespace PVPMistico.Managers
     public class AccountManager : IAccountManager
     {
         private readonly IHttpManager _httpManager;
+        private readonly ICustomLogger _logger;
 
-        public AccountManager(IHttpManager httpManager)
+        public AccountManager(IHttpManager httpManager, ICustomLogger logger)
         {
             _httpManager = httpManager;
+            _logger = logger;
         }
 
         public async Task<string> LogInAsync(AccountModel account)
@@ -41,9 +45,18 @@ namespace PVPMistico.Managers
 
         public async Task<bool> CheckUsernameRegisteredAsync(string username)
         {
-            var response = await _httpManager.GetAsync<CheckUsernameResponse>(ApiConstants.LogInURL);
+            try
+            {
 
-            return response.IsUsernameRegistered;
+                var response = await _httpManager.GetAsync<CheckUsernameResponse>(ApiConstants.LogInURL + username);
+
+                return response.IsUsernameRegistered;
+            }
+            catch(Exception e)
+            {
+                _logger.Error(e.Message);
+                return false;
+            }
         }
 
         public async Task<string> SignInAsync(string name, string email, string username, string password)

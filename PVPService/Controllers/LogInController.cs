@@ -14,8 +14,8 @@ namespace PVPService.Controllers
         private AccountsRepository _accounts = new AccountsRepository();
 
         //GET api/LogIn
-        [HttpGet]
-        public IActionResult CheckUsernameRegistered([FromRoute] string username)
+        [HttpGet("{username}")]
+        public IActionResult CheckUsernameRegistered(string username)
         {
             try
             {

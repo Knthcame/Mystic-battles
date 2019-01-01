@@ -90,7 +90,8 @@ namespace PVPMistico.ViewModels
                 return;
             }
 
-            Participants = new ObservableCollection<ParticipantModel>(Leaderboard.Participants);
+            var orderedParticipant = Leaderboard.Participants.OrderBy((participant) => participant.Position);
+            Participants = new ObservableCollection<ParticipantModel>(orderedParticipant);
 
             var myUsername = await SecureStorage.GetAsync(SecureStorageTokens.Username);
 
