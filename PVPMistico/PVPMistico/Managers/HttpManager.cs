@@ -25,9 +25,16 @@ namespace PVPMistico.Managers
             throw new NotImplementedException();
         }
 
-        public async Task<ApiResponse> GetAsync<ApiResponse>(string url, object body) where ApiResponse : IApiResponse
+        public async Task<ApiResponse> GetAsync<ApiResponse>(string url) where ApiResponse : IApiResponse
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await ParseResponse<ApiResponse>(await _client.GetAsync(url));
+            }
+            catch(Exception e)
+            {
+                return HandleClientError<ApiResponse>(e);
+            }
         }
 
         public async Task<ApiResponse> PostAsync<ApiResponse>(string url, object body) where ApiResponse : IApiResponse
@@ -36,20 +43,29 @@ namespace PVPMistico.Managers
             {
                 var json = JsonConvert.SerializeObject(body);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await _client.PostAsync(url, content);
-                var responseContent = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<ApiResponse>(responseContent);
+                return await ParseResponse<ApiResponse>(await _client.PostAsync(url, content));
             }
             catch(Exception e)
             {
-                _logger.Error(e.Message);
-                return default(ApiResponse);
+                return HandleClientError<ApiResponse>(e);
             }
         }
 
         public async Task<ApiResponse> PutAsync<ApiResponse>(string url, object body) where ApiResponse : IApiResponse
         {
             throw new NotImplementedException();
+        }
+
+        private async Task<ApiResponse> ParseResponse<ApiResponse>(HttpResponseMessage response) where ApiResponse : IApiResponse
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<ApiResponse>(responseContent);
+        }
+
+        private ApiResponse HandleClientError<ApiResponse>(Exception e) where ApiResponse : IApiResponse
+        {
+            _logger.Error(e.Message);
+            return default(ApiResponse);
         }
     }
 }

@@ -6,6 +6,10 @@
 
         public string Password { get; set; }
 
+        public string Name { get; set; }
+
+        public string Email { get; set; }
+
         public AccountModel() { }
 
         public AccountModel(string username, string password)

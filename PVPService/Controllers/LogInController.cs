@@ -2,11 +2,8 @@
 using Models.ApiResponses;
 using Models.Classes;
 using Models.Enums;
-using Newtonsoft.Json;
 using PVPService.Services;
-using System.Net;
-using System.Net.Http;
-using System.Text;
+using System;
 
 namespace PVPService.Controllers
 {
@@ -15,22 +12,47 @@ namespace PVPService.Controllers
     public class LogInController : ControllerBase
     {
         private AccountsRepository _accounts = new AccountsRepository();
-        // POST api/values
+
+        //GET api/LogIn
+        [HttpGet]
+        public IActionResult CheckUsernameRegistered([FromRoute] string username)
+        {
+            try
+            {
+                var response = new CheckUsernameResponse
+                {
+                    IsUsernameRegistered = _accounts.IsAccountRegistered(username)
+                };
+
+                return Ok(response);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        // POST api/LogIn
         [HttpPost]
         public IActionResult ValidateLogIn([FromBody] AccountModel account)
         {
-            LogInResponse response = new LogInResponse();
-            var responseCode = _accounts.ValidateCredentials(account);
-            
-            response.ResponseCode = responseCode;
-            switch (responseCode)
+            try
             {
-                case LogInResponseCode.LogInSuccessful:
-                    response.StatusCode = HttpStatusCode.OK;
-                    return Ok(response);
-                default:
-                    response.StatusCode = HttpStatusCode.Unauthorized;
-                    return BadRequest(response);
+                LogInResponse response = new LogInResponse();
+                var responseCode = _accounts.ValidateCredentials(account);
+
+                response.ResponseCode = responseCode;
+                switch (responseCode)
+                {
+                    case LogInResponseCode.LogInSuccessful:
+                        return Ok(response);
+                    default:
+                        return BadRequest(response);
+                }
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
     }

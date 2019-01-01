@@ -1,11 +1,14 @@
-﻿using Models.Enums;
+﻿using Acr.UserDialogs;
+using Models.Enums;
 using Prism.Commands;
 using Prism.Navigation;
 using PVPMistico.Constants;
 using PVPMistico.Dictionaries;
+using PVPMistico.Enums;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Models;
+using PVPMistico.Resources;
 using PVPMistico.Validation;
 using PVPMistico.Validation.Rules;
 using System;
@@ -16,16 +19,19 @@ using Xamarin.Essentials;
 
 namespace PVPMistico.ViewModels
 {
-    public class CreateTournamentPopUpVIewModel : BaseViewModel
+    public class CreateTournamentPopupViewModel : BaseViewModel
     {
+        #region Fields
         private readonly ITournamentManager _tournamentManager;
         private readonly IAccountManager _accountManager;
-
+        private readonly IDialogManager _dialogManager;
         private bool _buttonEnabled;
         private ValidatableObject<string> _leagueName;
         private bool _isLeagueNameValid;
         private bool _isLeagueTypeValid;
+        #endregion
 
+        #region Properties
         public List<LeagueTypePickerItemModel> LeagueTypes { get; set; } = CreateLeagueTypesList();
 
         public LeagueTypePickerItemModel SelectedLeagueType { get; set; }
@@ -47,12 +53,14 @@ namespace PVPMistico.ViewModels
             get => _leagueName;
             set => SetProperty(ref _leagueName, value);
         }
+        #endregion
 
-        public CreateTournamentPopUpVIewModel(INavigationService navigationService, ICustomLogger logger, ITournamentManager tournamentManager, IAccountManager accountManager)
+        public CreateTournamentPopupViewModel(INavigationService navigationService, ICustomLogger logger, ITournamentManager tournamentManager, IAccountManager accountManager, IDialogManager dialogManager)
             : base(navigationService, logger)
         {
             _tournamentManager = tournamentManager;
             _accountManager = accountManager;
+            _dialogManager = dialogManager;
             NameUnfocusedComamand = new DelegateCommand(OnNameUnfocused);
             LeagueTypeSelectedCommand = new DelegateCommand(OnLeagueTypeSelected);
             CreateTournamentCommand = new DelegateCommand(async () => await OnCreateTournamentButtonPressedAsync());
@@ -100,8 +108,13 @@ namespace PVPMistico.ViewModels
         private async Task OnCreateTournamentButtonPressedAsync()
         {
             var username = await SecureStorage.GetAsync(SecureStorageTokens.Username);
-            var participant = _accountManager.CreateParticipant(username);
-            _tournamentManager.CreateTournament(LeagueName.Value, SelectedLeagueType.LeagueTypesEnum, participant);
+            var participant = await _accountManager.CreateParticipantAsync(username, isAdmin: true);
+
+            if (participant == null)
+                _dialogManager.ShowToast(new ToastConfig(AppResources.Error), ToastModes.Error);
+            else
+                _tournamentManager.CreateTournament(LeagueName.Value, SelectedLeagueType.LeagueTypesEnum, participant);
+
             await NavigationService.ClearPopupStackAsync();
         }
 

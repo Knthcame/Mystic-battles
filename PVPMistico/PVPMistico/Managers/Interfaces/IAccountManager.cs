@@ -6,7 +6,7 @@ namespace PVPMistico.Managers.Interfaces
 {
     public interface IAccountManager
     {
-        bool CheckUsernameRegistered(string username);
+        Task<bool> CheckUsernameRegisteredAsync(string username);
 
         Task<string> LogInAsync(AccountModel account);
 
@@ -14,7 +14,7 @@ namespace PVPMistico.Managers.Interfaces
 
         void LogOut();
 
-        ParticipantModel CreateParticipant(string username);
+        Task<ParticipantModel> CreateParticipantAsync(string username, bool isAdmin);
 
         TrainerModel GetTrainer(string username);
 

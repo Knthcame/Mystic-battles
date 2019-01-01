@@ -59,7 +59,6 @@ namespace PVPMistico.ViewModels
         protected override void AddValidations()
         {
             base.AddValidations();
-            Username.Validations.Add(new IsUsernameAvailableRule(_accountManager));
             Email.Validations.Add(new IsEmailRule<string>());
             Name.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>() { ValidationMessage = AppResources.EmptyNameError });
         }

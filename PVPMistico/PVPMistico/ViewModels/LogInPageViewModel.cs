@@ -9,7 +9,6 @@ using PVPMistico.Constants;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
-using PVPMistico.Validation.Rules;
 using PVPMistico.Views;
 using Xamarin.Forms;
 
@@ -34,7 +33,6 @@ namespace PVPMistico.ViewModels
         protected override void AddValidations()
         {
             base.AddValidations();
-            Username.Validations.Add(new IsUsernameRegisteredRule(_accountManager));
         }
 
         private async Task OnSignInButtonPressed()

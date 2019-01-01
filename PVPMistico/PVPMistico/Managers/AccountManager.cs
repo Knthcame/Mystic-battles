@@ -12,6 +12,7 @@ namespace PVPMistico.Managers
     public class AccountManager : IAccountManager
     {
         private readonly IHttpManager _httpManager;
+
         public AccountManager(IHttpManager httpManager)
         {
             _httpManager = httpManager;
@@ -38,9 +39,11 @@ namespace PVPMistico.Managers
             }
         }
 
-        public bool CheckUsernameRegistered(string username)
+        public async Task<bool> CheckUsernameRegisteredAsync(string username)
         {
-            return username == "Originals";
+            var response = await _httpManager.GetAsync<CheckUsernameResponse>(ApiConstants.LogInURL);
+
+            return response.IsUsernameRegistered;
         }
 
         public async Task<string> SignInAsync(string name, string email, string username, string password)
@@ -67,15 +70,15 @@ namespace PVPMistico.Managers
         }
 
         /* Creates new ParticipantModel if user exists*/
-        public ParticipantModel CreateParticipant(string username)
+        public async Task<ParticipantModel> CreateParticipantAsync(string username, bool isAdmin)
         {
-            if (username == "Originals")
+            if (await CheckUsernameRegisteredAsync(username))
                 return new ParticipantModel()
                 {
-                    IsAdmin = true,
+                    IsAdmin = isAdmin,
                     Level = 40,
                     Position = 1,
-                    Username = "Originals"
+                    Username = username
                 };
             else
                 return null;
