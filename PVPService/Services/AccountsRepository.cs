@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Models.Classes;
+using Models.Enums;
 
 namespace PVPService.Services
 {
@@ -24,13 +25,16 @@ namespace PVPService.Services
             return true;
         }
 
-        public bool ValidateCredentials(AccountModel account)
+        public LogInResponseCode ValidateCredentials(AccountModel account)
         {
             if (!IsAccountRegistered(account.Username))
-                return false;
+                return LogInResponseCode.UsernameNotRegistered;
 
             var registeredAccount = _accounts.Find((user) => user.Username == account.Username);
-            return registeredAccount.Password == account.Password; 
+            if (registeredAccount.Password != account.Password)
+                return LogInResponseCode.PasswordIncorrect;
+            else
+                return LogInResponseCode.LogInSuccessful;
 
         }
     }
