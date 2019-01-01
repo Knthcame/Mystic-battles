@@ -6,6 +6,12 @@
 
         public const string LogInURL = BaseURL + "api/LogIn/";
 
-        public const string SignInURL = BaseURL + "api/SignIn";
+        public const string SignInURL = BaseURL + "api/SignIn/";
+
+        public const string LeaderboardsURL = BaseURL + "api/Leaderboards/";
+
+        public const string UsernameExtension = "username/";
+
+        public const string IdExtension = "id/";
     }
 }

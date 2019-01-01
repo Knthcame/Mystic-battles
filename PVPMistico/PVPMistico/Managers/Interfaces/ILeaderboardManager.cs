@@ -1,18 +1,19 @@
 ﻿using Models.Classes;
 using Models.Enums;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PVPMistico.Managers.Interfaces
 {
-    public interface ITournamentManager
+    public interface ILeaderboardManager
     {
-        List<LeaderboardModel> GetLeaderboards();
+        Task<List<LeaderboardModel>> GetLeaderboardsAsync();
 
-        LeaderboardModel GetLeaderboard(int id);
+        Task<LeaderboardModel> GetLeaderboardAsync(int id);
 
         bool CreateTournament(string name, LeagueTypesEnum leagueType, ParticipantModel creator);
 
-        IEnumerable<LeaderboardModel> GetMyLeaderboards(string username);
+        Task<List<LeaderboardModel>> GetMyLeaderboardsAsync(string username);
 
         bool AddTrainer(LeaderboardModel leaderboard, TrainerModel trainer);
 

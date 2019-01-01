@@ -20,7 +20,7 @@ namespace PVPMistico.ViewModels
     {
         #region Fields
         private readonly IDialogManager _dialogManager;
-        private readonly ITournamentManager _tournamentManager;
+        private readonly ILeaderboardManager _leaderboardManager;
         private LeaderboardModel _leaderboard;
         private MatchModel _match;
         private ObservableCollection<ParticipantModel> _opponentsList;
@@ -73,11 +73,11 @@ namespace PVPMistico.ViewModels
         }
         #endregion
 
-        public InputMatchPopupViewModel(INavigationService navigationService, ICustomLogger logger, IDialogManager dialogManager, ITournamentManager tournamentManager) 
+        public InputMatchPopupViewModel(INavigationService navigationService, ICustomLogger logger, IDialogManager dialogManager, ILeaderboardManager leaderboardManager) 
             : base(navigationService, logger)
         {
             _dialogManager = dialogManager;
-            _tournamentManager = tournamentManager;
+            _leaderboardManager = leaderboardManager;
             OpponentSelectedCommand = new DelegateCommand(OnOpponentSelected);
             WinnerSelectedCommand = new DelegateCommand(OnWinnerSelected);
             ConfimInputCommand = new DelegateCommand(async() => await ConfirmInputAsync());
@@ -85,7 +85,7 @@ namespace PVPMistico.ViewModels
 
         private async Task ConfirmInputAsync()
         {
-            if (_tournamentManager.InputMatch(_leaderboard, _match))
+            if (_leaderboardManager.InputMatch(_leaderboard, _match))
             {
                 await NavigationService.GoBackAsync();
             }

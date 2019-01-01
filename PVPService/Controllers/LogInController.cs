@@ -18,9 +18,9 @@ namespace PVPService.Controllers
         {
             try
             {
-                var response = new CheckUsernameResponse
+                var response = new OkResponse
                 {
-                    IsUsernameRegistered = AccountsRepository.IsAccountRegistered(username)
+                    Ok = AccountsRepository.IsAccountRegistered(username)
                 };
 
                 return Ok(response);

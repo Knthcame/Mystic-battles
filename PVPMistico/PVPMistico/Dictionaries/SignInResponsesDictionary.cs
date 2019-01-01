@@ -1,7 +1,6 @@
 ﻿using Models.Enums;
 using System.Collections.Generic;
 using PVPMistico.Constants;
-using PVPMistico.Resources;
 
 namespace PVPMistico.Dictionaries
 {

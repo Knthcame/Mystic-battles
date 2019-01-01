@@ -8,6 +8,7 @@ using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
 using PVPMistico.Views.Popups;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace PVPMistico.ViewModels
     public class LeaderboardPageViewModel : BaseViewModel
     {
         #region Fields
-        private readonly ITournamentManager _tournamentManager;
+        private readonly ILeaderboardManager _leaderboardManager;
         private readonly IDialogManager _dialogManager;
         private LeaderboardModel _leaderboard;
         private bool _isCurrentUserAdmin;
@@ -49,10 +50,10 @@ namespace PVPMistico.ViewModels
         public ICommand InputMatchCommand { get; private set; }
         #endregion
 
-        public LeaderboardPageViewModel(INavigationService navigationService, ICustomLogger logger, ITournamentManager tournamentManager, IDialogManager dialogManager)
+        public LeaderboardPageViewModel(INavigationService navigationService, ICustomLogger logger, ILeaderboardManager leaderboardManager, IDialogManager dialogManager)
             : base(navigationService, logger)
         {
-            _tournamentManager = tournamentManager;
+            _leaderboardManager = leaderboardManager;
             _dialogManager = dialogManager;
             AddTrainerCommand = new DelegateCommand(async () => await OnAddTrainerButtonPressedAsync());
             InputMatchCommand = new DelegateCommand(async () => await OnInputMatchButtonPressedAsync());
@@ -81,24 +82,41 @@ namespace PVPMistico.ViewModels
             base.OnNavigatingTo(parameters);
 
             if (parameters.TryGetValue(NavigationParameterKeys.LeaderboardIdKey, out int id))
-                Leaderboard = _tournamentManager.GetLeaderboard(id);
+                await LoadLeaderboardAsync(id);
 
-            else if(Leaderboard == null)
+            else if (Leaderboard == null)
             {
                 await NavigationService.GoBackAsync();
                 _dialogManager.ShowToast(new ToastConfig(AppResources.LeaderboardNotFoundToast), ToastModes.Error);
                 return;
             }
+            //Refresh Leaderboard after adding trainer or match
+            else
+                await LoadLeaderboardAsync(Leaderboard.ID);
 
+            OrderParticipants();
+
+            await SetAdminPermissionAsync();
+        }
+
+        private async Task LoadLeaderboardAsync(int id)
+        {
+            Leaderboard = await _leaderboardManager.GetLeaderboardAsync(id);
+        }
+
+        private void OrderParticipants()
+        {
             var orderedParticipant = Leaderboard.Participants.OrderBy((participant) => participant.Position);
             Participants = new ObservableCollection<ParticipantModel>(orderedParticipant);
+        }
 
+        private async Task SetAdminPermissionAsync()
+        {
             var myUsername = await SecureStorage.GetAsync(SecureStorageTokens.Username);
 
             var currentUser = Leaderboard.Participants.FirstOrDefault((trainer) => trainer.Username == myUsername);
             if (currentUser != null && currentUser.IsAdmin == true)
                 IsCurrentUserAdmin = true;
-
         }
     }
 }

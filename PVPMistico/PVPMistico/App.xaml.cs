@@ -46,7 +46,7 @@ namespace PVPMistico
             containerRegistry.Register<IHttpManager, HttpManager>();
             containerRegistry.Register<IAccountManager, AccountManager>();
             containerRegistry.Register<ICustomLogger, CustomLogger>();
-            containerRegistry.Register<ITournamentManager, TournamentManager>();
+            containerRegistry.Register<ILeaderboardManager, LeaderboardManager>();
             containerRegistry.Register<IDialogManager, DialogManager>();
         }
     }

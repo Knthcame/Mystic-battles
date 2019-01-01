@@ -20,7 +20,7 @@ namespace PVPMistico.ViewModels
     public class AddTrainerPopupViewModel : BaseViewModel
     {
         private readonly IAccountManager _accountManager;
-        private readonly ITournamentManager _tournamentManager;
+        private readonly ILeaderboardManager _leaderboardManager;
         private readonly IDialogManager _dialogManager;
         private LeaderboardModel _leaderboard;
         private ObservableCollection<TrainerModel> _trainerList;
@@ -42,11 +42,11 @@ namespace PVPMistico.ViewModels
         public ICommand TrainerSelectedCommand { get; private set; }
         public string SearchText { get; set; }
 
-        public AddTrainerPopupViewModel(INavigationService navigationService, ICustomLogger logger, IAccountManager accountManager, ITournamentManager tournamentManager, IDialogManager dialogManager)
+        public AddTrainerPopupViewModel(INavigationService navigationService, ICustomLogger logger, IAccountManager accountManager, ILeaderboardManager leaderboardManager, IDialogManager dialogManager)
             : base(navigationService, logger)
         {
             _accountManager = accountManager;
-            _tournamentManager = tournamentManager;
+            _leaderboardManager = leaderboardManager;
             _dialogManager = dialogManager;
             SearchTrainerCommand = new DelegateCommand(OnTrainerSearch);
             TrainerSelectedCommand = new DelegateCommand(async () => await OnTrainerSelectedAsync());
@@ -54,7 +54,7 @@ namespace PVPMistico.ViewModels
 
         private async Task OnTrainerSelectedAsync()
         {
-            if (!_tournamentManager.AddTrainer(_leaderboard, SelectedTrainer))
+            if (!_leaderboardManager.AddTrainer(_leaderboard, SelectedTrainer))
             {
                 var config = new ToastConfig(AppResources.CannotAddTrainer);
                 _dialogManager.ShowToast(config, ToastModes.Error);

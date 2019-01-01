@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Net;
-using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models.ApiResponses;
 using Models.Classes;
 using Models.Enums;
-using Newtonsoft.Json;
 using PVPService.Services;
 
 namespace PVPService.Controllers

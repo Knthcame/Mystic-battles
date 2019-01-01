@@ -22,7 +22,7 @@ namespace PVPMistico.ViewModels
     public class CreateTournamentPopupViewModel : BaseViewModel
     {
         #region Fields
-        private readonly ITournamentManager _tournamentManager;
+        private readonly ILeaderboardManager _leaderboardManager;
         private readonly IAccountManager _accountManager;
         private readonly IDialogManager _dialogManager;
         private bool _buttonEnabled;
@@ -55,10 +55,10 @@ namespace PVPMistico.ViewModels
         }
         #endregion
 
-        public CreateTournamentPopupViewModel(INavigationService navigationService, ICustomLogger logger, ITournamentManager tournamentManager, IAccountManager accountManager, IDialogManager dialogManager)
+        public CreateTournamentPopupViewModel(INavigationService navigationService, ICustomLogger logger, ILeaderboardManager leaderboardManager, IAccountManager accountManager, IDialogManager dialogManager)
             : base(navigationService, logger)
         {
-            _tournamentManager = tournamentManager;
+            _leaderboardManager = leaderboardManager;
             _accountManager = accountManager;
             _dialogManager = dialogManager;
             NameUnfocusedComamand = new DelegateCommand(OnNameUnfocused);
@@ -66,7 +66,6 @@ namespace PVPMistico.ViewModels
             CreateTournamentCommand = new DelegateCommand(async () => await OnCreateTournamentButtonPressedAsync());
             LeagueName = new ValidatableObject<string>();
             LeagueName.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>());
-            LeagueName.Validations.Add(new IsLeagueNameAvailableRule(_tournamentManager));
         }
 
         private void OnLeagueTypeSelected()
@@ -111,11 +110,18 @@ namespace PVPMistico.ViewModels
             var participant = await _accountManager.CreateParticipantAsync(username, isAdmin: true);
 
             if (participant == null)
+            {
                 _dialogManager.ShowToast(new ToastConfig(AppResources.Error), ToastModes.Error);
-            else
-                _tournamentManager.CreateTournament(LeagueName.Value, SelectedLeagueType.LeagueTypesEnum, participant);
+                await NavigationService.ClearPopupStackAsync();
+                return;
+            }
+            
+            if(_leaderboardManager.CreateTournament(LeagueName.Value, SelectedLeagueType.LeagueTypesEnum, participant))
+            {
+                await NavigationService.ClearPopupStackAsync();
+            }
 
-            await NavigationService.ClearPopupStackAsync();
+
         }
 
         public override bool OnBackButtonPressed()

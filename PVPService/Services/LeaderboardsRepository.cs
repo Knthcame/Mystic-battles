@@ -1,82 +1,65 @@
-﻿using System;
+﻿using Models.Classes;
+using Models.Enums;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Models.Classes;
-using Models.Enums;
-using PVPMistico.Managers.Interfaces;
 
-namespace PVPMistico.Managers
+namespace PVPService.Services
 {
-    public class TournamentManager : ITournamentManager
+    public static class LeaderboardsRepository
     {
-        private readonly IHttpManager _httpManager;
+        private static List<LeaderboardModel> _leaderboards = LeaderboardMock();
 
-        private static List<LeaderboardModel> leaderboards = LeaderboardMock();
+        public static List<LeaderboardModel> GetLeaderboards() => _leaderboards;
 
-        public TournamentManager(IHttpManager httpManager)
+        public static List<LeaderboardModel> GetUserLeaderBoards(string username) => 
+            new List<LeaderboardModel>(_leaderboards.Where((boards) => boards.Participants.Any((participant) => participant.Username == username)));
+
+        public static LeaderboardModel GetLeaderboard(int id) =>
+            _leaderboards.FirstOrDefault((board) => board.ID == id);
+
+        public static bool InputMatch(int id, MatchModel match)
         {
-            _httpManager = httpManager;
-        }
-
-        public bool CreateTournament(string name, LeagueTypesEnum leagueType, ParticipantModel creator)
-        {
-            if (creator == null)
+            if (match == null)
                 return false;
 
-            creator.IsAdmin = true;
-            leaderboards.Add(new LeaderboardModel()
-            {
-                ID = leaderboards.Count + 1,
-                LeagueType = leagueType,
-                Name = name,
-                Participants = new ObservableCollection<ParticipantModel>()
-                {
-                    creator
-                }
-            });
+            var leaderboard = _leaderboards.FirstOrDefault((board) => board.ID == id);
+            if (leaderboard == null)
+                return false;
+
+            var winner = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Winner);
+            var loser = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Loser);
+
+            if (winner == null || loser == null)
+                return false;
+
+            AddWin(winner, match);
+            AddLoss(loser, match);
+            RecalculatePositions(leaderboard);
             return true;
         }
 
-        public LeaderboardModel GetLeaderboard(int id)
+        private static void RecalculatePositions(LeaderboardModel leaderboard)
         {
-            return GetLeaderboards().FirstOrDefault((boards) => boards.ID == id);
-        }
-
-        public List<LeaderboardModel> GetLeaderboards()
-        {
-            return leaderboards;
-        }
-
-        public IEnumerable<LeaderboardModel> GetMyLeaderboards(string username)
-        {
-            return GetLeaderboards().Where((boards) => boards.Participants.Any((participant) => participant.Username == username));
-        }
-
-        public bool AddTrainer(LeaderboardModel leaderboard, TrainerModel trainer)
-        {
-            if (TrainerAlreadyParticipates(leaderboard, trainer))
-                return false;
-
-            var participant = new ParticipantModel()
+            var orderedParticipants = leaderboard.Participants.OrderBy((participant) => participant.Points);
+            int i = 1;
+            foreach (ParticipantModel participant in orderedParticipants)
             {
-                Username = trainer.Username,
-                Level = trainer.Level,
-                Position = leaderboard.Participants.Count + 1
-            };
-            leaderboard.Participants.Add(participant);
-            return true;
+                participant.Position = i++;
+            }
         }
 
-        public bool RemoveTrainer(LeaderboardModel leaderboard, ParticipantModel participant)
+        private static void AddLoss(ParticipantModel loser, MatchModel match)
         {
-            return leaderboard.Participants.Remove(participant);
+            loser.Losses++;
+            loser.Matches.Add(match);
         }
 
-        private bool TrainerAlreadyParticipates(LeaderboardModel leaderboard, TrainerModel trainer)
+        private static void AddWin(ParticipantModel winner, MatchModel match)
         {
-            var matchingUsernames = leaderboard.Participants.Where((participant) => participant.Username == trainer.Username);
-            return matchingUsernames.Count() > 0;
+            winner.Wins++;
+            winner.Points += 3;
+            winner.Matches.Add(match);
         }
 
         private static List<LeaderboardModel> LeaderboardMock()
@@ -217,23 +200,5 @@ namespace PVPMistico.Managers
             };
         }
 
-        public bool InputMatch(LeaderboardModel leaderboard, MatchModel match)
-        {
-            if (leaderboard == null || match == null)
-                return false;
-
-            match.DateTime = DateTime.Now;
-
-            var winner = leaderboard.Participants.FirstOrDefault((participant => participant.Username == match.Winner));
-            winner.Wins++;
-            winner.Points += 3;
-            winner.Matches.Add(match);
-
-            var loser = leaderboard.Participants.FirstOrDefault((participant => participant.Username == match.Loser));
-            loser.Losses++;
-            loser.Matches.Add(match);
-
-            return true;
-        }
     }
 }

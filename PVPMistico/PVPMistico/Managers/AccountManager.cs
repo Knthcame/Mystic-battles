@@ -49,9 +49,9 @@ namespace PVPMistico.Managers
         {
             try
             {
-                var response = await _httpManager.GetAsync<CheckUsernameResponse>(ApiConstants.LogInURL + username);
+                var response = await _httpManager.GetAsync<OkResponse>(ApiConstants.LogInURL + username);
 
-                return response.IsUsernameRegistered;
+                return response.Ok;
             }
             catch(Exception e)
             {

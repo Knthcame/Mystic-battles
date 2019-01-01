@@ -22,7 +22,7 @@ namespace PVPMistico.ViewModels
         private LeaderBoardPreviewModel _selectedLeaderboard;
         private bool _isCreateTournamentViewVisible;
         private ObservableCollection<LeaderBoardPreviewModel> _leaderboardPreviews;
-        private readonly ITournamentManager _tournamentManager;
+        private readonly ILeaderboardManager _leaderboardManager;
         private readonly IAccountManager _accountManager;
         private readonly IDialogManager _dialogManager;
 
@@ -54,12 +54,12 @@ namespace PVPMistico.ViewModels
         public ICommand CreateTournamentCommand { get; private set; }
         public ICommand SelectedLeaderboardCommand { get; private set; }
 
-        public MainPageViewModel(INavigationService navigationService, IAccountManager accountManager, ICustomLogger logger, IDialogManager dialogManager, ITournamentManager tournamentManager)
+        public MainPageViewModel(INavigationService navigationService, IAccountManager accountManager, ICustomLogger logger, IDialogManager dialogManager, ILeaderboardManager leaderboardManager)
             : base(navigationService, logger)
         {
             _accountManager = accountManager;
             _dialogManager = dialogManager;
-            _tournamentManager = tournamentManager;
+            _leaderboardManager = leaderboardManager;
             Title = AppResources.MainPageTitle;
             MenuText = AppResources.LogOutButtonText;
             MenuItemCommand = new DelegateCommand(OnLogOutClicked);
@@ -83,11 +83,11 @@ namespace PVPMistico.ViewModels
             await NavigationService.NavigateAsync(nameof(LeaderboardPage), parameters);
         }
 
-        private ObservableCollection<LeaderBoardPreviewModel> LoadMyLeaderboards()
+        private async Task<ObservableCollection<LeaderBoardPreviewModel>> LoadMyLeaderboardsAsync()
         {
             var usernameTask = SecureStorage.GetAsync(SecureStorageTokens.Username);
             var username = usernameTask.Result;
-            var leaderboards = _tournamentManager.GetMyLeaderboards(username);
+            var leaderboards = await _leaderboardManager.GetMyLeaderboardsAsync(username);
 
             var leaderboardPreviews = new ObservableCollection<LeaderBoardPreviewModel>();
 
@@ -128,12 +128,12 @@ namespace PVPMistico.ViewModels
             }
         }
 
-        public override void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatedTo(INavigationParameters parameters)
         {
             base.OnNavigatedTo(parameters);
             SelectedLeaderboard = null;
 
-            LeaderboardPreviews = new ObservableCollection<LeaderBoardPreviewModel>(LoadMyLeaderboards());
+            LeaderboardPreviews = new ObservableCollection<LeaderBoardPreviewModel>(await LoadMyLeaderboardsAsync());
         }
     }
 }
