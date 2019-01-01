@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -61,13 +60,13 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _isWinnerSelected, value);
         }
 
-        public ObservableCollection<ParticipantModel> OpponentsList
+        public ObservableCollection<ParticipantModel> PossibleOpponentsList
         {
             get => _opponentsList;
             set => SetProperty(ref _opponentsList, value);
         }
 
-        public ObservableCollection<ParticipantModel> CompetitorsList
+        public ObservableCollection<ParticipantModel> Rivals
         {
             get => _competitorsList;
             set => SetProperty(ref _competitorsList, value);
@@ -98,7 +97,7 @@ namespace PVPMistico.ViewModels
         {
             IsWinnerSelected = true;
             _match.Winner = SelectedWinner.Username;
-            _match.Loser = OpponentsList.FirstOrDefault((opponent) => opponent != SelectedWinner).Username;
+            _match.Loser = Rivals.FirstOrDefault((opponent) => opponent != SelectedWinner).Username;
         }
 
         private void OnOpponentSelected()
@@ -112,7 +111,7 @@ namespace PVPMistico.ViewModels
             IsOpponentPickerEnabled = true;
             var opponentsList = new List<ParticipantModel>(_leaderboard.Participants);
             opponentsList.Remove(_currentUser);
-            OpponentsList = new ObservableCollection<ParticipantModel>(opponentsList);
+            PossibleOpponentsList = new ObservableCollection<ParticipantModel>(opponentsList);
         }
 
         private void InitializaMatch()
@@ -132,7 +131,7 @@ namespace PVPMistico.ViewModels
                 return;
             }
             
-            CompetitorsList = new ObservableCollection<ParticipantModel>()
+            Rivals = new ObservableCollection<ParticipantModel>()
             {
                 _currentUser,
                 SelectedOpponent

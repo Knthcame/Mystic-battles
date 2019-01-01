@@ -14,7 +14,7 @@
                      VerticalOptions="Center">
             <Label Text="{Localization:Translate Opponent}"/>
             <Picker x:Name="opponentPicker"
-                    ItemsSource="{Binding OpponentsList}"
+                    ItemsSource="{Binding PossibleOpponentsList}"
                     ItemDisplayBinding="{Binding Username}"
                     SelectedItem="{Binding SelectedOpponent}">
 
@@ -27,7 +27,7 @@
             </Picker>
 
             <Label Text="{Localization:Translate Winner}"/>
-            <Picker ItemsSource="{Binding CompetitorsList}"
+            <Picker ItemsSource="{Binding Rivals}"
                     ItemDisplayBinding="{Binding Username}"
                     SelectedItem="{Binding SelectedWinner}"
                     IsEnabled="{Binding IsOpponentSelected}">
