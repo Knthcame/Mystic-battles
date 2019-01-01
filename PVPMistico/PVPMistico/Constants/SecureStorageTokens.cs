@@ -7,5 +7,7 @@
         public const string Email = "email_token";
 
         public const string Name = "name_token";
+
+        public const string Password = "password_token";
     }
 }

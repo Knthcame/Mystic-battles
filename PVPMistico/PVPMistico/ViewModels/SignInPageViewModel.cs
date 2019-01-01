@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
+using Models.Classes;
 using Prism.Commands;
 using Prism.Navigation;
 using PVPMistico.Constants;
@@ -68,7 +69,8 @@ namespace PVPMistico.ViewModels
             if (!ValidateEmail() || !ValidateName())
                 return;
 
-            var signInResponse = await _accountManager.SignInAsync(Name.Value, Email.Value, Username.Value, Password.Value);
+            var account = new AccountModel(Username.Value, Password.Value, Email.Value, Name.Value);
+            var signInResponse = await _accountManager.SignInAsync(account);
 
             if (signInResponse == SignInResponses.SignInSuccessful)
                 await NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));

@@ -4,18 +4,15 @@ using Models.Enums;
 
 namespace PVPService.Services
 {
-    public class AccountsRepository
+    public static class AccountsRepository
     {
-        private List<AccountModel> _accounts = new List<AccountModel>()
+        private static List<AccountModel> _accounts = new List<AccountModel>()
         {
-            new AccountModel()
-            {
-                Username = "Originals",
-                Password = "Test123"
-            }
+            new AccountModel("Originals", "Test123"),
+            new AccountModel("No originals", null)
         };
 
-        public bool IsAccountRegistered(string username)
+        public static bool IsAccountRegistered(string username)
         {
             if (username == null)
                 return false;
@@ -23,16 +20,30 @@ namespace PVPService.Services
             return _accounts.Find((account) => account.Username == username) != null;
         }
 
-        public bool RegisterNewAccount(AccountModel account)
+        public static bool IsEmailRegistered(string email)
         {
-            if (IsAccountRegistered(account.Username) || account == null)
+            if (email == null)
                 return false;
 
-            _accounts.Add(account);
-            return true;
+            return _accounts.Find((account) => account.Email == email) != null;
         }
 
-        public LogInResponseCode ValidateCredentials(AccountModel account)
+        public static SignInResponseCode RegisterNewAccount(AccountModel account)
+        {
+            if (account == null)
+                return SignInResponseCode.UnknowError;
+
+            else if (IsAccountRegistered(account.Username))
+                return SignInResponseCode.UsernameAlreadyRegistered;
+
+            else if (IsEmailRegistered(account.Email))
+                return SignInResponseCode.EmailAlreadyUsed;
+            
+            _accounts.Add(account);
+            return SignInResponseCode.SignInSuccessful;
+        }
+
+        public static LogInResponseCode ValidateCredentials(AccountModel account)
         {
             if (!IsAccountRegistered(account.Username))
                 return LogInResponseCode.UsernameNotRegistered;

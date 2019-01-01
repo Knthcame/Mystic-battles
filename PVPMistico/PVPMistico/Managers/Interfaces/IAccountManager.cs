@@ -10,7 +10,7 @@ namespace PVPMistico.Managers.Interfaces
 
         Task<string> LogInAsync(AccountModel account);
 
-        Task<string> SignInAsync(string name, string email, string username, string password);
+        Task<string> SignInAsync(AccountModel account);
 
         void LogOut();
 

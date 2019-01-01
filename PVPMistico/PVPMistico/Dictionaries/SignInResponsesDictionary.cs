@@ -1,6 +1,7 @@
 ﻿using Models.Enums;
 using System.Collections.Generic;
 using PVPMistico.Constants;
+using PVPMistico.Resources;
 
 namespace PVPMistico.Dictionaries
 {
@@ -9,9 +10,10 @@ namespace PVPMistico.Dictionaries
         private static Dictionary<SignInResponseCode, string> _dictionary = new Dictionary<SignInResponseCode, string>()
         {
             { SignInResponseCode.SignInSuccessful, SignInResponses.SignInSuccessful },
-            { SignInResponseCode.PasswordFormatInvalid, SignInResponses.PasswordFormatInvalid},
-            { SignInResponseCode.UsernameAlreadyRegistered, SignInResponses.UserAlreadyRegistered },
-            { SignInResponseCode.EmailAlreadyUsed, SignInResponses.EmailAlreadyUsed}
+            { SignInResponseCode.PasswordFormatInvalid, SignInResponses.PasswordFormatInvalid },
+            { SignInResponseCode.UsernameAlreadyRegistered, SignInResponses.UsernameAlreadyRegistered },
+            { SignInResponseCode.EmailAlreadyUsed, SignInResponses.EmailAlreadyUsed },
+            { SignInResponseCode.UnknowError, SignInResponses.UnknownError }
         };
 
         public static bool GetResponseString(SignInResponseCode code, out string response)

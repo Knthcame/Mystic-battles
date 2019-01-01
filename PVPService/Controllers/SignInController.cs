@@ -1,6 +1,8 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models.ApiResponses;
 using Models.Classes;
 using Models.Enums;
 using Newtonsoft.Json;
@@ -12,26 +14,29 @@ namespace PVPService.Controllers
     [ApiController]
     public class SignInController : ControllerBase
     {
-        private readonly AccountsRepository _accounts;
         [HttpPost]
-        public HttpResponseMessage Post([FromBody] string json)
+        public IActionResult Post([FromBody] AccountModel account)
         {
-            var response = new HttpResponseMessage();
-            var account = JsonConvert.DeserializeObject<AccountModel>(json);
-            var responseCode = _accounts.ValidateCredentials(account);
-
-            switch (responseCode)
+            try
             {
-                case LogInResponseCode.LogInSuccessful:
-                    response.StatusCode = HttpStatusCode.OK;
-                    break;
+                var response = new SignInResponse
+                {
+                    ResponseCode = AccountsRepository.RegisterNewAccount(account)
+                };
 
-                default:
-                    response.StatusCode = HttpStatusCode.Unauthorized;
-                    break;
+                switch (response.ResponseCode)
+                {
+                    case SignInResponseCode.SignInSuccessful:
+                        return Ok(response);
+
+                    default:
+                        return BadRequest(response);
+                }
             }
-            response.ReasonPhrase = responseCode.ToString();
-            return response;
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

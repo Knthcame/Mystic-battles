@@ -17,5 +17,13 @@
             Username = username;
             Password = password;
         }
+
+        public AccountModel(string username, string password, string email, string name)
+        {
+            Username = username;
+            Password = password;
+            Email = email;
+            Name = name;
+        }
     }
 }

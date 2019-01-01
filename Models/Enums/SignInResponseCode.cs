@@ -5,6 +5,7 @@ namespace Models.Enums
         SignInSuccessful,
         UsernameAlreadyRegistered,
         EmailAlreadyUsed,
-        PasswordFormatInvalid
+        PasswordFormatInvalid,
+        UnknowError
     }
 }

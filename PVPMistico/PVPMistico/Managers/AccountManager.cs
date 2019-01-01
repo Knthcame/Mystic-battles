@@ -5,8 +5,10 @@ using Models.ApiResponses;
 using Models.Classes;
 using Models.Enums;
 using PVPMistico.Constants;
+using PVPMistico.Dictionaries;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
+using PVPMistico.Resources;
 using Xamarin.Essentials;
 
 namespace PVPMistico.Managers
@@ -47,7 +49,6 @@ namespace PVPMistico.Managers
         {
             try
             {
-
                 var response = await _httpManager.GetAsync<CheckUsernameResponse>(ApiConstants.LogInURL + username);
 
                 return response.IsUsernameRegistered;
@@ -59,20 +60,25 @@ namespace PVPMistico.Managers
             }
         }
 
-        public async Task<string> SignInAsync(string name, string email, string username, string password)
+        public async Task<string> SignInAsync(AccountModel account)
         {
-            if(username == "Originals")
+            var response = await _httpManager.PostAsync<SignInResponse>(ApiConstants.SignInURL, account);
+            
+            switch (response.ResponseCode)
             {
-                return SignInResponses.UserAlreadyRegistered;
-            }
-            else
-            {
-                await SecureStorage.SetAsync(SecureStorageTokens.Username, username);
-                await SecureStorage.SetAsync(SecureStorageTokens.Name, name);
-                await SecureStorage.SetAsync(SecureStorageTokens.Email, email);
+                case SignInResponseCode.SignInSuccessful:
+                    await SecureStorage.SetAsync(SecureStorageTokens.Username, account.Username);
+                    await SecureStorage.SetAsync(SecureStorageTokens.Name, account.Name);
+                    await SecureStorage.SetAsync(SecureStorageTokens.Email, account.Email);
+                    await SecureStorage.SetAsync(SecureStorageTokens.Password, account.Password);
 
-                return SignInResponses.SignInSuccessful;
+                    break;
             }
+
+            if (SignInResponsesDictionary.GetResponseString(response.ResponseCode, out string message))
+                return message;
+            else
+                return AppResources.Error;
         }
 
         public void LogOut()
