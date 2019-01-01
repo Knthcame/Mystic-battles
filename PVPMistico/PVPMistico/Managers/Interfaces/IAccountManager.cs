@@ -8,15 +8,15 @@ namespace PVPMistico.Managers.Interfaces
     {
         bool CheckUsernameRegistered(string username);
 
-        Task<string> LogInAsync(string username, string password);
+        Task<string> LogInAsync(AccountModel account);
 
         Task<string> SignInAsync(string name, string email, string username, string password);
 
         void LogOut();
 
-        ParticipantModel CreateParticipant(string id);
+        ParticipantModel CreateParticipant(string username);
 
-        TrainerModel GetTrainer(string id);
+        TrainerModel GetTrainer(string username);
 
         IList<TrainerModel> GetRegisteredTrainers();
     }

@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Models.ApiResponses;
 using Models.Classes;
+using Models.Enums;
 using PVPMistico.Constants;
 using PVPMistico.Managers.Interfaces;
 using Xamarin.Essentials;
@@ -15,20 +17,24 @@ namespace PVPMistico.Managers
             _httpManager = httpManager;
         }
 
-        public async Task<string> LogInAsync(string username, string password)
+        public async Task<string> LogInAsync(AccountModel account)
         {
-            if (!username.Equals("Originals"))
+            var response = await _httpManager.PostAsync<LogInResponse>(ApiConstants.LogInURL, account);
+
+            switch (response.ResponseCode)
             {
-                return LogInResponses.UsernameNotFound;
-            }
-            else if (!password.Equals("Test123"))
-            {
-                return LogInResponses.PasswordIncorrect;
-            }
-            else
-            {
-                await SecureStorage.SetAsync(SecureStorageTokens.Username, username);
-                return LogInResponses.LogInSuccesful;
+                case LogInResponseCode.UsernameNotRegistered:
+                    return LogInResponses.UsernameNotFound;
+
+                case LogInResponseCode.PasswordIncorrect:
+                    return LogInResponses.PasswordIncorrect;
+
+                case LogInResponseCode.LogInSuccessful:
+                    await SecureStorage.SetAsync(SecureStorageTokens.Username, account.Username);
+                    return LogInResponses.LogInSuccesful;
+
+                default:
+                    return LogInResponses.GeneralError;
             }
         }
 

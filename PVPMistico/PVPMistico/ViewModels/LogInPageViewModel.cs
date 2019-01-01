@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using Models.Classes;
 using Prism.Commands;
 using Prism.Navigation;
 using PVPMistico.Constants;
@@ -10,6 +11,7 @@ using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
 using PVPMistico.Validation.Rules;
 using PVPMistico.Views;
+using Xamarin.Forms;
 
 namespace PVPMistico.ViewModels
 {
@@ -52,11 +54,11 @@ namespace PVPMistico.ViewModels
             CheckCredentials();
             if (!AreCredentialsValid)
                 return;
-
-            var logInResponse = await _accountManager.LogInAsync(Username.Value, Password.Value);
+            
+            var logInResponse = await _accountManager.LogInAsync(new AccountModel(Username.Value, Password.Value));
 
             if (logInResponse == LogInResponses.LogInSuccesful)
-                await NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
+                await NavigationService.NavigateAsync("/" + nameof(NavigationPage) + "/" + nameof(MainPage));
             else
             {
                 _dialogManager.ShowToast(new ToastConfig(logInResponse));

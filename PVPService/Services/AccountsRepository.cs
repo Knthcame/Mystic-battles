@@ -6,7 +6,14 @@ namespace PVPService.Services
 {
     public class AccountsRepository
     {
-        private List<AccountModel> _accounts;
+        private List<AccountModel> _accounts = new List<AccountModel>()
+        {
+            new AccountModel()
+            {
+                Username = "Originals",
+                Password = "Test123"
+            }
+        };
 
         public bool IsAccountRegistered(string username)
         {

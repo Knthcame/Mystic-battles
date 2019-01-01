@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models.ApiResponses;
 using Models.Classes;
 using Models.Enums;
 using Newtonsoft.Json;
 using PVPService.Services;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 
 namespace PVPService.Controllers
 {
@@ -15,23 +17,21 @@ namespace PVPService.Controllers
         private AccountsRepository _accounts = new AccountsRepository();
         // POST api/values
         [HttpPost]
-        public HttpResponseMessage Post([FromBody] string json)
+        public IActionResult ValidateLogIn([FromBody] AccountModel account)
         {
-            HttpResponseMessage response = new HttpResponseMessage();
-            var account = JsonConvert.DeserializeObject<AccountModel>(json);
+            LogInResponse response = new LogInResponse();
             var responseCode = _accounts.ValidateCredentials(account);
             
+            response.ResponseCode = responseCode;
             switch (responseCode)
             {
                 case LogInResponseCode.LogInSuccessful:
                     response.StatusCode = HttpStatusCode.OK;
-                    break;
+                    return Ok(response);
                 default:
                     response.StatusCode = HttpStatusCode.Unauthorized;
-                    break;
+                    return BadRequest(response);
             }
-            response.ReasonPhrase = responseCode.ToString();
-            return response;
         }
     }
 }

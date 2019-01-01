@@ -4,6 +4,7 @@
     {
         LogInSuccessful,
         UsernameNotRegistered,
-        PasswordIncorrect
+        PasswordIncorrect,
+        UnknownError
     }
 }
