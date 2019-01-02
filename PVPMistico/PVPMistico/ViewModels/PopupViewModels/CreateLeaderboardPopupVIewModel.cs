@@ -117,7 +117,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
             }
             
             var response = await _leaderboardManager.CreateLeaderboardAsync(LeagueName.Value, SelectedLeagueType.LeagueTypesEnum, participant);
-            switch(response.ResponseCode)
+            switch(response)
             {
                 case CreateLeaderboardResponseCode.CreatedSuccessfully:
                     await NavigationService.ClearPopupStackAsync();

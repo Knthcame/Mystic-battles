@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Models.ApiResponses;
 using Models.Classes;
 using Models.Enums;
 using PVPService.Services;
@@ -15,55 +14,40 @@ namespace PVPService.Controllers
         [HttpGet]
         public IActionResult GetLeaderboards()
         {
-            var response = new LeaderboardListResponse
-            {
-                Leaderboards = _leaderboards.GetLeaderboards()
-            };
+            var response = _leaderboards.GetLeaderboards();
             return Ok(response);
         }
 
         [HttpGet("username/{username}")]
         public IActionResult GetUserLeaderBoards(string username)
         {
-            var response = new LeaderboardListResponse
-            {
-                Leaderboards = _leaderboards.GetUserLeaderBoards(username)
-            };
+            var response = _leaderboards.GetUserLeaderBoards(username);
             return Ok(response);
         }
 
         [HttpGet("id/{id}")]
         public IActionResult GetLeaderboard(int id)
         {
-            var response = new LeaderboardResponse
-            {
-                Leaderboard = _leaderboards.GetLeaderboard(id)
-            };
+            var response = _leaderboards.GetLeaderboard(id);
             return Ok(response);
         }
 
         [HttpPut("match/{id}")]
         public IActionResult InputMatch(int id, [FromBody] MatchModel match)
         {
-            var response = new OkResponse()
-            {
-                Ok = _leaderboards.InputMatch(id, match)
-            };
-            if (response.Ok)
-                return Ok(response);
+            var ok = _leaderboards.InputMatch(id, match);
+            if (ok)
+                return Ok(ok);
             else
-                return BadRequest(response);
+                return BadRequest(ok);
         }
 
         [HttpPut("trainer/{id}")]
         public IActionResult AddTrainer(int id, [FromBody] ParticipantModel trainer)
         {
-            var response = new AddTrainerResponse
-            {
-                ResponseCode = _leaderboards.AddTrainer(id, trainer)
-            };
+            var response = _leaderboards.AddTrainer(id, trainer);
 
-            switch (response.ResponseCode)
+            switch (response)
             {
                 case AddTrainerResponseCode.TrainerAddedSuccesfully:
                     return Ok(response);
@@ -76,12 +60,9 @@ namespace PVPService.Controllers
         [HttpPut]
         public IActionResult CreateLeaderboard([FromBody] LeaderboardModel leaderboard)
         {
-            var response = new CreateLeaderboardResponse
-            {
-                ResponseCode = _leaderboards.AddLeaderboard(leaderboard)
-            };
+            var response = _leaderboards.AddLeaderboard(leaderboard);
 
-            switch (response.ResponseCode)
+            switch (response)
             {
                 case CreateLeaderboardResponseCode.CreatedSuccessfully:
                     return Ok(response);

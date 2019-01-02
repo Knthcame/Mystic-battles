@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using Models.ApiResponses;
 using Models.Classes;
 using Models.Enums;
 using PVPService.Services;
@@ -18,12 +17,9 @@ namespace PVPService.Controllers
         {
             try
             {
-                var response = new SignInResponse
-                {
-                    ResponseCode = _accounts.RegisterNewAccount(account)
-                };
+                var response = _accounts.RegisterNewAccount(account);
 
-                switch (response.ResponseCode)
+                switch (response)
                 {
                     case SignInResponseCode.SignInSuccessful:
                         return Ok(response);

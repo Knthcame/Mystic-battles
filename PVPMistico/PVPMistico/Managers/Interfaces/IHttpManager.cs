@@ -1,5 +1,4 @@
-﻿using Models.ApiResponses.Interfaces;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace PVPMistico.Managers.Interfaces
 {

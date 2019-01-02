@@ -58,7 +58,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
         {
             var response = await _leaderboardManager.AddTrainerAsync(_leaderboard, SelectedTrainer);
 
-            switch (response.ResponseCode)
+            switch (response)
             {
                 case AddTrainerResponseCode.TrainerAddedSuccesfully:
                     await NavigationService.GoBackAsync();

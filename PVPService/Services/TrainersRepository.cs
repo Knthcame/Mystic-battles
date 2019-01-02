@@ -6,20 +6,6 @@ namespace PVPService.Services
 {
     public class TrainersRepository
     {
-        private List<TrainerModel> _trainers = new List<TrainerModel>
-        {
-            new TrainerModel
-            {
-                Level = 40,
-                Username = "Originals"
-            },
-            new TrainerModel
-            {
-                Level = 39,
-                Username = "No originals"
-            }
-        };
-
         private Database _database = new Database();
 
         public TrainerModel GetTrainer(string username) 

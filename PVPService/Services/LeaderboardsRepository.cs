@@ -9,9 +9,7 @@ namespace PVPService.Services
 {
     public class LeaderboardsRepository
     {
-        private List<LeaderboardModel> _leaderboards;// = LeaderboardMock();
-
-        private Database _database = new Database();
+        private readonly Database _database = new Database();
 
         public List<LeaderboardModel> GetLeaderboards() => _database.GetLeaderboards();
 

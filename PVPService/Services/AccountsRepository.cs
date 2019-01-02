@@ -1,17 +1,10 @@
-﻿using System.Collections.Generic;
-using Models.Classes;
+﻿using Models.Classes;
 using Models.Enums;
 
 namespace PVPService.Services
 {
     public class AccountsRepository
     {
-        private List<AccountModel> _accounts = new List<AccountModel>()
-        {
-            new AccountModel("Originals", "Test123"),
-            new AccountModel("No originals", null)
-        };
-
         private Database _database = new Database();
 
         public bool IsAccountRegistered(string username)
@@ -59,7 +52,7 @@ namespace PVPService.Services
             if (!IsAccountRegistered(account.Username))
                 return LogInResponseCode.UsernameNotRegistered;
 
-            var registeredAccount = _accounts.Find((user) => user.Username == account.Username);
+            var registeredAccount = _database.GetAccounts().Find((user) => user.Username == account.Username);
             if (registeredAccount.Password != account.Password)
                 return LogInResponseCode.PasswordIncorrect;
             else

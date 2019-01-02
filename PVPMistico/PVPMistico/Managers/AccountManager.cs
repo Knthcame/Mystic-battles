@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Models.ApiResponses;
 using Models.Classes;
 using Models.Enums;
 using PVPMistico.Constants;
@@ -26,9 +25,9 @@ namespace PVPMistico.Managers
 
         public async Task<string> LogInAsync(AccountModel account)
         {
-            var response = await _httpManager.PostAsync<LogInResponse>(ApiConstants.LogInURL, account);
+            var response = await _httpManager.PostAsync<LogInResponseCode>(ApiConstants.LogInURL, account);
 
-            switch (response.ResponseCode)
+            switch (response)
             {
                 case LogInResponseCode.UsernameNotRegistered:
                     return LogInResponses.UsernameNotFound;
@@ -49,9 +48,9 @@ namespace PVPMistico.Managers
         {
             try
             {
-                var response = await _httpManager.GetAsync<OkResponse>(ApiConstants.LogInURL, parameter: username);
+                var response = await _httpManager.GetAsync<bool>(ApiConstants.LogInURL, parameter: username);
 
-                return response.Ok;
+                return response;
             }
             catch(Exception e)
             {
@@ -62,9 +61,9 @@ namespace PVPMistico.Managers
 
         public async Task<string> SignInAsync(AccountModel account)
         {
-            var response = await _httpManager.PostAsync<SignInResponse>(ApiConstants.SignInURL, account);
+            var response = await _httpManager.PostAsync<SignInResponseCode>(ApiConstants.SignInURL, account);
             
-            switch (response.ResponseCode)
+            switch (response)
             {
                 case SignInResponseCode.SignInSuccessful:
                     await SecureStorage.SetAsync(SecureStorageTokens.Username, account.Username);
@@ -75,7 +74,7 @@ namespace PVPMistico.Managers
                     break;
             }
 
-            if (SignInResponsesDictionary.GetResponseString(response.ResponseCode, out string message))
+            if (SignInResponsesDictionary.GetResponseString(response, out string message))
                 return message;
             else
                 return AppResources.Error;

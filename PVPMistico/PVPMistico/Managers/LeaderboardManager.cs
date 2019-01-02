@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
-using Models.ApiResponses;
 using Models.Classes;
 using Models.Enums;
 using PVPMistico.Constants;
@@ -22,10 +19,10 @@ namespace PVPMistico.Managers
             _httpManager = httpManager;
         }
 
-        public async Task<CreateLeaderboardResponse> CreateLeaderboardAsync(string name, LeagueTypesEnum leagueType, ParticipantModel creator)
+        public async Task<CreateLeaderboardResponseCode> CreateLeaderboardAsync(string name, LeagueTypesEnum leagueType, ParticipantModel creator)
         {
             if (creator == null)
-                return new CreateLeaderboardResponse { ResponseCode = CreateLeaderboardResponseCode.UnknownError };
+                return CreateLeaderboardResponseCode.UnknownError;
 
             creator.IsAdmin = true;
             var leaderboard = new LeaderboardModel()
@@ -37,49 +34,49 @@ namespace PVPMistico.Managers
                     creator
                 }
             };
-            var response = await _httpManager.PutAsync<CreateLeaderboardResponse>(ApiConstants.LeaderboardsURL, leaderboard);
+            var response = await _httpManager.PutAsync<CreateLeaderboardResponseCode>(ApiConstants.LeaderboardsURL, leaderboard);
 
             return response;
         }
 
         public async Task<LeaderboardModel> GetLeaderboardAsync(int id)
         {
-            var response = await _httpManager.GetAsync<LeaderboardResponse>(ApiConstants.LeaderboardsURL, ApiConstants.IdExtension, id.ToString());
+            var response = await _httpManager.GetAsync<LeaderboardModel>(ApiConstants.LeaderboardsURL, ApiConstants.IdExtension, id.ToString());
             if (response == null)
                 return null;
 
-            return response.Leaderboard;
+            return response;
         }
 
         public async Task<List<LeaderboardModel>> GetLeaderboardsAsync()
         {
-            var response = await _httpManager.GetAsync<LeaderboardListResponse>(ApiConstants.LeaderboardsURL);
+            var response = await _httpManager.GetAsync<List<LeaderboardModel>>(ApiConstants.LeaderboardsURL);
             if (response == null)
                 return null;
 
-            return response.Leaderboards;
+            return response;
         }
 
         public async Task<List<LeaderboardModel>> GetMyLeaderboardsAsync(string username)
         {
-            var response = await _httpManager.GetAsync<LeaderboardListResponse>(ApiConstants.LeaderboardsURL, ApiConstants.UsernameExtension, username);
+            var response = await _httpManager.GetAsync<List<LeaderboardModel>>(ApiConstants.LeaderboardsURL, ApiConstants.UsernameExtension, username);
             if (response == null)
                 return null;
 
-            return response.Leaderboards;
+            return response;
         }
 
-        public async Task<AddTrainerResponse> AddTrainerAsync(LeaderboardModel leaderboard, TrainerModel trainer)
+        public async Task<AddTrainerResponseCode> AddTrainerAsync(LeaderboardModel leaderboard, TrainerModel trainer)
         {
             if (trainer == null || leaderboard == null)
-                return new AddTrainerResponse { ResponseCode = AddTrainerResponseCode.UnknownError };
+                return AddTrainerResponseCode.UnknownError;
 
             var participant = new ParticipantModel()
             {
                 Username = trainer.Username,
                 Level = trainer.Level
             };
-            var response = await _httpManager.PutAsync<AddTrainerResponse>(ApiConstants.LeaderboardsURL, trainer, extension: ApiConstants.TrainerExtension, parameter: leaderboard.ID.ToString());
+            var response = await _httpManager.PutAsync<AddTrainerResponseCode>(ApiConstants.LeaderboardsURL, trainer, extension: ApiConstants.TrainerExtension, parameter: leaderboard.ID.ToString());
             return response;
         }
 
@@ -94,11 +91,9 @@ namespace PVPMistico.Managers
             if (leaderboard == null || match == null)
                 return false;
 
-            var response = await _httpManager.PutAsync<OkResponse>(ApiConstants.LeaderboardsURL, match, extension: ApiConstants.MatchExtension, parameter: leaderboard.ID.ToString());
-            if (response == null)
-                return false;
+            var response = await _httpManager.PutAsync<bool>(ApiConstants.LeaderboardsURL, match, extension: ApiConstants.MatchExtension, parameter: leaderboard.ID.ToString());
 
-            return response.Ok;
+            return response;
         }
     }
 }

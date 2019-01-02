@@ -1,5 +1,4 @@
-﻿using Models.ApiResponses.Interfaces;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using System;
