@@ -34,6 +34,8 @@ namespace PVPService.Services
             if (winner == null || loser == null)
                 return false;
 
+            match.DateTime = DateTime.Now;
+
             AddWin(winner, match);
             AddLoss(loser, match);
             RecalculatePositions(leaderboard);
@@ -85,7 +87,7 @@ namespace PVPService.Services
 
         private static void RecalculatePositions(LeaderboardModel leaderboard)
         {
-            var orderedParticipants = leaderboard.Trainers.OrderBy((participant) => participant.Points);
+            var orderedParticipants = leaderboard.Trainers.OrderByDescending((participant) => participant.Points);
             int i = 1;
             foreach (TrainerModel participant in orderedParticipants)
             {

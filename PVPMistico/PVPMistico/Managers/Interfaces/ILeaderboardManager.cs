@@ -20,6 +20,6 @@ namespace PVPMistico.Managers.Interfaces
 
         bool RemoveTrainer(LeaderboardModel leaderboard, TrainerModel trainer);
 
-        bool InputMatch(LeaderboardModel leaderboard, MatchModel match);
+        Task<bool> InputMatch(LeaderboardModel leaderboard, MatchModel match);
     }
 }

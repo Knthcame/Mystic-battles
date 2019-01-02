@@ -44,10 +44,14 @@ namespace PVPService.Controllers
         [HttpPut("match/{id}")]
         public IActionResult InputMatch(int id, [FromBody] MatchModel match)
         {
-            if (LeaderboardsRepository.InputMatch(id, match))
-                return Ok();
+            var response = new OkResponse()
+            {
+                Ok = LeaderboardsRepository.InputMatch(id, match)
+            };
+            if (response.Ok)
+                return Ok(response);
             else
-                return BadRequest();
+                return BadRequest(response);
         }
 
         [HttpPut("trainer/{id}")]

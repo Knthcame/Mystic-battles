@@ -86,7 +86,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
 
         private async Task ConfirmInputAsync()
         {
-            if (_leaderboardManager.InputMatch(_leaderboard, _match))
+            if (await _leaderboardManager.InputMatch(_leaderboard, _match))
             {
                 await NavigationService.GoBackAsync();
             }

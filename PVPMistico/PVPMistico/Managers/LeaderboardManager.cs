@@ -87,23 +87,16 @@ namespace PVPMistico.Managers
         }
 
         
-        public bool InputMatch(LeaderboardModel leaderboard, MatchModel match)
+        public async Task<bool> InputMatch(LeaderboardModel leaderboard, MatchModel match)
         {
             if (leaderboard == null || match == null)
                 return false;
 
-            match.DateTime = DateTime.Now;
+            var response = await _httpManager.PutAsync<OkResponse>(ApiConstants.LeaderboardsURL, match, extension: ApiConstants.MatchExtension, parameter: leaderboard.ID.ToString());
+            if (response == null)
+                return false;
 
-            var winner = leaderboard.Trainers.FirstOrDefault((participant => participant.Username == match.Winner));
-            winner.Wins++;
-            winner.Points += 3;
-            winner.Matches.Add(match);
-
-            var loser = leaderboard.Trainers.FirstOrDefault((participant => participant.Username == match.Loser));
-            loser.Losses++;
-            loser.Matches.Add(match);
-
-            return true;
+            return response.Ok;
         }
     }
 }
