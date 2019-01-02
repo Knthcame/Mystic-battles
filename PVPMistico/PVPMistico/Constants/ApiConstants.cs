@@ -10,6 +10,8 @@
 
         public const string LeaderboardsURL = BaseURL + "api/Leaderboards/";
 
+        public const string TrainersURL = BaseURL + "api/Trainers/";
+
         public const string UsernameExtension = "username/";
 
         public const string IdExtension = "id/";

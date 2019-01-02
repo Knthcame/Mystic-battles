@@ -20,7 +20,7 @@ namespace PVPMistico.Managers
             _client = new HttpClient();
         }
 
-        public async Task<ApiResponse> DeleteAsync<ApiResponse>(string url, string extension = "", string parameter = "") where ApiResponse : IApiResponse
+        public async Task<ApiResponse> DeleteAsync<ApiResponse>(string url, string extension = "", string parameter = "")
         {
             try
             {
@@ -33,7 +33,7 @@ namespace PVPMistico.Managers
             }
         }
 
-        public async Task<ApiResponse> GetAsync<ApiResponse>(string url, string extension = "", string parameter = "") where ApiResponse : IApiResponse
+        public async Task<ApiResponse> GetAsync<ApiResponse>(string url, string extension = "", string parameter = "")
         {
             try
             {
@@ -46,7 +46,7 @@ namespace PVPMistico.Managers
             }
         }
 
-        public async Task<ApiResponse> PostAsync<ApiResponse>(string url, object body, string extension = "", string parameter = "") where ApiResponse : IApiResponse
+        public async Task<ApiResponse> PostAsync<ApiResponse>(string url, object body, string extension = "", string parameter = "")
         {
             try
             {
@@ -61,7 +61,7 @@ namespace PVPMistico.Managers
             }
         }
 
-        public async Task<ApiResponse> PutAsync<ApiResponse>(string url, object body, string extension = "", string parameter = "") where ApiResponse : IApiResponse
+        public async Task<ApiResponse> PutAsync<ApiResponse>(string url, object body, string extension = "", string parameter = "")
         {
             try
             {
@@ -76,13 +76,13 @@ namespace PVPMistico.Managers
             }
         }
 
-        private async Task<ApiResponse> ParseResponse<ApiResponse>(HttpResponseMessage response) where ApiResponse : IApiResponse
+        private async Task<ApiResponse> ParseResponse<ApiResponse>(HttpResponseMessage response)
         {
             var responseContent = await response.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<ApiResponse>(responseContent);
         }
 
-        private ApiResponse HandleClientError<ApiResponse>(Exception e) where ApiResponse : IApiResponse
+        private ApiResponse HandleClientError<ApiResponse>(Exception e)
         {
             _logger.Error(e.Message);
             return default(ApiResponse);

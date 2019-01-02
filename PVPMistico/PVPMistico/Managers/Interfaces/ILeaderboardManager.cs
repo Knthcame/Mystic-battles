@@ -12,13 +12,13 @@ namespace PVPMistico.Managers.Interfaces
 
         Task<LeaderboardModel> GetLeaderboardAsync(int id);
 
-        Task<CreateLeaderboardResponse> CreateLeaderboardAsync(string name, LeagueTypesEnum leagueType, TrainerModel creator);
+        Task<CreateLeaderboardResponse> CreateLeaderboardAsync(string name, LeagueTypesEnum leagueType, ParticipantModel creator);
 
         Task<List<LeaderboardModel>> GetMyLeaderboardsAsync(string username);
 
         Task<AddTrainerResponse> AddTrainerAsync(LeaderboardModel leaderboard, TrainerModel trainer);
 
-        bool RemoveTrainer(LeaderboardModel leaderboard, TrainerModel trainer);
+        bool RemoveTrainer(LeaderboardModel leaderboard, ParticipantModel trainer);
 
         Task<bool> InputMatch(LeaderboardModel leaderboard, MatchModel match);
     }

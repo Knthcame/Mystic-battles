@@ -22,7 +22,7 @@ namespace PVPMistico.Managers
             _httpManager = httpManager;
         }
 
-        public async Task<CreateLeaderboardResponse> CreateLeaderboardAsync(string name, LeagueTypesEnum leagueType, TrainerModel creator)
+        public async Task<CreateLeaderboardResponse> CreateLeaderboardAsync(string name, LeagueTypesEnum leagueType, ParticipantModel creator)
         {
             if (creator == null)
                 return new CreateLeaderboardResponse { ResponseCode = CreateLeaderboardResponseCode.UnknownError };
@@ -32,7 +32,7 @@ namespace PVPMistico.Managers
             {
                 LeagueType = leagueType,
                 Name = name,
-                Trainers = new ObservableCollection<TrainerModel>()
+                Participant = new ObservableCollection<ParticipantModel>()
                 {
                     creator
                 }
@@ -70,20 +70,22 @@ namespace PVPMistico.Managers
         }
 
         public async Task<AddTrainerResponse> AddTrainerAsync(LeaderboardModel leaderboard, TrainerModel trainer)
-        { 
-            var participant = new TrainerModel()
+        {
+            if (trainer == null || leaderboard == null)
+                return new AddTrainerResponse { ResponseCode = AddTrainerResponseCode.UnknownError };
+
+            var participant = new ParticipantModel()
             {
                 Username = trainer.Username,
-                Level = trainer.Level,
-                Position = leaderboard.Trainers.Count + 1
+                Level = trainer.Level
             };
             var response = await _httpManager.PutAsync<AddTrainerResponse>(ApiConstants.LeaderboardsURL, trainer, extension: ApiConstants.TrainerExtension, parameter: leaderboard.ID.ToString());
             return response;
         }
 
-        public bool RemoveTrainer(LeaderboardModel leaderboard, TrainerModel trainer)
+        public bool RemoveTrainer(LeaderboardModel leaderboard, ParticipantModel trainer)
         {
-            return leaderboard.Trainers.Remove(trainer);
+            return leaderboard.Participant.Remove(trainer);
         }
 
         

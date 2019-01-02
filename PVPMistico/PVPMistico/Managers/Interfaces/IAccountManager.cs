@@ -14,10 +14,10 @@ namespace PVPMistico.Managers.Interfaces
 
         void LogOut();
 
-        Task<TrainerModel> CreateParticipantAsync(string username, bool isAdmin);
+        Task<ParticipantModel> CreateParticipantAsync(string username, bool isAdmin);
 
-        TrainerModel GetTrainer(string username);
+        Task<TrainerModel> GetTrainer(string username);
 
-        IList<TrainerModel> GetRegisteredTrainers();
+        Task<IList<TrainerModel>> GetRegisteredTrainers();
     }
 }

@@ -40,6 +40,11 @@ namespace PVPService.Services
                 return SignInResponseCode.EmailAlreadyUsed;
             
             _accounts.Add(account);
+            TrainersRepository.AddTrainer(new TrainerModel
+            {
+                Username = account.Username,
+                Level = 40
+            });
             return SignInResponseCode.SignInSuccessful;
         }
 

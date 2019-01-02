@@ -55,7 +55,7 @@ namespace PVPService.Controllers
         }
 
         [HttpPut("trainer/{id}")]
-        public IActionResult AddTrainer(int id, [FromBody] TrainerModel trainer)
+        public IActionResult AddTrainer(int id, [FromBody] ParticipantModel trainer)
         {
             var response = new AddTrainerResponse
             {

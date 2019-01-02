@@ -50,7 +50,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
             _accountManager = accountManager;
             _leaderboardManager = leaderboardManager;
             _dialogManager = dialogManager;
-            SearchTrainerCommand = new DelegateCommand(OnTrainerSearch);
+            SearchTrainerCommand = new DelegateCommand(async () => await OnTrainerSearch());
             TrainerSelectedCommand = new DelegateCommand(async () => await OnTrainerSelectedAsync());
         }
 
@@ -78,17 +78,17 @@ namespace PVPMistico.ViewModels.PopupViewModels
             }
         }
 
-        private void OnTrainerSearch()
+        private async Task OnTrainerSearch()
         {
             if (string.IsNullOrEmpty(SearchText) || string.IsNullOrWhiteSpace(SearchText))
-                SetFullTrainerList();
+                await SetFullTrainerListAsync();
             else
                 TrainerList = new ObservableCollection<TrainerModel>(TrainerList.Where((trainer) => trainer.Username.Contains(SearchText, StringComparison.OrdinalIgnoreCase)));
         }
 
-        private void SetFullTrainerList()
+        private async Task SetFullTrainerListAsync()
         {
-            var trainers = _accountManager.GetRegisteredTrainers();
+            var trainers = await _accountManager.GetRegisteredTrainers();
             RemoveAlreadyParticipatingTrainers(trainers);
             TrainerList = new ObservableCollection<TrainerModel>(trainers);
         }
@@ -98,7 +98,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
             if (_leaderboard == null)
                 return;
 
-            foreach (TrainerModel participant in _leaderboard.Trainers)
+            foreach (ParticipantModel participant in _leaderboard.Participant)
             {
                 var trainerToRemove = trainers.FirstOrDefault((trainer) => trainer.Username == participant.Username);
                 trainers.Remove(trainerToRemove);
@@ -117,7 +117,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
             }
             else
             {
-                SetFullTrainerList();
+                await SetFullTrainerListAsync();
                 if (TrainerList == null || TrainerList.Count == 0)
                 {
                     var config = new AlertConfig()

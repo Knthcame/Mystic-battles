@@ -89,10 +89,10 @@ namespace PVPMistico.Managers
         }
 
         /* Creates new ParticipantModel if user exists*/
-        public async Task<TrainerModel> CreateParticipantAsync(string username, bool isAdmin)
+        public async Task<ParticipantModel> CreateParticipantAsync(string username, bool isAdmin)
         {
             if (await CheckUsernameRegisteredAsync(username))
-                return new TrainerModel()
+                return new ParticipantModel()
                 {
                     IsAdmin = isAdmin,
                     Level = 40,
@@ -103,33 +103,14 @@ namespace PVPMistico.Managers
                 return null;
         }
 
-        public TrainerModel GetTrainer(string username)
+        public async Task<TrainerModel> GetTrainer(string username)
         {
-            if (username == "Originals")
-                return new TrainerModel()
-                {
-                    Username = "Originals",
-                    Level = 40
-                };
-            else
-                return null;
+            return await _httpManager.GetAsync<TrainerModel>(ApiConstants.TrainersURL, parameter: username);
         }
 
-        public IList<TrainerModel> GetRegisteredTrainers()
+        public async Task<IList<TrainerModel>> GetRegisteredTrainers()
         {
-            return new List<TrainerModel>()
-            {
-                new TrainerModel()
-                {
-                    Level = 40,
-                    Username = "Originals"
-                },
-                new TrainerModel()
-                {
-                    Level = 39,
-                    Username = "No originals"
-                }
-            };
+            return await _httpManager.GetAsync<IList<TrainerModel>>(ApiConstants.TrainersURL);
         }
     }
 }

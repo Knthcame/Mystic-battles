@@ -24,7 +24,7 @@ namespace PVPMistico.ViewModels
         private readonly IDialogManager _dialogManager;
         private LeaderboardModel _leaderboard;
         private bool _isCurrentUserAdmin;
-        private ObservableCollection<TrainerModel> _participants;
+        private ObservableCollection<ParticipantModel> _participants;
         #endregion
 
         #region Properties
@@ -34,7 +34,7 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _leaderboard, value);
         }
 
-        public ObservableCollection<TrainerModel> Participants
+        public ObservableCollection<ParticipantModel> Participants
         {
             get => _participants;
             set => SetProperty(ref _participants, value);
@@ -106,15 +106,15 @@ namespace PVPMistico.ViewModels
 
         private void OrderParticipants()
         {
-            var orderedParticipant = Leaderboard.Trainers.OrderBy((participant) => participant.Position);
-            Participants = new ObservableCollection<TrainerModel>(orderedParticipant);
+            var orderedParticipant = Leaderboard.Participant.OrderBy((participant) => participant.Position);
+            Participants = new ObservableCollection<ParticipantModel>(orderedParticipant);
         }
 
         private async Task SetAdminPermissionAsync()
         {
             var myUsername = await SecureStorage.GetAsync(SecureStorageTokens.Username);
 
-            var currentUser = Leaderboard.Trainers.FirstOrDefault((trainer) => trainer.Username == myUsername);
+            var currentUser = Leaderboard.Participant.FirstOrDefault((trainer) => trainer.Username == myUsername);
             if (currentUser != null && currentUser.IsAdmin == true)
                 IsCurrentUserAdmin = true;
         }

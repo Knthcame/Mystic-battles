@@ -86,8 +86,7 @@ namespace PVPMistico.ViewModels
 
         private async Task<ObservableCollection<LeaderBoardPreviewModel>> LoadMyLeaderboardsAsync()
         {
-            var usernameTask = SecureStorage.GetAsync(SecureStorageTokens.Username);
-            var username = usernameTask.Result;
+            var username = await SecureStorage.GetAsync(SecureStorageTokens.Username);
             var leaderboards = await _leaderboardManager.GetMyLeaderboardsAsync(username);
 
             var leaderboardPreviews = new ObservableCollection<LeaderBoardPreviewModel>();
@@ -99,7 +98,7 @@ namespace PVPMistico.ViewModels
                     ID = leaderboard.ID,
                     LeagueType = leaderboard.LeagueType,
                     Name = leaderboard.Name,
-                    Trainer = leaderboard.Trainers.FirstOrDefault((participant) => participant.Username == username)
+                    Participant = leaderboard.Participant.FirstOrDefault((participant) => participant.Username == username)
                 };
                 leaderboardPreviews.Add(leaderboardPreview);
             }
