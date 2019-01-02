@@ -10,13 +10,14 @@ namespace PVPService.Controllers
     [ApiController]
     public class LeaderboardsController : Controller
     {
+        private LeaderboardsRepository _leaderboards = new LeaderboardsRepository();
         // GET: /<controller>/
         [HttpGet]
         public IActionResult GetLeaderboards()
         {
             var response = new LeaderboardListResponse
             {
-                Leaderboards = LeaderboardsRepository.GetLeaderboards()
+                Leaderboards = _leaderboards.GetLeaderboards()
             };
             return Ok(response);
         }
@@ -26,7 +27,7 @@ namespace PVPService.Controllers
         {
             var response = new LeaderboardListResponse
             {
-                Leaderboards = LeaderboardsRepository.GetUserLeaderBoards(username)
+                Leaderboards = _leaderboards.GetUserLeaderBoards(username)
             };
             return Ok(response);
         }
@@ -36,7 +37,7 @@ namespace PVPService.Controllers
         {
             var response = new LeaderboardResponse
             {
-                Leaderboard = LeaderboardsRepository.GetLeaderboard(id)
+                Leaderboard = _leaderboards.GetLeaderboard(id)
             };
             return Ok(response);
         }
@@ -46,7 +47,7 @@ namespace PVPService.Controllers
         {
             var response = new OkResponse()
             {
-                Ok = LeaderboardsRepository.InputMatch(id, match)
+                Ok = _leaderboards.InputMatch(id, match)
             };
             if (response.Ok)
                 return Ok(response);
@@ -59,7 +60,7 @@ namespace PVPService.Controllers
         {
             var response = new AddTrainerResponse
             {
-                ResponseCode = LeaderboardsRepository.AddTrainer(id, trainer)
+                ResponseCode = _leaderboards.AddTrainer(id, trainer)
             };
 
             switch (response.ResponseCode)
@@ -77,7 +78,7 @@ namespace PVPService.Controllers
         {
             var response = new CreateLeaderboardResponse
             {
-                ResponseCode = LeaderboardsRepository.AddLeaderboard(leaderboard)
+                ResponseCode = _leaderboards.AddLeaderboard(leaderboard)
             };
 
             switch (response.ResponseCode)

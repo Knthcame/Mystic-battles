@@ -91,18 +91,20 @@ namespace PVPMistico.ViewModels
 
             var leaderboardPreviews = new ObservableCollection<LeaderBoardPreviewModel>();
 
-            foreach (LeaderboardModel leaderboard in leaderboards)
+            if (leaderboards != null)
             {
-                var leaderboardPreview = new LeaderBoardPreviewModel()
+                foreach (LeaderboardModel leaderboard in leaderboards)
                 {
-                    ID = leaderboard.ID,
-                    LeagueType = leaderboard.LeagueType,
-                    Name = leaderboard.Name,
-                    Participant = leaderboard.Participant.FirstOrDefault((participant) => participant.Username == username)
-                };
-                leaderboardPreviews.Add(leaderboardPreview);
+                    var leaderboardPreview = new LeaderBoardPreviewModel()
+                    {
+                        ID = leaderboard.ID,
+                        LeagueType = leaderboard.LeagueType,
+                        Name = leaderboard.Name,
+                        Participant = leaderboard.Participant.FirstOrDefault((participant) => participant.Username == username)
+                    };
+                    leaderboardPreviews.Add(leaderboardPreview);
+                }
             }
-
             return leaderboardPreviews;
         }
 

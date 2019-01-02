@@ -1,18 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Models.Classes;
 using Models.Enums;
+using SQLite;
 
 namespace PVPService.Services
 {
-    public static class AccountsRepository
+    public class AccountsRepository
     {
-        private static List<AccountModel> _accounts = new List<AccountModel>()
+        private List<AccountModel> _accounts = new List<AccountModel>()
         {
             new AccountModel("Originals", "Test123"),
             new AccountModel("No originals", null)
         };
 
-        public static bool IsAccountRegistered(string username)
+        private Database _database = new Database();
+
+        public bool IsAccountRegistered(string username)
         {
             if (username == null)
                 return false;
@@ -20,7 +24,7 @@ namespace PVPService.Services
             return _accounts.Find((account) => account.Username == username) != null;
         }
 
-        public static bool IsEmailRegistered(string email)
+        public bool IsEmailRegistered(string email)
         {
             if (email == null)
                 return false;
@@ -28,7 +32,7 @@ namespace PVPService.Services
             return _accounts.Find((account) => account.Email == email) != null;
         }
 
-        public static SignInResponseCode RegisterNewAccount(AccountModel account)
+        public SignInResponseCode RegisterNewAccount(AccountModel account)
         {
             if (account == null)
                 return SignInResponseCode.UnknowError;
@@ -39,16 +43,20 @@ namespace PVPService.Services
             else if (IsEmailRegistered(account.Email))
                 return SignInResponseCode.EmailAlreadyUsed;
             
-            _accounts.Add(account);
-            TrainersRepository.AddTrainer(new TrainerModel
+            var added =_database.AddObject(account);
+            added = added && _database.AddObject(new TrainerModel
             {
                 Username = account.Username,
                 Level = 40
             });
-            return SignInResponseCode.SignInSuccessful;
+
+            if (added)
+                return SignInResponseCode.SignInSuccessful;
+            else
+                return SignInResponseCode.UnknowError;
         }
 
-        public static LogInResponseCode ValidateCredentials(AccountModel account)
+        public LogInResponseCode ValidateCredentials(AccountModel account)
         {
             if (!IsAccountRegistered(account.Username))
                 return LogInResponseCode.UsernameNotRegistered;

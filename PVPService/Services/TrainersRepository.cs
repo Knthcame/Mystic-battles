@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace PVPService.Services
 {
-    public static class TrainersRepository
+    public class TrainersRepository
     {
-        private static List<TrainerModel> _trainers = new List<TrainerModel>
+        private List<TrainerModel> _trainers = new List<TrainerModel>
         {
             new TrainerModel
             {
@@ -20,13 +20,15 @@ namespace PVPService.Services
             }
         };
 
-        public static TrainerModel GetTrainer(string username) 
-            => _trainers.FirstOrDefault(trainer => trainer.Username == username);
+        private Database _database = new Database();
 
-        public static List<TrainerModel> GetTrainers() 
-            => _trainers;
+        public TrainerModel GetTrainer(string username) 
+            => _database.GetTrainers().FirstOrDefault(trainer => trainer.Username == username);
 
-        public static void AddTrainer(TrainerModel trainer)
-            => _trainers.Add(trainer);
+        public List<TrainerModel> GetTrainers() 
+            => _database.GetTrainers();
+
+        public void AddTrainer(TrainerModel trainer)
+            => _database.AddObject(trainer);
     }
 }

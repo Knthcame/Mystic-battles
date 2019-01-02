@@ -7,24 +7,26 @@ using System.Linq;
 
 namespace PVPService.Services
 {
-    public static class LeaderboardsRepository
+    public class LeaderboardsRepository
     {
-        private static List<LeaderboardModel> _leaderboards = LeaderboardMock();
+        private List<LeaderboardModel> _leaderboards;// = LeaderboardMock();
 
-        public static List<LeaderboardModel> GetLeaderboards() => _leaderboards;
+        private Database _database = new Database();
 
-        public static List<LeaderboardModel> GetUserLeaderBoards(string username) => 
-            new List<LeaderboardModel>(_leaderboards.Where((boards) => boards.Participant.Any((participant) => participant.Username == username)));
+        public List<LeaderboardModel> GetLeaderboards() => _database.GetLeaderboards();
 
-        public static LeaderboardModel GetLeaderboard(int id) =>
-            _leaderboards.FirstOrDefault((board) => board.ID == id);
+        public List<LeaderboardModel> GetUserLeaderBoards(string username) => 
+            new List<LeaderboardModel>(_database.GetLeaderboards().Where((boards) => boards.Participant.Any((participant) => participant.Username == username)));
 
-        public static bool InputMatch(int id, MatchModel match)
+        public LeaderboardModel GetLeaderboard(int id) =>
+            _database.GetLeaderboards().FirstOrDefault((board) => board.ID == id);
+
+        public bool InputMatch(int id, MatchModel match)
         {
             if (match == null)
                 return false;
 
-            var leaderboard = _leaderboards.FirstOrDefault((board) => board.ID == id);
+            var leaderboard = _database.GetLeaderboards().FirstOrDefault((board) => board.ID == id);
             if (leaderboard == null)
                 return false;
 
@@ -42,25 +44,25 @@ namespace PVPService.Services
             return true;
         }
 
-        public static CreateLeaderboardResponseCode AddLeaderboard(LeaderboardModel leaderboard)
+        public CreateLeaderboardResponseCode AddLeaderboard(LeaderboardModel leaderboard)
         {
             if (leaderboard == null || leaderboard.Participant == null)
                 return CreateLeaderboardResponseCode.UnknownError;
 
-            if (_leaderboards.Any(board => board.Name == leaderboard.Name))
+            if (_database.GetLeaderboards().Any(board => board.Name == leaderboard.Name))
                 return CreateLeaderboardResponseCode.NameAlreadyUsed;
 
-            leaderboard.ID = GenerateNewID();
-            _leaderboards.Add(leaderboard);
+            //leaderboard.ID = GenerateNewID();
+            _database.GetLeaderboards().Add(leaderboard);
             return CreateLeaderboardResponseCode.CreatedSuccessfully;
         }
 
-        public static AddTrainerResponseCode AddTrainer(int leaderboardId, ParticipantModel trainer)
+        public AddTrainerResponseCode AddTrainer(int leaderboardId, ParticipantModel trainer)
         {
             if (trainer == null)
                 return AddTrainerResponseCode.UnknownError;
 
-            var leaderboard = _leaderboards.FirstOrDefault((board) => board.ID == leaderboardId);
+            var leaderboard = _database.GetLeaderboards().FirstOrDefault((board) => board.ID == leaderboardId);
             if (leaderboard == null)
                 return AddTrainerResponseCode.UnknownError;
 
@@ -73,19 +75,19 @@ namespace PVPService.Services
             return AddTrainerResponseCode.TrainerAddedSuccesfully;
         }
 
-        private static int GenerateNewID()
+        private int GenerateNewID()
         {
             int newId;
             do
             {
                 newId = new Random().Next();
             }
-            while (_leaderboards.Any((board => board.ID == newId)));
+            while (_database.GetLeaderboards().Any((board => board.ID == newId)));
 
             return newId;
         }
 
-        private static void RecalculatePositions(LeaderboardModel leaderboard)
+        private void RecalculatePositions(LeaderboardModel leaderboard)
         {
             var orderedParticipants = leaderboard.Participant.OrderByDescending((participant) => participant.Points);
             int i = 1;
@@ -95,20 +97,20 @@ namespace PVPService.Services
             }
         }
 
-        private static void AddLoss(ParticipantModel loser, MatchModel match)
+        private void AddLoss(ParticipantModel loser, MatchModel match)
         {
             loser.Losses++;
             loser.Matches.Add(match);
         }
 
-        private static void AddWin(ParticipantModel winner, MatchModel match)
+        private void AddWin(ParticipantModel winner, MatchModel match)
         {
             winner.Wins++;
             winner.Points += 3;
             winner.Matches.Add(match);
         }
 
-        private static List<LeaderboardModel> LeaderboardMock()
+        private List<LeaderboardModel> LeaderboardMock()
         {
             return new List<LeaderboardModel>()
             {

@@ -11,6 +11,7 @@ namespace PVPService.Controllers
     [ApiController]
     public class LogInController : ControllerBase
     {
+        private AccountsRepository _accounts = new AccountsRepository();
 
         //GET api/LogIn
         [HttpGet("{username}")]
@@ -20,7 +21,7 @@ namespace PVPService.Controllers
             {
                 var response = new OkResponse
                 {
-                    Ok = AccountsRepository.IsAccountRegistered(username)
+                    Ok = _accounts.IsAccountRegistered(username)
                 };
 
                 return Ok(response);
@@ -38,7 +39,7 @@ namespace PVPService.Controllers
             try
             {
                 LogInResponse response = new LogInResponse();
-                var responseCode = AccountsRepository.ValidateCredentials(account);
+                var responseCode = _accounts.ValidateCredentials(account);
 
                 response.ResponseCode = responseCode;
                 switch (responseCode)

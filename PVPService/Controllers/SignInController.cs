@@ -11,6 +11,8 @@ namespace PVPService.Controllers
     [ApiController]
     public class SignInController : ControllerBase
     {
+        private AccountsRepository _accounts = new AccountsRepository();
+
         [HttpPost]
         public IActionResult Post([FromBody] AccountModel account)
         {
@@ -18,7 +20,7 @@ namespace PVPService.Controllers
             {
                 var response = new SignInResponse
                 {
-                    ResponseCode = AccountsRepository.RegisterNewAccount(account)
+                    ResponseCode = _accounts.RegisterNewAccount(account)
                 };
 
                 switch (response.ResponseCode)

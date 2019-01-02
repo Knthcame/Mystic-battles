@@ -1,7 +1,14 @@
-﻿namespace Models.Classes
+﻿using SQLite;
+
+namespace Models.Classes
 {
+    [Table(nameof(AccountModel))]
     public class AccountModel
     {
+        [PrimaryKey]
+        [AutoIncrement]
+        public int DatabaseID { get; set; }
+
         public string Username { get; set; }
 
         public string Password { get; set; }

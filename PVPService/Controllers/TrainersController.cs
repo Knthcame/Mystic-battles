@@ -7,14 +7,15 @@ namespace PVPService.Controllers
     [ApiController]
     public class TrainersController : Controller
     {
+        private TrainersRepository _trainers = new TrainersRepository();
         // GET: /<controller>/
         [HttpGet]
         public IActionResult GetRegisteredTrainers() 
-            => Ok(TrainersRepository.GetTrainers());
+            => Ok(_trainers.GetTrainers());
 
         [HttpGet("{username}")]
         public IActionResult GetTrainer(string username) 
-            => Ok(TrainersRepository.GetTrainer(username));
+            => Ok(_trainers.GetTrainer(username));
         
     }
 }
