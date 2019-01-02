@@ -39,6 +39,18 @@ namespace PVPService.Services
             return true;
         }
 
+        public static CreateLeaderboardResponseCode AddLeaderboard(LeaderboardModel leaderboard)
+        {
+            if (leaderboard == null || leaderboard.Participants == null)
+                return CreateLeaderboardResponseCode.UnknownError;
+
+            if (_leaderboards.Any(board => board.Name == leaderboard.Name))
+                return CreateLeaderboardResponseCode.NameAlreadyUsed;
+
+            _leaderboards.Add(leaderboard);
+            return CreateLeaderboardResponseCode.CreatedSuccessfully;
+        }
+
         private static void RecalculatePositions(LeaderboardModel leaderboard)
         {
             var orderedParticipants = leaderboard.Participants.OrderBy((participant) => participant.Points);

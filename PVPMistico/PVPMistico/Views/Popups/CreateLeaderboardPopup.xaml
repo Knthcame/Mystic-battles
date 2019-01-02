@@ -6,7 +6,7 @@
                     xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets"
                     xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
                     xmlns:PrismBehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
-                    x:Class="PVPMistico.Views.Popups.CreateTournamentPopUp">
+                    x:Class="PVPMistico.Views.Popups.CreateLeaderboardPopup">
 
     <MyPopups:BasePopup.Animation>
 
@@ -49,7 +49,7 @@
 
             </Picker>
             <Button Text="{Localization:Translate CreateLeadearboard}"
-                    Command="{Binding CreateTournamentCommand}"
+                    Command="{Binding CreateLeaderboardCommand}"
                     IsEnabled="{Binding ButtonEnabled}"/>
 
         </StackLayout>

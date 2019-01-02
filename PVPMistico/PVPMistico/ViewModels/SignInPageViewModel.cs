@@ -10,6 +10,7 @@ using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
 using PVPMistico.Validation;
 using PVPMistico.Validation.Rules;
+using PVPMistico.ViewModels.BaseViewModels;
 using PVPMistico.Views;
 
 namespace PVPMistico.ViewModels

@@ -12,9 +12,10 @@ using PVPMistico.Enums;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
+using PVPMistico.ViewModels.BaseViewModels;
 using Xamarin.Essentials;
 
-namespace PVPMistico.ViewModels
+namespace PVPMistico.ViewModels.PopupViewModels
 {
     public class InputMatchPopupViewModel : BaseViewModel
     {

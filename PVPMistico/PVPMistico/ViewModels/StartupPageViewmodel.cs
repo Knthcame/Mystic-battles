@@ -2,6 +2,7 @@
 using Prism.Navigation;
 using PVPMistico.Constants;
 using PVPMistico.Logging.Interfaces;
+using PVPMistico.ViewModels.BaseViewModels;
 using PVPMistico.Views;
 using Xamarin.Essentials;
 

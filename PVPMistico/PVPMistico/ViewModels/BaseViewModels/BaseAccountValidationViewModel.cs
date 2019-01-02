@@ -7,7 +7,7 @@ using PVPMistico.Validation;
 using PVPMistico.Validation.Rules;
 using System.Windows.Input;
 
-namespace PVPMistico.ViewModels
+namespace PVPMistico.ViewModels.BaseViewModels
 {
     public class BaseAccountValidationViewModel : BaseViewModel
     {

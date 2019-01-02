@@ -53,7 +53,16 @@ namespace PVPMistico.Managers
 
         public async Task<ApiResponse> PutAsync<ApiResponse>(string url, object body) where ApiResponse : IApiResponse
         {
-            throw new NotImplementedException();
+            try
+            {
+                var json = JsonConvert.SerializeObject(body);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                return await ParseResponse<ApiResponse>(await _client.PutAsync(url, content));
+            }
+            catch (Exception e)
+            {
+                return HandleClientError<ApiResponse>(e);
+            }
         }
 
         private async Task<ApiResponse> ParseResponse<ApiResponse>(HttpResponseMessage response) where ApiResponse : IApiResponse

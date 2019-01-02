@@ -22,23 +22,26 @@ namespace PVPMistico.Managers
             _httpManager = httpManager;
         }
 
-        public bool CreateTournament(string name, LeagueTypesEnum leagueType, ParticipantModel creator)
+        public async Task<CreateLeaderboardResponseCode> CreateTournamentAsync(string name, LeagueTypesEnum leagueType, ParticipantModel creator)
         {
             if (creator == null)
-                return false;
+                return CreateLeaderboardResponseCode.UnknownError;
 
             creator.IsAdmin = true;
-            leaderboards.Add(new LeaderboardModel()
+            var leaderboard = new LeaderboardModel()
             {
-                ID = leaderboards.Count + 1,
                 LeagueType = leagueType,
                 Name = name,
                 Participants = new ObservableCollection<ParticipantModel>()
                 {
                     creator
                 }
-            });
-            return true;
+            };
+            var response = await _httpManager.PutAsync<CreateLeaderboardResponse>(ApiConstants.LeaderboardsURL, leaderboard);
+            if (response == null)
+                return CreateLeaderboardResponseCode.UnknownError;
+
+            return response.ResponseCode;
         }
 
         public async Task<LeaderboardModel> GetLeaderboardAsync(int id)

@@ -9,6 +9,7 @@ using PVPMistico.Constants;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
+using PVPMistico.ViewModels.BaseViewModels;
 using PVPMistico.Views;
 using Xamarin.Forms;
 

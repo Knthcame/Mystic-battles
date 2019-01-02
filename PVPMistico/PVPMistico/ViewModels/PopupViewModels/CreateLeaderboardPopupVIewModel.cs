@@ -11,15 +11,16 @@ using PVPMistico.Models;
 using PVPMistico.Resources;
 using PVPMistico.Validation;
 using PVPMistico.Validation.Rules;
+using PVPMistico.ViewModels.BaseViewModels;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 
-namespace PVPMistico.ViewModels
+namespace PVPMistico.ViewModels.PopupViewModels
 {
-    public class CreateTournamentPopupViewModel : BaseViewModel
+    public class CreateLeaderboardPopupViewModel : BaseViewModel
     {
         #region Fields
         private readonly ILeaderboardManager _leaderboardManager;
@@ -36,7 +37,7 @@ namespace PVPMistico.ViewModels
 
         public LeagueTypePickerItemModel SelectedLeagueType { get; set; }
 
-        public ICommand CreateTournamentCommand { get; private set; }
+        public ICommand CreateLeaderboardCommand { get; private set; }
 
         public ICommand NameUnfocusedComamand { get; private set; }
 
@@ -55,7 +56,7 @@ namespace PVPMistico.ViewModels
         }
         #endregion
 
-        public CreateTournamentPopupViewModel(INavigationService navigationService, ICustomLogger logger, ILeaderboardManager leaderboardManager, IAccountManager accountManager, IDialogManager dialogManager)
+        public CreateLeaderboardPopupViewModel(INavigationService navigationService, ICustomLogger logger, ILeaderboardManager leaderboardManager, IAccountManager accountManager, IDialogManager dialogManager)
             : base(navigationService, logger)
         {
             _leaderboardManager = leaderboardManager;
@@ -63,7 +64,7 @@ namespace PVPMistico.ViewModels
             _dialogManager = dialogManager;
             NameUnfocusedComamand = new DelegateCommand(OnNameUnfocused);
             LeagueTypeSelectedCommand = new DelegateCommand(OnLeagueTypeSelected);
-            CreateTournamentCommand = new DelegateCommand(async () => await OnCreateTournamentButtonPressedAsync());
+            CreateLeaderboardCommand = new DelegateCommand(async () => await OnCreateLeaderboardButtonPressedAsync());
             LeagueName = new ValidatableObject<string>();
             LeagueName.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>());
         }
@@ -104,7 +105,7 @@ namespace PVPMistico.ViewModels
             return list;
         }
 
-        private async Task OnCreateTournamentButtonPressedAsync()
+        private async Task OnCreateLeaderboardButtonPressedAsync()
         {
             var username = await SecureStorage.GetAsync(SecureStorageTokens.Username);
             var participant = await _accountManager.CreateParticipantAsync(username, isAdmin: true);
@@ -112,16 +113,24 @@ namespace PVPMistico.ViewModels
             if (participant == null)
             {
                 _dialogManager.ShowToast(new ToastConfig(AppResources.Error), ToastModes.Error);
-                await NavigationService.ClearPopupStackAsync();
                 return;
             }
             
-            if(_leaderboardManager.CreateTournament(LeagueName.Value, SelectedLeagueType.LeagueTypesEnum, participant))
+            CreateLeaderboardResponseCode response = await _leaderboardManager.CreateTournamentAsync(LeagueName.Value, SelectedLeagueType.LeagueTypesEnum, participant);
+            switch(response)
             {
-                await NavigationService.ClearPopupStackAsync();
+                case CreateLeaderboardResponseCode.CreatedSuccessfully:
+                    await NavigationService.ClearPopupStackAsync();
+                    break;
+
+                case CreateLeaderboardResponseCode.NameAlreadyUsed:
+                    LeagueName.Errors = new List<string> { AppResources.LeagueNameAlreadyUsed };
+                    LeagueName.IsValid = false;
+                    break;
+                default:
+                    _dialogManager.ShowToast(new ToastConfig(AppResources.Error), ToastModes.Error);
+                    break;
             }
-
-
         }
 
         public override bool OnBackButtonPressed()

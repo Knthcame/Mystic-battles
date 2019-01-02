@@ -3,9 +3,9 @@
 namespace PVPMistico.Views.Popups
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CreateTournamentPopUp : BasePopup
+    public partial class CreateLeaderboardPopup : BasePopup
     {
-        public CreateTournamentPopUp()
+        public CreateLeaderboardPopup()
         {
             InitializeComponent();
         }

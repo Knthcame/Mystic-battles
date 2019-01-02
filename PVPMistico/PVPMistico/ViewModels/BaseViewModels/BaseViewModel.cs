@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using Prism.Navigation;
 using PVPMistico.Logging.Interfaces;
 
-namespace PVPMistico.ViewModels
+namespace PVPMistico.ViewModels.BaseViewModels
 {
     public class BaseViewModel : BindableBase, INavigationAware, IDestructible
     {

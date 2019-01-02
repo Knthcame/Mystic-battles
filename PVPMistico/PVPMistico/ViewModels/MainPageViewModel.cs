@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using PVPMistico.Views.Popups;
+using PVPMistico.ViewModels.BaseViewModels;
 
 namespace PVPMistico.ViewModels
 {
@@ -69,7 +70,7 @@ namespace PVPMistico.ViewModels
 
         private async Task OnCreateTournamentButtonClickedAsync()
         {
-            await NavigationService.NavigateAsync(nameof(CreateTournamentPopUp));
+            await NavigationService.NavigateAsync(nameof(CreateLeaderboardPopup));
         }
 
         private async Task OnLeaderboardSelectedAsync()

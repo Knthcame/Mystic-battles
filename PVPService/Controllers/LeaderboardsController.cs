@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Models.ApiResponses;
 using Models.Classes;
+using Models.Enums;
 using PVPService.Services;
 
 namespace PVPService.Controllers
@@ -47,9 +48,24 @@ namespace PVPService.Controllers
                 return Ok();
             else
                 return BadRequest();
+        }
 
+        [HttpPut]
+        public IActionResult CreateLeaderboard([FromBody] LeaderboardModel leaderboard)
+        {
+            var response = new CreateLeaderboardResponse
+            {
+                ResponseCode = LeaderboardsRepository.AddLeaderboard(leaderboard)
+            };
 
+            switch (response.ResponseCode)
+            {
+                case CreateLeaderboardResponseCode.CreatedSuccessfully:
+                    return Ok(response);
 
+                default:
+                    return BadRequest(response);
+            }
         }
     }
 }

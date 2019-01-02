@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -22,8 +22,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\Popups\CreateTournamentPopUp.xaml.cs">
-      <DependentUpon>CreateTournamentPopUp.xaml</DependentUpon>
+    <Compile Update="Views\Popups\CreateLeaderboardPopup.xaml.cs">
+      <DependentUpon>CreateLeaderboardPopup.xaml</DependentUpon>
     </Compile>
     <Compile Update="Widgets\BaseValidationFrame.xaml.cs">
       <DependentUpon>BaseValidationFrame.xaml</DependentUpon>
@@ -50,7 +50,7 @@
     <EmbeddedResource Update="Views\Popups\BasePopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Popups\CreateTournamentPopUp.xaml">
+    <EmbeddedResource Update="Views\Popups\CreateLeaderboardPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Popups\InputMatchPopup.xaml">

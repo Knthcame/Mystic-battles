@@ -8,6 +8,7 @@ using PVPMistico.Extensions;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
+using PVPMistico.ViewModels.BaseViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace PVPMistico.ViewModels
+namespace PVPMistico.ViewModels.PopupViewModels
 {
     public class AddTrainerPopupViewModel : BaseViewModel
     {

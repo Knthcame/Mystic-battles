@@ -11,7 +11,7 @@ namespace PVPMistico.Managers.Interfaces
 
         Task<LeaderboardModel> GetLeaderboardAsync(int id);
 
-        bool CreateTournament(string name, LeagueTypesEnum leagueType, ParticipantModel creator);
+        Task<CreateLeaderboardResponseCode> CreateTournamentAsync(string name, LeagueTypesEnum leagueType, ParticipantModel creator);
 
         Task<List<LeaderboardModel>> GetMyLeaderboardsAsync(string username);
 
