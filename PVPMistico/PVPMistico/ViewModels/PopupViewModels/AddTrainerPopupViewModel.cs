@@ -1,5 +1,6 @@
 ﻿using Acr.UserDialogs;
 using Models.Classes;
+using Models.Enums;
 using Prism.Commands;
 using Prism.Navigation;
 using PVPMistico.Constants;
@@ -55,15 +56,26 @@ namespace PVPMistico.ViewModels.PopupViewModels
 
         private async Task OnTrainerSelectedAsync()
         {
-            if (!_leaderboardManager.AddTrainer(_leaderboard, SelectedTrainer))
-            {
-                var config = new ToastConfig(AppResources.CannotAddTrainer);
-                _dialogManager.ShowToast(config, ToastModes.Error);
+            var response = await _leaderboardManager.AddTrainerAsync(_leaderboard, SelectedTrainer);
 
-                SelectedTrainer = null;
+            switch (response.ResponseCode)
+            {
+                case AddTrainerResponseCode.TrainerAddedSuccesfully:
+                    await NavigationService.GoBackAsync();
+                    return;
+
+                case AddTrainerResponseCode.TrainerAlreadyParticipates:
+                    var config = new ToastConfig(AppResources.CannotAddTrainer);
+                    _dialogManager.ShowToast(config, ToastModes.Error);
+
+                    SelectedTrainer = null;
+                    break;
+
+                default:
+                    _dialogManager.ShowToast(new ToastConfig(AppResources.Error), ToastModes.Error);
+                    SelectedTrainer = null;
+                    break;
             }
-            else
-                await NavigationService.GoBackAsync();
         }
 
         private void OnTrainerSearch()
@@ -86,7 +98,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
             if (_leaderboard == null)
                 return;
 
-            foreach (ParticipantModel participant in _leaderboard.Participants)
+            foreach (TrainerModel participant in _leaderboard.Trainers)
             {
                 var trainerToRemove = trainers.FirstOrDefault((trainer) => trainer.Username == participant.Username);
                 trainers.Remove(trainerToRemove);

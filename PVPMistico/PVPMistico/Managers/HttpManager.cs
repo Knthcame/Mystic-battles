@@ -20,16 +20,25 @@ namespace PVPMistico.Managers
             _client = new HttpClient();
         }
 
-        public async Task<ApiResponse> DeleteAsync<ApiResponse>(string url, object body) where ApiResponse : IApiResponse
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<ApiResponse> GetAsync<ApiResponse>(string url) where ApiResponse : IApiResponse
+        public async Task<ApiResponse> DeleteAsync<ApiResponse>(string url, string extension = "", string parameter = "") where ApiResponse : IApiResponse
         {
             try
             {
-                return await ParseResponse<ApiResponse>(await _client.GetAsync(url));
+                var uri = url + extension + parameter;
+                return await ParseResponse<ApiResponse>(await _client.DeleteAsync(uri));
+            }
+            catch (Exception e)
+            {
+                return HandleClientError<ApiResponse>(e);
+            }
+        }
+
+        public async Task<ApiResponse> GetAsync<ApiResponse>(string url, string extension = "", string parameter = "") where ApiResponse : IApiResponse
+        {
+            try
+            {
+                var uri = url + extension + parameter;
+                return await ParseResponse<ApiResponse>(await _client.GetAsync(uri));
             }
             catch(Exception e)
             {
@@ -37,13 +46,14 @@ namespace PVPMistico.Managers
             }
         }
 
-        public async Task<ApiResponse> PostAsync<ApiResponse>(string url, object body) where ApiResponse : IApiResponse
+        public async Task<ApiResponse> PostAsync<ApiResponse>(string url, object body, string extension = "", string parameter = "") where ApiResponse : IApiResponse
         {
             try
             {
+                var uri = url + extension + parameter;
                 var json = JsonConvert.SerializeObject(body);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                return await ParseResponse<ApiResponse>(await _client.PostAsync(url, content));
+                return await ParseResponse<ApiResponse>(await _client.PostAsync(uri, content));
             }
             catch(Exception e)
             {
@@ -51,13 +61,14 @@ namespace PVPMistico.Managers
             }
         }
 
-        public async Task<ApiResponse> PutAsync<ApiResponse>(string url, object body) where ApiResponse : IApiResponse
+        public async Task<ApiResponse> PutAsync<ApiResponse>(string url, object body, string extension = "", string parameter = "") where ApiResponse : IApiResponse
         {
             try
             {
+                var uri = url + extension + parameter;
                 var json = JsonConvert.SerializeObject(body);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                return await ParseResponse<ApiResponse>(await _client.PutAsync(url, content));
+                return await ParseResponse<ApiResponse>(await _client.PutAsync(uri, content));
             }
             catch (Exception e)
             {

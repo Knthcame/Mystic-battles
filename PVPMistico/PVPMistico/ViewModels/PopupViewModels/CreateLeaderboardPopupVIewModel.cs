@@ -116,8 +116,8 @@ namespace PVPMistico.ViewModels.PopupViewModels
                 return;
             }
             
-            CreateLeaderboardResponseCode response = await _leaderboardManager.CreateTournamentAsync(LeagueName.Value, SelectedLeagueType.LeagueTypesEnum, participant);
-            switch(response)
+            var response = await _leaderboardManager.CreateLeaderboardAsync(LeagueName.Value, SelectedLeagueType.LeagueTypesEnum, participant);
+            switch(response.ResponseCode)
             {
                 case CreateLeaderboardResponseCode.CreatedSuccessfully:
                     await NavigationService.ClearPopupStackAsync();

@@ -14,7 +14,7 @@ namespace PVPMistico.Managers.Interfaces
 
         void LogOut();
 
-        Task<ParticipantModel> CreateParticipantAsync(string username, bool isAdmin);
+        Task<TrainerModel> CreateParticipantAsync(string username, bool isAdmin);
 
         TrainerModel GetTrainer(string username);
 

@@ -1,4 +1,4 @@
-﻿using PVPMistico.ViewModels;
+﻿using PVPMistico.ViewModels.BaseViewModels;
 using Rg.Plugins.Popup.Pages;
 using Xamarin.Forms.Xaml;
 

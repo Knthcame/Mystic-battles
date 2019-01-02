@@ -13,5 +13,9 @@
         public const string UsernameExtension = "username/";
 
         public const string IdExtension = "id/";
+
+        public const string MatchExtension = "match/";
+
+        public const string TrainerExtension = "trainer/";
     }
 }

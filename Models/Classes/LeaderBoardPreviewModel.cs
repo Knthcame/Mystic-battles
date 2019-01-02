@@ -8,7 +8,7 @@ namespace Models.Classes
 
         public string Name { get; set; }
 
-        public ParticipantModel Participant { get; set; }
+        public TrainerModel Trainer { get; set; }
 
         public LeagueTypesEnum LeagueType { get; set; }
     }

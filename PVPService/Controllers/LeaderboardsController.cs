@@ -41,13 +41,31 @@ namespace PVPService.Controllers
             return Ok(response);
         }
 
-        [HttpPost("{id}")]
+        [HttpPut("match/{id}")]
         public IActionResult InputMatch(int id, [FromBody] MatchModel match)
         {
             if (LeaderboardsRepository.InputMatch(id, match))
                 return Ok();
             else
                 return BadRequest();
+        }
+
+        [HttpPut("trainer/{id}")]
+        public IActionResult AddTrainer(int id, [FromBody] TrainerModel trainer)
+        {
+            var response = new AddTrainerResponse
+            {
+                ResponseCode = LeaderboardsRepository.AddTrainer(id, trainer)
+            };
+
+            switch (response.ResponseCode)
+            {
+                case AddTrainerResponseCode.TrainerAddedSuccesfully:
+                    return Ok(response);
+
+                default:
+                    return BadRequest(response);
+            }
         }
 
         [HttpPut]

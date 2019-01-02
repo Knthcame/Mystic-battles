@@ -24,18 +24,18 @@ namespace PVPMistico.ViewModels.PopupViewModels
         private readonly ILeaderboardManager _leaderboardManager;
         private LeaderboardModel _leaderboard;
         private MatchModel _match;
-        private ObservableCollection<ParticipantModel> _opponentsList;
-        private ObservableCollection<ParticipantModel> _competitorsList;
-        private ParticipantModel _currentUser;
+        private ObservableCollection<TrainerModel> _opponentsList;
+        private ObservableCollection<TrainerModel> _competitorsList;
+        private TrainerModel _currentUser;
         private bool _isOpponentSelected;
         private bool _isWinnerSelected;
         private bool _isOpponentPickerEnabled;
         #endregion
 
         #region Properties
-        public ParticipantModel SelectedOpponent { get; set; }
+        public TrainerModel SelectedOpponent { get; set; }
 
-        public ParticipantModel SelectedWinner { get; set; }
+        public TrainerModel SelectedWinner { get; set; }
 
         public ICommand OpponentSelectedCommand { get; private set; }
 
@@ -61,13 +61,13 @@ namespace PVPMistico.ViewModels.PopupViewModels
             set => SetProperty(ref _isWinnerSelected, value);
         }
 
-        public ObservableCollection<ParticipantModel> PossibleOpponentsList
+        public ObservableCollection<TrainerModel> PossibleOpponentsList
         {
             get => _opponentsList;
             set => SetProperty(ref _opponentsList, value);
         }
 
-        public ObservableCollection<ParticipantModel> Rivals
+        public ObservableCollection<TrainerModel> Rivals
         {
             get => _competitorsList;
             set => SetProperty(ref _competitorsList, value);
@@ -110,9 +110,9 @@ namespace PVPMistico.ViewModels.PopupViewModels
         private void InitializePickers()
         {
             IsOpponentPickerEnabled = true;
-            var opponentsList = new List<ParticipantModel>(_leaderboard.Participants);
+            var opponentsList = new List<TrainerModel>(_leaderboard.Trainers);
             opponentsList.Remove(_currentUser);
-            PossibleOpponentsList = new ObservableCollection<ParticipantModel>(opponentsList);
+            PossibleOpponentsList = new ObservableCollection<TrainerModel>(opponentsList);
         }
 
         private void InitializaMatch()
@@ -132,7 +132,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
                 return;
             }
             
-            Rivals = new ObservableCollection<ParticipantModel>()
+            Rivals = new ObservableCollection<TrainerModel>()
             {
                 _currentUser,
                 SelectedOpponent
@@ -150,7 +150,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
                 return;
             }
             var currentUsername = await SecureStorage.GetAsync(SecureStorageTokens.Username);
-            _currentUser = _leaderboard.Participants.First((participant) => participant.Username == currentUsername);
+            _currentUser = _leaderboard.Trainers.First((participant) => participant.Username == currentUsername);
 
             InitializePickers();
 

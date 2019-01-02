@@ -1,4 +1,4 @@
-﻿using PVPMistico.ViewModels;
+﻿using PVPMistico.ViewModels.BaseViewModels;
 using Xamarin.Forms;
 
 namespace PVPMistico.Views

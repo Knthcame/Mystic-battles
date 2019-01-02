@@ -1,5 +1,4 @@
-﻿using System.Net;
-using Models.ApiResponses.Interfaces;
+﻿using Models.ApiResponses.Interfaces;
 
 namespace Models.ApiResponses
 {

@@ -89,10 +89,10 @@ namespace PVPMistico.Managers
         }
 
         /* Creates new ParticipantModel if user exists*/
-        public async Task<ParticipantModel> CreateParticipantAsync(string username, bool isAdmin)
+        public async Task<TrainerModel> CreateParticipantAsync(string username, bool isAdmin)
         {
             if (await CheckUsernameRegisteredAsync(username))
-                return new ParticipantModel()
+                return new TrainerModel()
                 {
                     IsAdmin = isAdmin,
                     Level = 40,

@@ -7,8 +7,8 @@ using PVPMistico.Enums;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
+using PVPMistico.ViewModels.BaseViewModels;
 using PVPMistico.Views.Popups;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +24,7 @@ namespace PVPMistico.ViewModels
         private readonly IDialogManager _dialogManager;
         private LeaderboardModel _leaderboard;
         private bool _isCurrentUserAdmin;
-        private ObservableCollection<ParticipantModel> _participants;
+        private ObservableCollection<TrainerModel> _participants;
         #endregion
 
         #region Properties
@@ -34,7 +34,7 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _leaderboard, value);
         }
 
-        public ObservableCollection<ParticipantModel> Participants
+        public ObservableCollection<TrainerModel> Participants
         {
             get => _participants;
             set => SetProperty(ref _participants, value);
@@ -106,15 +106,15 @@ namespace PVPMistico.ViewModels
 
         private void OrderParticipants()
         {
-            var orderedParticipant = Leaderboard.Participants.OrderBy((participant) => participant.Position);
-            Participants = new ObservableCollection<ParticipantModel>(orderedParticipant);
+            var orderedParticipant = Leaderboard.Trainers.OrderBy((participant) => participant.Position);
+            Participants = new ObservableCollection<TrainerModel>(orderedParticipant);
         }
 
         private async Task SetAdminPermissionAsync()
         {
             var myUsername = await SecureStorage.GetAsync(SecureStorageTokens.Username);
 
-            var currentUser = Leaderboard.Participants.FirstOrDefault((trainer) => trainer.Username == myUsername);
+            var currentUser = Leaderboard.Trainers.FirstOrDefault((trainer) => trainer.Username == myUsername);
             if (currentUser != null && currentUser.IsAdmin == true)
                 IsCurrentUserAdmin = true;
         }

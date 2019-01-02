@@ -9,7 +9,7 @@ namespace Models.Classes
 
         public string Name { get; set; }
 
-        public ObservableCollection<ParticipantModel> Participants { get; set; }
+        public ObservableCollection<TrainerModel> Trainers { get; set; }
 
         public LeagueTypesEnum LeagueType { get; set; }
     }
