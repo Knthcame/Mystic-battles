@@ -29,6 +29,6 @@ namespace PVPService.Services
             => _database.GetTrainers();
 
         public void AddTrainer(TrainerModel trainer)
-            => _database.AddObject(trainer);
+            => _database.AddTrainer(trainer);
     }
 }

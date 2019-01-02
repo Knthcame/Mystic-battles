@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Models.Classes;
 using Models.Enums;
-using SQLite;
 
 namespace PVPService.Services
 {
@@ -21,7 +19,7 @@ namespace PVPService.Services
             if (username == null)
                 return false;
 
-            return _accounts.Find((account) => account.Username == username) != null;
+            return _database.GetAccounts().Find((account) => account.Username == username) != null;
         }
 
         public bool IsEmailRegistered(string email)
@@ -29,7 +27,7 @@ namespace PVPService.Services
             if (email == null)
                 return false;
 
-            return _accounts.Find((account) => account.Email == email) != null;
+            return _database.GetAccounts().Find((account) => account.Email == email) != null;
         }
 
         public SignInResponseCode RegisterNewAccount(AccountModel account)
@@ -43,8 +41,8 @@ namespace PVPService.Services
             else if (IsEmailRegistered(account.Email))
                 return SignInResponseCode.EmailAlreadyUsed;
             
-            var added =_database.AddObject(account);
-            added = added && _database.AddObject(new TrainerModel
+            var added =_database.AddAccount(account);
+            added = added && _database.AddTrainer(new TrainerModel
             {
                 Username = account.Username,
                 Level = 40

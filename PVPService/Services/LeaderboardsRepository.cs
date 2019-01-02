@@ -16,7 +16,7 @@ namespace PVPService.Services
         public List<LeaderboardModel> GetLeaderboards() => _database.GetLeaderboards();
 
         public List<LeaderboardModel> GetUserLeaderBoards(string username) => 
-            new List<LeaderboardModel>(_database.GetLeaderboards().Where((boards) => boards.Participant.Any((participant) => participant.Username == username)));
+            new List<LeaderboardModel>(_database.GetLeaderboards().Where((boards) => boards.Participants.Any((participant) => participant.Username == username)));
 
         public LeaderboardModel GetLeaderboard(int id) =>
             _database.GetLeaderboards().FirstOrDefault((board) => board.ID == id);
@@ -30,8 +30,8 @@ namespace PVPService.Services
             if (leaderboard == null)
                 return false;
 
-            var winner = leaderboard.Participant.FirstOrDefault((participant) => participant.Username == match.Winner);
-            var loser = leaderboard.Participant.FirstOrDefault((participant) => participant.Username == match.Loser);
+            var winner = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Winner);
+            var loser = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Loser);
 
             if (winner == null || loser == null)
                 return false;
@@ -46,15 +46,17 @@ namespace PVPService.Services
 
         public CreateLeaderboardResponseCode AddLeaderboard(LeaderboardModel leaderboard)
         {
-            if (leaderboard == null || leaderboard.Participant == null)
+            if (leaderboard == null || leaderboard.Participants == null)
                 return CreateLeaderboardResponseCode.UnknownError;
 
             if (_database.GetLeaderboards().Any(board => board.Name == leaderboard.Name))
                 return CreateLeaderboardResponseCode.NameAlreadyUsed;
 
             //leaderboard.ID = GenerateNewID();
-            _database.GetLeaderboards().Add(leaderboard);
-            return CreateLeaderboardResponseCode.CreatedSuccessfully;
+            if (_database.AddLeaderboard(leaderboard))
+                return CreateLeaderboardResponseCode.CreatedSuccessfully;
+            else
+                return CreateLeaderboardResponseCode.UnknownError;
         }
 
         public AddTrainerResponseCode AddTrainer(int leaderboardId, ParticipantModel trainer)
@@ -66,13 +68,16 @@ namespace PVPService.Services
             if (leaderboard == null)
                 return AddTrainerResponseCode.UnknownError;
 
-            if (leaderboard.Participant.Any(participant => participant.Username == trainer.Username))
+            if (leaderboard.Participants.Any(participant => participant.Username == trainer.Username))
                 return AddTrainerResponseCode.TrainerAlreadyParticipates;
 
-            trainer.Position = leaderboard.Participant.Count + 1;
+            trainer.Position = leaderboard.Participants.Count + 1;
 
-            leaderboard.Participant.Add(trainer);
-            return AddTrainerResponseCode.TrainerAddedSuccesfully;
+            leaderboard.Participants.Add(trainer);
+            if(_database.UpdateLeaderboard(leaderboard))
+                return AddTrainerResponseCode.TrainerAddedSuccesfully;
+            else
+                return AddTrainerResponseCode.UnknownError;
         }
 
         private int GenerateNewID()
@@ -89,7 +94,7 @@ namespace PVPService.Services
 
         private void RecalculatePositions(LeaderboardModel leaderboard)
         {
-            var orderedParticipants = leaderboard.Participant.OrderByDescending((participant) => participant.Points);
+            var orderedParticipants = leaderboard.Participants.OrderByDescending((participant) => participant.Points);
             int i = 1;
             foreach (ParticipantModel participant in orderedParticipants)
             {
@@ -119,7 +124,7 @@ namespace PVPService.Services
                     ID = 1,
                     LeagueType = LeagueTypesEnum.GreatLeague,
                     Name = "Originals great",
-                    Participant = new ObservableCollection<ParticipantModel>()
+                    Participants = new ObservableCollection<ParticipantModel>()
                     {
                         new ParticipantModel()
                         {
@@ -185,7 +190,7 @@ namespace PVPService.Services
                     ID = 2,
                     LeagueType = LeagueTypesEnum.UltraLeague,
                     Name = "Originals ultra",
-                    Participant = new ObservableCollection<ParticipantModel>()
+                    Participants = new ObservableCollection<ParticipantModel>()
                     {
                         new ParticipantModel()
                         {

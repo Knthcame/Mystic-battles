@@ -100,7 +100,7 @@ namespace PVPMistico.ViewModels
                         ID = leaderboard.ID,
                         LeagueType = leaderboard.LeagueType,
                         Name = leaderboard.Name,
-                        Participant = leaderboard.Participant.FirstOrDefault((participant) => participant.Username == username)
+                        Participant = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == username)
                     };
                     leaderboardPreviews.Add(leaderboardPreview);
                 }

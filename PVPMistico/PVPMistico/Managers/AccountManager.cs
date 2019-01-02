@@ -49,7 +49,7 @@ namespace PVPMistico.Managers
         {
             try
             {
-                var response = await _httpManager.GetAsync<OkResponse>(ApiConstants.LogInURL + username);
+                var response = await _httpManager.GetAsync<OkResponse>(ApiConstants.LogInURL, parameter: username);
 
                 return response.Ok;
             }

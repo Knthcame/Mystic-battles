@@ -106,7 +106,7 @@ namespace PVPMistico.ViewModels
 
         private void OrderParticipants()
         {
-            var orderedParticipant = Leaderboard.Participant.OrderBy((participant) => participant.Position);
+            var orderedParticipant = Leaderboard.Participants.OrderBy((participant) => participant.Position);
             Participants = new ObservableCollection<ParticipantModel>(orderedParticipant);
         }
 
@@ -114,7 +114,7 @@ namespace PVPMistico.ViewModels
         {
             var myUsername = await SecureStorage.GetAsync(SecureStorageTokens.Username);
 
-            var currentUser = Leaderboard.Participant.FirstOrDefault((trainer) => trainer.Username == myUsername);
+            var currentUser = Leaderboard.Participants.FirstOrDefault((trainer) => trainer.Username == myUsername);
             if (currentUser != null && currentUser.IsAdmin == true)
                 IsCurrentUserAdmin = true;
         }

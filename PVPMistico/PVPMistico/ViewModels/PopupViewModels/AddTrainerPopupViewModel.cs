@@ -98,7 +98,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
             if (_leaderboard == null)
                 return;
 
-            foreach (ParticipantModel participant in _leaderboard.Participant)
+            foreach (ParticipantModel participant in _leaderboard.Participants)
             {
                 var trainerToRemove = trainers.FirstOrDefault((trainer) => trainer.Username == participant.Username);
                 trainers.Remove(trainerToRemove);

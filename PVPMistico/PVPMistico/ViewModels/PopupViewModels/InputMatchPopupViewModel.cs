@@ -110,7 +110,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
         private void InitializePickers()
         {
             IsOpponentPickerEnabled = true;
-            var opponentsList = new List<ParticipantModel>(_leaderboard.Participant);
+            var opponentsList = new List<ParticipantModel>(_leaderboard.Participants);
             opponentsList.Remove(_currentUser);
             PossibleOpponentsList = new ObservableCollection<ParticipantModel>(opponentsList);
         }
@@ -150,7 +150,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
                 return;
             }
             var currentUsername = await SecureStorage.GetAsync(SecureStorageTokens.Username);
-            _currentUser = _leaderboard.Participant.First((participant) => participant.Username == currentUsername);
+            _currentUser = _leaderboard.Participants.First((participant) => participant.Username == currentUsername);
 
             InitializePickers();
 

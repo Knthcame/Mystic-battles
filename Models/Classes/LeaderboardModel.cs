@@ -13,7 +13,10 @@ namespace Models.Classes
 
         public string Name { get; set; }
 
-        public ObservableCollection<ParticipantModel> Participant { get; set; }
+        public string ParticipantsBlobbed { get; set; }
+
+        [Ignore]
+        public ObservableCollection<ParticipantModel> Participants { get; set; }
 
         public LeagueTypesEnum LeagueType { get; set; }
     }

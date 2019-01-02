@@ -32,7 +32,7 @@ namespace PVPMistico.Managers
             {
                 LeagueType = leagueType,
                 Name = name,
-                Participant = new ObservableCollection<ParticipantModel>()
+                Participants = new ObservableCollection<ParticipantModel>()
                 {
                     creator
                 }
@@ -85,7 +85,7 @@ namespace PVPMistico.Managers
 
         public bool RemoveTrainer(LeaderboardModel leaderboard, ParticipantModel trainer)
         {
-            return leaderboard.Participant.Remove(trainer);
+            return leaderboard.Participants.Remove(trainer);
         }
 
         
