@@ -2,9 +2,9 @@
 {
     public enum LogInResponseCode
     {
+        UnknownError,
         LogInSuccessful,
         UsernameNotRegistered,
-        PasswordIncorrect,
-        UnknownError
+        PasswordIncorrect
     }
 }

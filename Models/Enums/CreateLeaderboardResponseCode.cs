@@ -2,8 +2,8 @@
 {
     public enum CreateLeaderboardResponseCode
     {
+        UnknownError,
         NameAlreadyUsed,
-        CreatedSuccessfully,
-        UnknownError
+        CreatedSuccessfully
     }
 }

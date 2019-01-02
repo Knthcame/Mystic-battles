@@ -1,5 +1,6 @@
 ﻿using Models.Classes;
 using Models.Enums;
+using Models.Crypto;
 
 namespace PVPService.Services
 {
@@ -53,11 +54,17 @@ namespace PVPService.Services
                 return LogInResponseCode.UsernameNotRegistered;
 
             var registeredAccount = _database.GetAccounts().Find((user) => user.Username == account.Username);
-            if (registeredAccount.Password != account.Password)
-                return LogInResponseCode.PasswordIncorrect;
-            else
+            if (CompareEncryptedPasswords(account.Password, registeredAccount.Password))
                 return LogInResponseCode.LogInSuccessful;
+            else
+                return LogInResponseCode.PasswordIncorrect;
 
+        }
+
+        private bool CompareEncryptedPasswords(string password1, string password2)
+        {
+            string key = "Originals rule";
+            return password1.Decrypt(key).Equals(password2.Decrypt(key));
         }
     }
 }

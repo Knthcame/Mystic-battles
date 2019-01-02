@@ -59,7 +59,7 @@ namespace PVPMistico.Managers
             }
         }
 
-        public async Task<string> SignInAsync(AccountModel account)
+        public async Task<SignInResponseCode> SignInAsync(AccountModel account)
         {
             var response = await _httpManager.PostAsync<SignInResponseCode>(ApiConstants.SignInURL, account);
             
@@ -74,10 +74,7 @@ namespace PVPMistico.Managers
                     break;
             }
 
-            if (SignInResponsesDictionary.GetResponseString(response, out string message))
-                return message;
-            else
-                return AppResources.Error;
+            return response;
         }
 
         public void LogOut()

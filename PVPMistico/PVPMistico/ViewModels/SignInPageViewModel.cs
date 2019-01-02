@@ -1,10 +1,14 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using Models.Classes;
+using Models.Crypto;
+using Models.Enums;
 using Prism.Commands;
 using Prism.Navigation;
 using PVPMistico.Constants;
+using PVPMistico.Enums;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
@@ -12,6 +16,7 @@ using PVPMistico.Validation;
 using PVPMistico.Validation.Rules;
 using PVPMistico.ViewModels.BaseViewModels;
 using PVPMistico.Views;
+using Xamarin.Forms;
 
 namespace PVPMistico.ViewModels
 {
@@ -69,14 +74,38 @@ namespace PVPMistico.ViewModels
         {
             if (!ValidateEmail() || !ValidateName())
                 return;
-
-            var account = new AccountModel(Username.Value, Password.Value, Email.Value, Name.Value);
+            var encryptedPassword = Password.Value.Encrypt("Originals rule");
+            var account = new AccountModel(Username.Value, encryptedPassword, Email.Value, Name.Value);
             var signInResponse = await _accountManager.SignInAsync(account);
 
-            if (signInResponse == SignInResponses.SignInSuccessful)
-                await NavigationService.NavigateAsync("/NavigationPage/" + nameof(MainPage));
+            switch (signInResponse)
+            {
+                case SignInResponseCode.SignInSuccessful:
+                    await NavigationService.NavigateAsync("/" + nameof(NavigationPage)+ "/" + nameof(MainPage));
+                    break;
 
-            _dialogManager.ShowToast(new ToastConfig(signInResponse));
+                case SignInResponseCode.EmailAlreadyUsed:
+                    Email.Errors = new List<string> { AppResources.EmailAlreadyUsedResponse };
+                    Email.IsValid = false;
+                    AreCredentialsValid = false;
+                    break;
+
+                case SignInResponseCode.UsernameAlreadyRegistered:
+                    Username.Errors = new List<string> { AppResources.UserAlreadyRegisteredResponse };
+                    Username.IsValid = false;
+                    AreCredentialsValid = false;
+                    break;
+
+                case SignInResponseCode.PasswordFormatInvalid:
+                    Password.Errors = new List<string> { PasswordValidationConstants.PasswordFormatInvalid };
+                    Password.IsValid = false;
+                    AreCredentialsValid = false;
+                    break;
+
+                default:
+                    _dialogManager.ShowToast(new ToastConfig(AppResources.Error), ToastModes.Error);
+                    break;
+            }
         }
 
         private void OnEmailUnfocused()

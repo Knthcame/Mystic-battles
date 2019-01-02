@@ -2,8 +2,8 @@
 {
     public enum AddTrainerResponseCode
     {
+        UnknownError,
         TrainerAlreadyParticipates,
-        TrainerAddedSuccesfully,
-        UnknownError
+        TrainerAddedSuccesfully
     }
 }

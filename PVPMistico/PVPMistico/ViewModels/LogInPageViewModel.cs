@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 using Models.Classes;
+using Models.Crypto;
+using Models.Enums;
 using Prism.Commands;
 using Prism.Navigation;
-using PVPMistico.Constants;
+using PVPMistico.Enums;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
@@ -53,30 +55,30 @@ namespace PVPMistico.ViewModels
             CheckCredentials();
             if (!AreCredentialsValid)
                 return;
+            var encryptedPassword = Password.Value.Encrypt("Originals rule");
+            var logInResponse = await _accountManager.LogInAsync(new AccountModel(Username.Value, encryptedPassword));
             
-            var logInResponse = await _accountManager.LogInAsync(new AccountModel(Username.Value, Password.Value));
-
-            if (logInResponse == LogInResponses.LogInSuccesful)
-                await NavigationService.NavigateAsync("/" + nameof(NavigationPage) + "/" + nameof(MainPage));
-            else
+            switch (logInResponse)
             {
-                _dialogManager.ShowToast(new ToastConfig(logInResponse));
+                case LogInResponseCode.LogInSuccessful:
+                    await NavigationService.NavigateAsync("/" + nameof(NavigationPage) + "/" + nameof(MainPage));
+                    break;
 
-                var errors = new List<string>
-                {
-                    logInResponse
-                };
-
-                if (logInResponse.Equals(LogInResponses.UsernameNotFound))
-                {
-                    Username.Errors = errors;
+                case LogInResponseCode.UsernameNotRegistered:
+                    Username.Errors = new List<string> { AppResources.UserNotRegisteredError };
                     Username.IsValid = false;
-                }
-                else if (logInResponse.Equals(LogInResponses.PasswordIncorrect))
-                {
-                    Password.Errors = errors;
-                    Password.IsValid = false;
-                }
+                    AreCredentialsValid = false;
+                    break;
+
+                case LogInResponseCode.PasswordIncorrect:
+                    Username.Errors = new List<string> { AppResources.PasswordIncorrectResponse };
+                    Username.IsValid = false;
+                    AreCredentialsValid = false;
+                    break;
+
+                default:
+                    _dialogManager.ShowToast(new ToastConfig(AppResources.Error), ToastModes.Error);
+                    break;
             }
         }
     }

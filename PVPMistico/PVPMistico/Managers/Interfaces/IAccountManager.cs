@@ -1,4 +1,5 @@
 ﻿using Models.Classes;
+using Models.Enums;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,9 +9,9 @@ namespace PVPMistico.Managers.Interfaces
     {
         Task<bool> CheckUsernameRegisteredAsync(string username);
 
-        Task<string> LogInAsync(AccountModel account);
+        Task<LogInResponseCode> LogInAsync(AccountModel account);
 
-        Task<string> SignInAsync(AccountModel account);
+        Task<SignInResponseCode> SignInAsync(AccountModel account);
 
         void LogOut();
 
