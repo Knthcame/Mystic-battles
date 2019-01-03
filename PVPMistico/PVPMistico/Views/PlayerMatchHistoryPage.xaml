@@ -3,7 +3,7 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:MyViews="clr-namespace:PVPMistico.Views"
                   xmlns:MyConverters="clr-namespace:PVPMistico.Converters"
-                  x:Class="PVPMistico.Views.MatchHistoryPage">
+                  x:Class="PVPMistico.Views.PlayerMatchHistoryPage">
 
     <MyViews:BasePage.Resources>
         <MyConverters:OpponentResultImageConverter x:Key="OpponentResultImageConverter"/>
@@ -70,7 +70,7 @@
                                        Grid.Row="1"
                                        Grid.Column="1"/>
 
-                                <Image Source="versus.svg"
+                                <Image Source="versus.png"
                                        Grid.Row="1"
                                        Grid.Column="2"/>
 

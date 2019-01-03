@@ -238,13 +238,16 @@
     <BundleResource Include="Resources\Info.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\defeat_gesture.svg" />
+    <BundleResource Include="Resources\versus.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\win_gesture.svg" />
+    <BundleResource Include="Resources\win_gesture.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\versus.svg" />
+    <BundleResource Include="Resources\admin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\defeat_gesture.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -2,7 +2,6 @@
 using Models.Enums;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace PVPService.Services
@@ -13,10 +12,17 @@ namespace PVPService.Services
 
         private readonly BlobsManager _blobsManager = new BlobsManager();
 
-        public List<LeaderboardModel> GetLeaderboards() => _database.GetLeaderboards();
+        public List<LeaderboardModel> GetLeaderboards() 
+            => _blobsManager.DeblobLeaderboards(_database.GetLeaderboards());
 
-        public List<LeaderboardModel> GetUserLeaderBoards(string username) => 
-            new List<LeaderboardModel>(_database.GetLeaderboards().Where((boards) => boards.Participants.Any((participant) => participant.Username == username)));
+        public List<LeaderboardModel> GetUserLeaderBoards(string username)
+        {
+            var leaderborads = _database.GetLeaderboards();
+            leaderborads = _blobsManager.DeblobLeaderboards(leaderborads);
+                
+            return leaderborads.Where((boards) => boards.Participants.Any((participant) => participant.Username == username)).ToList();
+        }
+
 
         public LeaderboardModel GetLeaderboard(int id)
         {
@@ -71,7 +77,7 @@ namespace PVPService.Services
             if (trainer == null)
                 return AddTrainerResponseCode.UnknownError;
 
-            var leaderboard = _database.GetLeaderboards().FirstOrDefault((board) => board.ID == leaderboardId);
+            var leaderboard = GetLeaderboard(leaderboardId);
             if (leaderboard == null)
                 return AddTrainerResponseCode.UnknownError;
 

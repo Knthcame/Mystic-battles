@@ -229,7 +229,10 @@ namespace PVPMistico.ViewModels
             base.OnPaswordUnfocused();
 
             if (ConfirmPassword.Value != null)
+            {
                 CheckConfirmPasswordMatches();
+                CheckCredentials();
+            }
         }
 
         private bool ValidateEmail()

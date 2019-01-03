@@ -9,7 +9,7 @@ using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
 using PVPMistico.ViewModels.BaseViewModels;
 using PVPMistico.Views.Popups;
-using System;
+using PVPMistico.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +26,7 @@ namespace PVPMistico.ViewModels
         private LeaderboardModel _leaderboard;
         private bool _isCurrentUserAdmin;
         private ObservableCollection<ParticipantModel> _participants;
+        private ParticipantModel _selectedParticipant;
         #endregion
 
         #region Properties
@@ -47,9 +48,15 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _isCurrentUserAdmin, value);
         }
 
+        public ParticipantModel SelectedParticipant
+        {
+            get => _selectedParticipant;
+            set => SetProperty(ref _selectedParticipant, value);
+        }
+
         public ICommand AddTrainerCommand { get; private set; }
         public ICommand InputMatchCommand { get; private set; }
-        public ICommand ViewMatchHistoryCommand { get; private set; }
+        public ICommand ParticipantSelectedCommand { get; private set; }
         #endregion
 
         public LeaderboardPageViewModel(INavigationService navigationService, ICustomLogger logger, ILeaderboardManager leaderboardManager, IDialogManager dialogManager)
@@ -59,15 +66,16 @@ namespace PVPMistico.ViewModels
             _dialogManager = dialogManager;
             AddTrainerCommand = new DelegateCommand(async () => await OnAddTrainerButtonPressedAsync());
             InputMatchCommand = new DelegateCommand(async () => await OnInputMatchButtonPressedAsync());
-            ViewMatchHistoryCommand = new DelegateCommand<object>(async (obj) => await OnViewMatchHistoyButtonPressedAsync(obj));
+            ParticipantSelectedCommand = new DelegateCommand(async () => await OnSelectParticipantAsync());
         }
 
-        private async Task OnViewMatchHistoyButtonPressedAsync(object obj)
+        private async Task OnSelectParticipantAsync()
         {
             var parameters = new NavigationParameters
             {
-                {"object", obj }
+                {NavigationParameterKeys.UsernameKey, SelectedParticipant.Username }
             };
+            await NavigationService.NavigateAsync(nameof(PlayerMatchHistoryPage));
         }
 
         private async Task OnInputMatchButtonPressedAsync()

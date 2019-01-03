@@ -14,8 +14,8 @@
 
         public const string Info = "Info.png";
 
-        public const string DefeatGesture = "defeat_gesture.svg";
+        public const string DefeatGesture = "defeat_gesture.png";
 
-        public const string WinGesture = "win_gesture.svg";
+        public const string WinGesture = "win_gesture.png";
     }
 }

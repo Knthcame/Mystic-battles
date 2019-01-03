@@ -3,9 +3,9 @@
 namespace PVPMistico.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class MatchHistoryPage : BasePage
+	public partial class PlayerMatchHistoryPage : BasePage
 	{
-		public MatchHistoryPage()
+		public PlayerMatchHistoryPage()
 		{
 			InitializeComponent ();
 		}
