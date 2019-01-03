@@ -133,6 +133,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Derrota.
+        /// </summary>
+        public static string Defeat {
+            get {
+                return ResourceManager.GetString("Defeat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Correo electrónico.
         /// </summary>
         public static string Email {
@@ -507,6 +516,15 @@ namespace PVPMistico.Resources {
         public static string UserNotRegisteredError {
             get {
                 return ResourceManager.GetString("UserNotRegisteredError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Victoria.
+        /// </summary>
+        public static string Win {
+            get {
+                return ResourceManager.GetString("Win", resourceCulture);
             }
         }
         

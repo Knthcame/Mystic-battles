@@ -103,7 +103,8 @@
                                                HorizontalTextAlignment="End"/>
 
                                         <ImageButton Grid.Column="5"
-                                                     IsEnabled="False"
+                                                     Command="{Binding ViewMatchHistoryCommand}"
+                                                     CommandParameter="{Binding .}"
                                                      Source="planning.png"
                                                      BackgroundColor="Transparent"/>
 

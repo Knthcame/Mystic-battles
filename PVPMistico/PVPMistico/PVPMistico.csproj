@@ -22,6 +22,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\PlayerMatchHistoryPage.xaml.cs">
+      <DependentUpon>PlayerMatchHistoryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Popups\CreateLeaderboardPopup.xaml.cs">
       <DependentUpon>CreateLeaderboardPopup.xaml</DependentUpon>
     </Compile>
@@ -43,6 +46,9 @@
     <EmbeddedResource Update="Resources\AppResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\PlayerMatchHistoryPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Popups\AddTrainerPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

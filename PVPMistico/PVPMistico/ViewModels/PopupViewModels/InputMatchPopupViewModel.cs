@@ -22,6 +22,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
         #region Fields
         private readonly IDialogManager _dialogManager;
         private readonly ILeaderboardManager _leaderboardManager;
+        private readonly IAccountManager _accountManager;
         private LeaderboardModel _leaderboard;
         private MatchModel _match;
         private ObservableCollection<ParticipantModel> _opponentsList;
@@ -74,13 +75,14 @@ namespace PVPMistico.ViewModels.PopupViewModels
         }
         #endregion
 
-        public InputMatchPopupViewModel(INavigationService navigationService, ICustomLogger logger, IDialogManager dialogManager, ILeaderboardManager leaderboardManager) 
+        public InputMatchPopupViewModel(INavigationService navigationService, ICustomLogger logger, IDialogManager dialogManager, ILeaderboardManager leaderboardManager, IAccountManager accountManager) 
             : base(navigationService, logger)
         {
             _dialogManager = dialogManager;
             _leaderboardManager = leaderboardManager;
+            _accountManager = accountManager;
             OpponentSelectedCommand = new DelegateCommand(OnOpponentSelected);
-            WinnerSelectedCommand = new DelegateCommand(OnWinnerSelected);
+            WinnerSelectedCommand = new DelegateCommand(async() => await OnWinnerSelectedAsync());
             ConfimInputCommand = new DelegateCommand(async() => await ConfirmInputAsync());
         }
 
@@ -94,11 +96,12 @@ namespace PVPMistico.ViewModels.PopupViewModels
                 _dialogManager.ShowToast(new ToastConfig(AppResources.Error), ToastModes.Error);
         }
 
-        private void OnWinnerSelected()
+        private async Task OnWinnerSelectedAsync()
         {
             IsWinnerSelected = true;
-            _match.Winner = SelectedWinner.Username;
-            _match.Loser = Rivals.FirstOrDefault((opponent) => opponent != SelectedWinner).Username;
+            _match.Winner = await _accountManager.GetTrainer(SelectedWinner.Username);
+            var loser = Rivals.FirstOrDefault((opponent) => opponent != SelectedWinner);
+            _match.Loser = await _accountManager.GetTrainer(loser.Username);
         }
 
         private void OnOpponentSelected()
@@ -119,7 +122,8 @@ namespace PVPMistico.ViewModels.PopupViewModels
         {
             _match = new MatchModel()
             {
-                League = _leaderboard.Name,
+                LeagueID = _leaderboard.ID,
+                LeagueName = _leaderboard.Name,
                 LeagueType = _leaderboard.LeagueType
             };
         }

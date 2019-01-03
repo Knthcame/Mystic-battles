@@ -274,7 +274,13 @@
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirmar contraseña</value>
   </data>
+  <data name="Defeat" xml:space="preserve">
+    <value>Derrota</value>
+  </data>
   <data name="PasswordsDontMatch" xml:space="preserve">
     <value>Las contraseñas no coinciden</value>
+  </data>
+  <data name="Win" xml:space="preserve">
+    <value>Victoria</value>
   </data>
 </root>
