@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -27,6 +29,7 @@ namespace PVPMistico.ViewModels
         private ValidatableObject<string> _email;
         private bool _isEmailValid;
         private bool _isNameValid;
+        private bool _isLevelValid;
         #endregion
 
         #region Properties
@@ -41,9 +44,14 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _email, value);
         }
 
+        public List<int> Levels { get; set; } = new List<int>(Enumerable.Range(1, 40));
+
+        public int SelectedLevel { get; set; }
+
         public ICommand SignInCommand { get; private set; }
         public ICommand EmailUnfocusedCommand { get; private set; }
         public ICommand NameUnfocusedCommand { get; private set; }
+        public ICommand LevelPickedCommand { get; private set; }
         #endregion
 
         public SignInPageViewModel(INavigationService navigationService, IAccountManager accountManager, IDialogManager dialogManager, ICustomLogger logger) 
@@ -54,6 +62,12 @@ namespace PVPMistico.ViewModels
             SignInCommand = new DelegateCommand(async() => await OnSignInButtonClickedAsync());
             EmailUnfocusedCommand = new DelegateCommand(OnEmailUnfocused);
             NameUnfocusedCommand = new DelegateCommand(OnNameUnfocused);
+            LevelPickedCommand = new DelegateCommand(OnLevelPicked);
+        }
+
+        private void OnLevelPicked()
+        {
+            _isLevelValid = true;
         }
 
         protected override void InitializeValidatableObjects()
@@ -72,11 +86,17 @@ namespace PVPMistico.ViewModels
 
         private async Task OnSignInButtonClickedAsync()
         {
-            if (!ValidateEmail() || !ValidateName())
+            if (!ValidateEmail() || !ValidateName() || !ValidatePassword() || !ValidateUsername())
+            {
+                AreCredentialsValid = false;
                 return;
+            }
+
             var encryptedPassword = Password.Value.Encrypt("Originals rule");
             var account = new AccountModel(Username.Value, encryptedPassword, Email.Value, Name.Value);
-            var signInResponse = await _accountManager.SignInAsync(account);
+            var trainer = new TrainerModel(Username.Value, SelectedLevel);
+            var signInModel = new SignInModels(account, trainer);
+            var signInResponse = await _accountManager.SignInAsync(signInModel);
 
             switch (signInResponse)
             {
@@ -144,7 +164,7 @@ namespace PVPMistico.ViewModels
 
         protected override void CheckCredentials()
         {
-            AreCredentialsValid = _isEmailValid && _isNameValid && _isUsernameValid && _isPasswordValid;
+            AreCredentialsValid = _isEmailValid && _isNameValid && _isUsernameValid && _isPasswordValid && _isLevelValid;
         }
     }
 }

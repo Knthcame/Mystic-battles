@@ -36,11 +36,6 @@ namespace PVPService.Services
                 return SignInResponseCode.EmailAlreadyUsed;
             
             var added =_database.AddAccount(account);
-            added = added && _database.AddTrainer(new TrainerModel
-            {
-                Username = account.Username,
-                Level = 40
-            });
 
             if (added)
                 return SignInResponseCode.SignInSuccessful;

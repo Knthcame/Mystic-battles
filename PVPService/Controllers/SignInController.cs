@@ -12,13 +12,18 @@ namespace PVPService.Controllers
     {
         private AccountsRepository _accounts = new AccountsRepository();
 
+        private TrainersRepository _trainers = new TrainersRepository();
+
         [HttpPost]
-        public IActionResult Post([FromBody] AccountModel account)
+        public IActionResult Post([FromBody] SignInModels models)
         {
             try
             {
-                var response = _accounts.RegisterNewAccount(account);
+                if (models == null || models.Account == null || models.Trainer == null)
+                    return BadRequest(SignInResponseCode.UnknowError);
 
+                var response = _accounts.RegisterNewAccount(models.Account);
+                _trainers.AddTrainer(models.Trainer);
                 switch (response)
                 {
                     case SignInResponseCode.SignInSuccessful:

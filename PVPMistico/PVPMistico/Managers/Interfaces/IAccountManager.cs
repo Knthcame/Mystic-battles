@@ -11,7 +11,7 @@ namespace PVPMistico.Managers.Interfaces
 
         Task<LogInResponseCode> LogInAsync(AccountModel account);
 
-        Task<SignInResponseCode> SignInAsync(AccountModel account);
+        Task<SignInResponseCode> SignInAsync(SignInModels models);
 
         void LogOut();
 

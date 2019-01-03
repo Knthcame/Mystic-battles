@@ -4,10 +4,8 @@ using System.Threading.Tasks;
 using Models.Classes;
 using Models.Enums;
 using PVPMistico.Constants;
-using PVPMistico.Dictionaries;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
-using PVPMistico.Resources;
 using Xamarin.Essentials;
 
 namespace PVPMistico.Managers
@@ -23,25 +21,17 @@ namespace PVPMistico.Managers
             _logger = logger;
         }
 
-        public async Task<string> LogInAsync(AccountModel account)
+        public async Task<LogInResponseCode> LogInAsync(AccountModel account)
         {
             var response = await _httpManager.PostAsync<LogInResponseCode>(ApiConstants.LogInURL, account);
 
             switch (response)
             {
-                case LogInResponseCode.UsernameNotRegistered:
-                    return LogInResponses.UsernameNotFound;
-
-                case LogInResponseCode.PasswordIncorrect:
-                    return LogInResponses.PasswordIncorrect;
-
                 case LogInResponseCode.LogInSuccessful:
                     await SecureStorage.SetAsync(SecureStorageTokens.Username, account.Username);
-                    return LogInResponses.LogInSuccesful;
-
-                default:
-                    return LogInResponses.GeneralError;
+                    break;
             }
+            return response;
         }
 
         public async Task<bool> CheckUsernameRegisteredAsync(string username)
@@ -59,17 +49,17 @@ namespace PVPMistico.Managers
             }
         }
 
-        public async Task<SignInResponseCode> SignInAsync(AccountModel account)
+        public async Task<SignInResponseCode> SignInAsync(SignInModels models)
         {
-            var response = await _httpManager.PostAsync<SignInResponseCode>(ApiConstants.SignInURL, account);
+            var response = await _httpManager.PostAsync<SignInResponseCode>(ApiConstants.SignInURL, models);
             
             switch (response)
             {
                 case SignInResponseCode.SignInSuccessful:
-                    await SecureStorage.SetAsync(SecureStorageTokens.Username, account.Username);
-                    await SecureStorage.SetAsync(SecureStorageTokens.Name, account.Name);
-                    await SecureStorage.SetAsync(SecureStorageTokens.Email, account.Email);
-                    await SecureStorage.SetAsync(SecureStorageTokens.Password, account.Password);
+                    await SecureStorage.SetAsync(SecureStorageTokens.Username, models.Account.Username);
+                    await SecureStorage.SetAsync(SecureStorageTokens.Name, models.Account.Name);
+                    await SecureStorage.SetAsync(SecureStorageTokens.Email, models.Account.Email);
+                    await SecureStorage.SetAsync(SecureStorageTokens.Password, models.Account.Password);
 
                     break;
             }
@@ -87,16 +77,17 @@ namespace PVPMistico.Managers
         /* Creates new ParticipantModel if user exists*/
         public async Task<ParticipantModel> CreateParticipantAsync(string username, bool isAdmin)
         {
-            if (await CheckUsernameRegisteredAsync(username))
-                return new ParticipantModel()
-                {
-                    IsAdmin = isAdmin,
-                    Level = 40,
-                    Position = 1,
-                    Username = username
-                };
-            else
+            var trainer = await _httpManager.GetAsync<TrainerModel>(ApiConstants.TrainersURL, parameter: username);
+            if (trainer == null)
                 return null;
+
+            return new ParticipantModel()
+            {
+                IsAdmin = isAdmin,
+                Level = trainer.Level,
+                Position = 1,
+                Username = username
+            };
         }
 
         public async Task<TrainerModel> GetTrainer(string username)

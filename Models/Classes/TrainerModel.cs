@@ -12,5 +12,13 @@ namespace Models.Classes
         public string Username { get; set; }
 
         public int Level { get; set; }
+
+        public TrainerModel() { }
+
+        public TrainerModel(string username, int level)
+        {
+            Username = username;
+            Level = level;
+        }
     }
 }
