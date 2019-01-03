@@ -11,6 +11,7 @@
         <MyConverters:ResultTextConverter x:Key="ResultTextConverter"/>
         <MyConverters:TrainerResultImageConverter x:Key="TrainerResultImageConverter"/>
         <MyConverters:LevelDetailConverter x:Key="LevelDetailConverter"/>
+        <MyConverters:LeagueTypeConverter x:Key="LeagueTypeConverter"/>
     </MyViews:BasePage.Resources>
     
     <ContentPage.Content>
@@ -21,22 +22,36 @@
                 <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Text="{Binding Username}"
-                   Grid.Row="0"
-                   Grid.Column="0"/>
-            
-            <Label Text="{Binding League}"
-                   Grid.Row="0"
-                   Grid.Column="1"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="90*"/>
+            </Grid.RowDefinitions>
 
-            <Label Text="{Binding LeagueType}"
+            <Label Text="{Binding Trainer.Username}"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   FontAttributes="Bold"/>
+
+            <Label Text="{Binding Trainer.Level, Converter={StaticResource LevelDetailConverter}}"
                    Grid.Row="1"
-                   Grid.Column="1"/>
+                   Grid.Column="0"/>
+
+            <Label Text="{Binding Leaderboard.Name}"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   FontAttributes="Bold"/>
+
+            <Label Text="{Binding Leaderboard.LeagueType, Converter={StaticResource LeagueTypeConverter}}"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   FontAttributes="Italic"/>
 
             <ListView ItemsSource="{Binding Matches}"
                       Grid.Row="2"
                       Grid.Column="0"
-                      Grid.ColumnSpan="2">
+                      Grid.ColumnSpan="2"
+                      RowHeight="80">
 
                 <ListView.ItemTemplate>
 
@@ -44,56 +59,66 @@
                         
                         <ViewCell>
 
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
+                            <Frame BorderColor="Black"
+                                   Margin="1,0"
+                                   CornerRadius="0"
+                                   Padding="2">
                                 
-                                <Label Text="{Binding DateTime}"
-                                       Grid.Row="0"
-                                       Grid.ColumnSpan="5"/>
-
-                                <Label Text="{Binding Result, Converter={StaticResource ResultTextConverter}}"
-                                       TextColor="{Binding Result, Converter={StaticResource ResultColorConverter}}"
-                                       Grid.Row="1"
-                                       Grid.Column="0"/>
-
-                                <Image Source="{Binding Result, Converter={StaticResource TrainerResultImageConverter}}"
-                                       Grid.Row="1"
-                                       Grid.Column="1"/>
-
-                                <Image Source="versus.png"
-                                       Grid.Row="1"
-                                       Grid.Column="2"/>
-
-                                <Grid Grid.Row="1"
-                                      Grid.Column="3">
-
+                                <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="70*"/>
-                                        <RowDefinition Height="30*"/>
+                                        <RowDefinition Height="25"/>
+                                        <RowDefinition Height="45"/>
                                     </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20*"/>
+                                        <ColumnDefinition Width="20*"/>
+                                        <ColumnDefinition Width="20*"/>
+                                        <ColumnDefinition Width="20*"/>
+                                        <ColumnDefinition Width="20*"/>
+                                    </Grid.ColumnDefinitions>
+                                
+                                    <Label Text="{Binding DateTime}"
+                                           Grid.Row="0"
+                                           Grid.ColumnSpan="5"/>
 
-                                    <Label Text="{Binding Opponent.Username}"
-                                           Grid.Row="0"/>
-                                    <Label Text="{Binding Opponent.Level, Converter={StaticResource LevelDetailConverter}}"
-                                           Grid.Row="1"/>
+                                    <Label Text="{Binding Result, Converter={StaticResource ResultTextConverter}}"
+                                           TextColor="{Binding Result, Converter={StaticResource ResultColorConverter}}"
+                                           Grid.Row="1"
+                                           Grid.Column="0"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"/>
+
+                                    <Image Source="{Binding Result, Converter={StaticResource TrainerResultImageConverter}}"
+                                           Grid.Row="1"
+                                           Grid.Column="1"/>
+
+                                    <Image Source="versus.png"
+                                           Grid.Row="1"
+                                           Grid.Column="2"/>
+
+                                    <Grid Grid.Row="1"
+                                          Grid.Column="3">
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="20"/>
+                                            <RowDefinition Height="20"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Text="{Binding Opponent.Username}"
+                                               Grid.Row="0"/>
+                                        <Label Text="{Binding Opponent.Level, Converter={StaticResource LevelDetailConverter}}"
+                                               Grid.Row="1"
+                                               TextColor="Gray"/>
+                                    </Grid>
+
+                                    <Image Source="{Binding Result, Converter={StaticResource OpponentResultImageConverter}}"
+                                           Grid.Row="1"
+                                           Grid.Column="4"/>
+
                                 </Grid>
 
-                                <Image Source="{Binding Resulr, Converter={StaticResource OpponentResultImageConverter}}"
-                                       Grid.Row="1"
-                                       Grid.Column="4"/>
+                            </Frame>
 
-                            </Grid>
-                            
                         </ViewCell>
                         
                     </DataTemplate>

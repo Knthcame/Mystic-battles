@@ -37,7 +37,7 @@ namespace PVPService.Services
             if (match == null)
                 return false;
 
-            var leaderboard = _database.GetLeaderboards().FirstOrDefault((board) => board.ID == id);
+            var leaderboard = GetLeaderboard(id);
             if (leaderboard == null)
                 return false;
 

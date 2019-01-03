@@ -29,9 +29,9 @@ namespace PVPService.Services
         public List<MatchModel> GetTrainerMatches(string username)
         {
             var matches = _database.GetMatches().ToList();
+            matches = _blobsManager.DeblobMatches(matches);
             matches = FilterByUsername(matches, username).ToList();
             matches = SetMatchesLeaderboards(matches);
-            matches = _blobsManager.DeblobMatches(matches);
             return matches;
         }
 
@@ -39,9 +39,9 @@ namespace PVPService.Services
         {
             var matches = _database.GetMatches().ToList();
             matches = FilterByLeagueId(matches, leagueId).ToList();
+            matches = _blobsManager.DeblobMatches(matches);
             matches = FilterByUsername(matches, username).ToList();
             matches = SetMatchesLeaderboards(matches);
-            matches = _blobsManager.DeblobMatches(matches);
             return matches;
         }
 

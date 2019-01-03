@@ -12,6 +12,8 @@
 
         public const string TrainersURL = BaseURL + "api/Trainers/";
 
+        public const string MatchesURL = BaseURL + "api/Match/";
+
         public const string UsernameExtension = "username/";
 
         public const string IdExtension = "id/";
@@ -19,5 +21,7 @@
         public const string MatchExtension = "match/";
 
         public const string TrainerExtension = "trainer/";
+
+        public const string LeagueExtension = "league/";
     }
 }

@@ -73,9 +73,10 @@ namespace PVPMistico.ViewModels
         {
             var parameters = new NavigationParameters
             {
-                {NavigationParameterKeys.UsernameKey, SelectedParticipant.Username }
+                {NavigationParameterKeys.UsernameKey, SelectedParticipant.Username },
+                {NavigationParameterKeys.LeaderboardKey, Leaderboard }
             };
-            await NavigationService.NavigateAsync(nameof(PlayerMatchHistoryPage));
+            await NavigationService.NavigateAsync(nameof(PlayerMatchHistoryPage), parameters);
         }
 
         private async Task OnInputMatchButtonPressedAsync()

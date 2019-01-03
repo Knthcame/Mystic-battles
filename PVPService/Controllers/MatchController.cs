@@ -22,13 +22,13 @@ namespace PVPService.Controllers
             return Ok(_matches.GetLeagueMatches(id));
         }
 
-        [HttpGet("username /{username}")]
+        [HttpGet("username/{username}")]
         public IActionResult Get(string username)
         {
             return Ok(_matches.GetTrainerMatches(username));
         }
 
-        [HttpGet("league/{id}/username /{username}")]
+        [HttpGet("league/{id}/username/{username}")]
         public IActionResult Get(int id, string username)
         {
             return Ok(_matches.GetTrainerLeagueMatches(username, id));

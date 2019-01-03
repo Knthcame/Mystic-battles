@@ -50,6 +50,7 @@ namespace PVPMistico
             containerRegistry.Register<ICustomLogger, CustomLogger>();
             containerRegistry.Register<ILeaderboardManager, LeaderboardManager>();
             containerRegistry.Register<IDialogManager, DialogManager>();
+            containerRegistry.Register<IMatchManager, MatchManager>();
         }
     }
 }

@@ -128,7 +128,7 @@
                                                Aspect="AspectFit"
                                                Grid.Column="5"
                                                BackgroundColor="Transparent"
-                                               Margin="7"/>
+                                               Margin="8"/>
 
                                         <!--<ImageButton Grid.Column="5"
                                                      Command="{Binding ViewMatchHistoryCommand}"
