@@ -271,4 +271,10 @@
   <data name="Winner" xml:space="preserve">
     <value>Guanyador</value>
   </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirmar contrasenya</value>
+  </data>
+  <data name="PasswordsDontMatch" xml:space="preserve">
+    <value>Les contrasenyes no coincideixen</value>
+  </data>
 </root>

@@ -115,6 +115,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmar contraseña.
+        /// </summary>
+        public static string ConfirmPassword {
+            get {
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Crear nuevo torneo.
         /// </summary>
         public static string CreateLeadearboard {
@@ -390,6 +399,15 @@ namespace PVPMistico.Resources {
         public static string PasswordIncorrectResponse {
             get {
                 return ResourceManager.GetString("PasswordIncorrectResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Las contraseñas no coinciden.
+        /// </summary>
+        public static string PasswordsDontMatch {
+            get {
+                return ResourceManager.GetString("PasswordsDontMatch", resourceCulture);
             }
         }
         

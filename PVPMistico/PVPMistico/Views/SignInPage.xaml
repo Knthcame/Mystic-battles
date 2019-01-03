@@ -102,8 +102,20 @@
                                                    Padding="5"
                                                    Margin="0"/>
 
+                <MyWidgets:PasswordValidationFrame Grid.Row="5"
+                                                   BorderColor="Black"
+                                                   BackgroundColor="White"
+                                                   Title="{Localization:Translate ConfirmPassword}"
+                                                   ValidatableObject="{Binding ConfirmPassword}"
+                                                   UnfocusedCommand="{Binding ConfirmPasswordUnfocusedCommand}"
+                                                   HidePassword="{Binding HideConfirmPassword}"
+                                                   PasswordVisibilityIcon="{Binding ConfirmPasswordVisibilityIcon}"
+                                                   PasswordVisibilityToggleCommand="{Binding ConfirmPasswordVisibilityToggleCommand}"
+                                                   Padding="5"
+                                                   Margin="0"/>
+
                 <Button Text="{Localization:Translate SignIn}"
-                        Grid.Row="5"
+                        Grid.Row="6"
                         Command="{Binding SignInCommand}"
                         IsEnabled="{Binding AreCredentialsValid}"/>
             

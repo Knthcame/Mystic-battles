@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -27,9 +26,13 @@ namespace PVPMistico.ViewModels
         #region Fields
         private ValidatableObject<string> _name;
         private ValidatableObject<string> _email;
+        private ValidatableObject<string> _confirmPassword;
         private bool _isEmailValid;
         private bool _isNameValid;
         private bool _isLevelValid;
+        private bool _isConfirmPasswordValid;
+        private bool _hideConfirmPassword = true;
+        private string _confirmPasswordVisibilityIcon = AppImages.ViewPassword;
         #endregion
 
         #region Properties
@@ -44,6 +47,24 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _email, value);
         }
 
+        public ValidatableObject<string> ConfirmPassword
+        {
+            get => _confirmPassword;
+            set => SetProperty(ref _confirmPassword, value);
+        }
+
+        public bool HideConfirmPassword
+        {
+            get => _hideConfirmPassword;
+            set => SetProperty(ref _hideConfirmPassword, value);
+        }
+
+        public string ConfirmPasswordVisibilityIcon
+        {
+            get => _confirmPasswordVisibilityIcon;
+            set => SetProperty(ref _confirmPasswordVisibilityIcon, value);
+        }
+
         public List<int> Levels { get; set; } = new List<int>(Enumerable.Range(1, 40));
 
         public int SelectedLevel { get; set; }
@@ -52,6 +73,8 @@ namespace PVPMistico.ViewModels
         public ICommand EmailUnfocusedCommand { get; private set; }
         public ICommand NameUnfocusedCommand { get; private set; }
         public ICommand LevelPickedCommand { get; private set; }
+        public ICommand ConfirmPasswordUnfocusedCommand { get; set; }
+        public ICommand ConfirmPasswordVisibilityToggleCommand { get; private set; }
         #endregion
 
         public SignInPageViewModel(INavigationService navigationService, IAccountManager accountManager, IDialogManager dialogManager, ICustomLogger logger) 
@@ -63,11 +86,30 @@ namespace PVPMistico.ViewModels
             EmailUnfocusedCommand = new DelegateCommand(OnEmailUnfocused);
             NameUnfocusedCommand = new DelegateCommand(OnNameUnfocused);
             LevelPickedCommand = new DelegateCommand(OnLevelPicked);
+            ConfirmPasswordUnfocusedCommand = new DelegateCommand(OnConfirmPasswordUnfocused);
+            ConfirmPasswordVisibilityToggleCommand = new DelegateCommand(OnConfirmPasswordVisibilityToggled);
+        }
+
+        private void OnConfirmPasswordVisibilityToggled()
+        {
+            switch (HideConfirmPassword)
+            {
+                case true:
+                    HideConfirmPassword = false;
+                    ConfirmPasswordVisibilityIcon = AppImages.HidePassword;
+                    break;
+
+                case false:
+                    HideConfirmPassword = true;
+                    ConfirmPasswordVisibilityIcon = AppImages.ViewPassword;
+                    break;
+            }
         }
 
         private void OnLevelPicked()
         {
             _isLevelValid = true;
+            CheckCredentials();
         }
 
         protected override void InitializeValidatableObjects()
@@ -75,6 +117,7 @@ namespace PVPMistico.ViewModels
             base.InitializeValidatableObjects();
             Email = new ValidatableObject<string>();
             Name = new ValidatableObject<string>();
+            ConfirmPassword = new ValidatableObject<string>();
         }
 
         protected override void AddValidations()
@@ -82,6 +125,7 @@ namespace PVPMistico.ViewModels
             base.AddValidations();
             Email.Validations.Add(new IsEmailRule<string>());
             Name.Validations.Add(new IsNotNullOrEmptyOrBlankSpaceRule<string>() { ValidationMessage = AppResources.EmptyNameError });
+            ConfirmPassword.Validations.Add(new IsPasswordFormatCorrectRule());
         }
 
         private async Task OnSignInButtonClickedAsync()
@@ -152,6 +196,42 @@ namespace PVPMistico.ViewModels
             CheckCredentials();
         }
 
+        private void OnConfirmPasswordUnfocused()
+        {
+            if (string.IsNullOrEmpty(ConfirmPassword.Value))
+                return;
+
+            if (Name != null && Name.Value != null)
+                ConfirmPassword.Value = ConfirmPassword.Value.Trim();
+
+            CheckConfirmPasswordMatches();
+
+            
+            CheckCredentials();
+        }
+
+        private void CheckConfirmPasswordMatches()
+        {
+            if(ConfirmPassword.Value != Password.Value)
+            {
+                ConfirmPassword.Errors = new List<string> { AppResources.PasswordsDontMatch };
+                ConfirmPassword.IsValid = _isConfirmPasswordValid = false;
+            }
+            else
+            {
+                ConfirmPassword.Errors = new List<string>();
+                ConfirmPassword.IsValid = _isConfirmPasswordValid = true;
+            }
+        }
+
+        protected override void OnPaswordUnfocused()
+        {
+            base.OnPaswordUnfocused();
+
+            if (ConfirmPassword.Value != null)
+                CheckConfirmPasswordMatches();
+        }
+
         private bool ValidateEmail()
         {
             return Email.Validate();
@@ -164,7 +244,7 @@ namespace PVPMistico.ViewModels
 
         protected override void CheckCredentials()
         {
-            AreCredentialsValid = _isEmailValid && _isNameValid && _isUsernameValid && _isPasswordValid && _isLevelValid;
+            AreCredentialsValid = _isEmailValid && _isNameValid && _isUsernameValid && _isPasswordValid && _isLevelValid && _isConfirmPasswordValid;
         }
     }
 }
