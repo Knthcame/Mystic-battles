@@ -23,10 +23,10 @@ namespace PVPService.Controllers
                     return BadRequest(SignInResponseCode.UnknowError);
 
                 var response = _accounts.RegisterNewAccount(models.Account);
-                _trainers.AddTrainer(models.Trainer);
                 switch (response)
                 {
                     case SignInResponseCode.SignInSuccessful:
+                        _trainers.AddTrainer(models.Trainer);
                         return Ok(response);
 
                     default:

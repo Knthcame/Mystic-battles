@@ -1,20 +1,20 @@
 ﻿using Models.Classes;
-using Newtonsoft.Json;
 using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 
 namespace PVPService.Services
 {
     public class Database
     {
-        private readonly SQLiteConnection database;
+        private readonly SQLiteConnection _database;
+
+        private readonly BlobsManager _blobsManager = new BlobsManager();
 
         public Database()
         {
-            database = InitializeDatabase();
+            _database = InitializeDatabase();
         }
         private SQLiteConnection InitializeDatabase()
         {
@@ -23,30 +23,25 @@ namespace PVPService.Services
             db.CreateTable<LeaderboardModel>();
             db.CreateTable<AccountModel>();
             db.CreateTable<TrainerModel>();
+            db.CreateTable<MatchModel>();
             return db;
         }
 
         public List<LeaderboardModel> GetLeaderboards()
-            => DeblobLeaderboards(database.Table<LeaderboardModel>().ToList());
-
-        private List<LeaderboardModel> DeblobLeaderboards(List<LeaderboardModel> list)
-        {
-            foreach(LeaderboardModel leaderboard in list)
-            {
-                leaderboard.Participants = DeblobLeaderboard(leaderboard).Participants;
-            }
-            return list;
-        }
+            => _database.Table<LeaderboardModel>().ToList();
 
         public List<AccountModel> GetAccounts()
-            => database.Table<AccountModel>().ToList();
+            => _database.Table<AccountModel>().ToList();
 
         public List<TrainerModel> GetTrainers()
-            => database.Table<TrainerModel>().ToList();
+            => _database.Table<TrainerModel>().ToList();
+
+        public List<MatchModel> GetMatches()
+            =>_database.Table<MatchModel>().ToList();
 
         public bool AddLeaderboard(LeaderboardModel leaderboard)
         {
-            leaderboard = BlobLeaderboard(leaderboard);
+            leaderboard = _blobsManager.BlobLeaderboard(leaderboard);
             return AddObject(leaderboard);
         }
 
@@ -56,9 +51,15 @@ namespace PVPService.Services
         public bool AddTrainer(TrainerModel trainer)
             => AddObject(trainer);
 
+        public bool AddMatch(MatchModel match)
+        {
+            match = _blobsManager.BlobMatch(match);
+            return AddObject(match);
+        }
+
         public bool UpdateLeaderboard(LeaderboardModel leaderboard)
         {
-            leaderboard = BlobLeaderboard(leaderboard);
+            leaderboard = _blobsManager.BlobLeaderboard(leaderboard);
             return UpdateObject(leaderboard);
         }
 
@@ -68,22 +69,16 @@ namespace PVPService.Services
         public bool UpdateAccount(AccountModel account)
             => UpdateObject(account);
 
+        public bool UpdateMatch(MatchModel match)
+        {
+            match = _blobsManager.BlobMatch(match);
+            return UpdateObject(match);
+        }
+
         private bool AddObject(object obj)
-            => database.Insert(obj) > 0;
+            => _database.Insert(obj) > 0;
 
         private bool UpdateObject(object obj)
-            => database.Update(obj) > 0;
-
-        private LeaderboardModel BlobLeaderboard(LeaderboardModel leaderboard)
-        {
-            leaderboard.ParticipantsBlobbed = JsonConvert.SerializeObject(leaderboard.Participants);
-            return leaderboard;
-        }
-
-        private LeaderboardModel DeblobLeaderboard(LeaderboardModel leaderboard)
-        {
-            leaderboard.Participants = JsonConvert.DeserializeObject<ObservableCollection<ParticipantModel>>(leaderboard.ParticipantsBlobbed);
-            return leaderboard;
-        }
+            => _database.Update(obj) > 0;
     }
 }

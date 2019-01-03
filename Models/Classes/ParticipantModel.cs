@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace Models.Classes
+﻿namespace Models.Classes
 {
     public class ParticipantModel
     {
@@ -18,11 +16,6 @@ namespace Models.Classes
 
         public bool IsAdmin { get; set; }
 
-        public ObservableCollection<MatchModel> Matches { get; set; }
-
-        public ParticipantModel()
-        {
-            Matches = new ObservableCollection<MatchModel>();
-        }
+        public ParticipantModel() { }
     }
 }

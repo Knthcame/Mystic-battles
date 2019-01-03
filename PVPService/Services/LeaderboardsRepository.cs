@@ -11,13 +11,20 @@ namespace PVPService.Services
     {
         private readonly Database _database = new Database();
 
+        private readonly BlobsManager _blobsManager = new BlobsManager();
+
         public List<LeaderboardModel> GetLeaderboards() => _database.GetLeaderboards();
 
         public List<LeaderboardModel> GetUserLeaderBoards(string username) => 
             new List<LeaderboardModel>(_database.GetLeaderboards().Where((boards) => boards.Participants.Any((participant) => participant.Username == username)));
 
-        public LeaderboardModel GetLeaderboard(int id) =>
-            _database.GetLeaderboards().FirstOrDefault((board) => board.ID == id);
+        public LeaderboardModel GetLeaderboard(int id)
+        {
+            var leaderboard =_database.GetLeaderboards().Find((board) => board.ID == id);
+            leaderboard = _blobsManager.DeblobLeaderboard(leaderboard);
+            return leaderboard;
+        }
+            
 
         public bool InputMatch(int id, MatchModel match)
         {
@@ -28,17 +35,20 @@ namespace PVPService.Services
             if (leaderboard == null)
                 return false;
 
-            var winner = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Winner);
-            var loser = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Loser);
+            var winner = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Winner.Username);
+            var loser = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Loser.Username);
 
             if (winner == null || loser == null)
                 return false;
 
             match.DateTime = DateTime.Now;
 
-            AddWin(winner, match);
-            AddLoss(loser, match);
+            AddWin(winner);
+            AddLoss(loser);
             RecalculatePositions(leaderboard);
+
+            _database.AddMatch(match);
+            _database.UpdateLeaderboard(leaderboard);
             return true;
         }
 
@@ -49,8 +59,7 @@ namespace PVPService.Services
 
             if (_database.GetLeaderboards().Any(board => board.Name == leaderboard.Name))
                 return CreateLeaderboardResponseCode.NameAlreadyUsed;
-
-            //leaderboard.ID = GenerateNewID();
+            
             if (_database.AddLeaderboard(leaderboard))
                 return CreateLeaderboardResponseCode.CreatedSuccessfully;
             else
@@ -100,156 +109,15 @@ namespace PVPService.Services
             }
         }
 
-        private void AddLoss(ParticipantModel loser, MatchModel match)
+        private void AddLoss(ParticipantModel loser)
         {
             loser.Losses++;
-            loser.Matches.Add(match);
         }
 
-        private void AddWin(ParticipantModel winner, MatchModel match)
+        private void AddWin(ParticipantModel winner)
         {
             winner.Wins++;
             winner.Points += 3;
-            winner.Matches.Add(match);
         }
-
-        private List<LeaderboardModel> LeaderboardMock()
-        {
-            return new List<LeaderboardModel>()
-            {
-                new LeaderboardModel()
-                {
-                    ID = 1,
-                    LeagueType = LeagueTypesEnum.GreatLeague,
-                    Name = "Originals great",
-                    Participants = new ObservableCollection<ParticipantModel>()
-                    {
-                        new ParticipantModel()
-                        {
-                            Level = 40,
-                            Losses = 0,
-                            Username = "Originals",
-                            Wins = 2,
-                            IsAdmin = true,
-                            Position = 1,
-                            Points = 6,
-                            Matches = new ObservableCollection<MatchModel>()
-                            {
-                                new MatchModel()
-                                {
-                                    League = "Originals",
-                                    LeagueType = LeagueTypesEnum.GreatLeague,
-                                    ID = 1,
-                                    Winner = "Originals",
-                                    Loser = "No originals"
-                                },
-                                new MatchModel()
-                                {
-                                    League = "Originals",
-                                    LeagueType = LeagueTypesEnum.GreatLeague,
-                                    ID = 2,
-                                    Winner = "Originals",
-                                    Loser = "No originals"
-                                }
-                            }
-                        },
-                        new ParticipantModel()
-                        {
-                            Level = 40,
-                            Losses = 2,
-                            Username = "No originals",
-                            Wins = 0,
-                            Position = 2,
-                            Points = 0,
-                            Matches = new ObservableCollection<MatchModel>()
-                            {
-                                new MatchModel()
-                                {
-                                    League = "Originals",
-                                    LeagueType = LeagueTypesEnum.GreatLeague,
-                                    ID = 1,
-                                    Winner = "Originals",
-                                    Loser = "No originals"
-                                },
-                                new MatchModel()
-                                {
-                                    League = "Originals",
-                                    LeagueType = LeagueTypesEnum.GreatLeague,
-                                    ID = 2,
-                                    Loser = "Originals",
-                                    Winner = "No originals"
-                                }
-                            }
-                        }
-                    }
-                },
-                new LeaderboardModel()
-                {
-                    ID = 2,
-                    LeagueType = LeagueTypesEnum.UltraLeague,
-                    Name = "Originals ultra",
-                    Participants = new ObservableCollection<ParticipantModel>()
-                    {
-                        new ParticipantModel()
-                        {
-                            Level = 40,
-                            Losses = 0,
-                            Username = "Originals",
-                            Wins = 2,
-                            Position = 1,
-                            Points = 6,
-                            Matches = new ObservableCollection<MatchModel>()
-                            {
-                                new MatchModel()
-                                {
-                                    League = "Originals",
-                                    LeagueType = LeagueTypesEnum.UltraLeague,
-                                    ID = 1,
-                                    Winner = "Originals",
-                                    Loser = "No originals"
-                                },
-                                new MatchModel()
-                                {
-                                    League = "Originals",
-                                    LeagueType = LeagueTypesEnum.UltraLeague,
-                                    ID = 2,
-                                    Loser = "Originals",
-                                    Winner = "No originals"
-                                }
-                            }
-                        },
-                        new ParticipantModel()
-                        {
-                            Level = 40,
-                            Losses = 2,
-                            Username = "No originals",
-                            Wins = 0,
-                            Position = 2,
-                            Points = 0,
-                            Matches = new ObservableCollection<MatchModel>()
-                            {
-                                new MatchModel()
-                                {
-                                    League = "Originals",
-                                    LeagueType = LeagueTypesEnum.UltraLeague,
-                                    ID = 3,
-                                    Winner = "Originals",
-                                    Loser = "No originals"
-                                },
-                                new MatchModel()
-                                {
-                                    League = "Originals",
-                                    LeagueType = LeagueTypesEnum.UltraLeague,
-                                    ID = 4,
-                                    Loser = "Originals",
-                                    Winner = "No originals"
-                                }
-                            }
-                        }
-                    }
-                }
-            };
-        }
-
     }
 }
