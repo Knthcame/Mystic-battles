@@ -45,5 +45,11 @@ namespace PVPMistico.Managers
             }
             UserDialogs.Instance.Toast(config);
         }
+
+        public void ShowToast(string message, ToastModes mode = ToastModes.Info)
+        {
+            var config = new ToastConfig(message);
+            ShowToast(config, mode);
+        }
     }
 }

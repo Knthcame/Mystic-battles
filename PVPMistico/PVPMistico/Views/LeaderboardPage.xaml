@@ -6,7 +6,8 @@
                   xmlns:MyPages="clr-namespace:PVPMistico.Views"
                   xmlns:PrismBehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
                   x:Class="PVPMistico.Views.LeaderboardPage"
-                  Title="{Binding Leaderboard.Name}">
+                  Title="{Binding Leaderboard.Name}"
+                  x:Name="MyPage">
 
     <ContentPage.Resources>
 
@@ -57,97 +58,99 @@
                    HorizontalOptions="End"
                    FontAttributes="Bold"/>
 
-            <ScrollView Grid.Row="1"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="6">
-                
-                <ListView ItemsSource="{Binding Participants}"
-                          SelectedItem="{Binding SelectedParticipant}">
+            <ListView ItemsSource="{Binding Participants}"
+                      SelectedItem="{Binding SelectedParticipant}"
+                      Grid.Row="1"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="6"
+                      RowHeight="40">
 
-                    <ListView.Behaviors>
+                <ListView.Behaviors>
 
                         <PrismBehaviors:EventToCommandBehavior EventName="ItemSelected"
                                                                Command="{Binding ParticipantSelectedCommand}"/>
 
                     </ListView.Behaviors>
 
-                    <ListView.ItemTemplate>
+                <ListView.ItemTemplate>
 
-                        <DataTemplate>
+                    <DataTemplate>
 
-                            <ViewCell>
+                        <ViewCell>
 
-                                <Frame BorderColor="Black"
-                                       Padding="0"
-                                       MinimumHeightRequest="200">
+                            <Frame BorderColor="Black"
+                                       Padding="0">
 
-                                    <Grid Padding="2"
+                                <Grid Padding="2"
                                           VerticalOptions="Center">
 
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="5*"/>
-                                            <ColumnDefinition Width="30*"/>
-                                            <ColumnDefinition Width="20*"/>
-                                            <ColumnDefinition Width="20*"/>
-                                            <ColumnDefinition Width="15*"/>
-                                            <ColumnDefinition Width="10*"/>
-                                        </Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="30*"/>
+                                        <ColumnDefinition Width="20*"/>
+                                        <ColumnDefinition Width="20*"/>
+                                        <ColumnDefinition Width="15*"/>
+                                        <ColumnDefinition Width="10*"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <Label Text="{Binding Position, Converter={StaticResource IntToStringConverter}}"
+                                    <!--<Grid.GestureRecognizers>
+                                        <SwipeGestureRecognizer Direction="Right"
+                                                                    Command="{Binding Source={x:Reference MyPage}, Path=BindingContext.ParticipantSelectedCommand}"/>
+                                    </Grid.GestureRecognizers>-->
+
+                                    <Label Text="{Binding Position, Converter={StaticResource IntToStringConverter}}"
                                                Grid.Column="0"
                                                HorizontalOptions="End"
-                                               FontSize="Medium"
+                                               FontSize="Small"
                                                VerticalOptions="Center"/>
 
-                                        <Label Text="{Binding Username}"
+                                    <Label Text="{Binding Username}"
                                                Grid.Column="1"
                                                FontAttributes="Italic"
-                                               FontSize="Medium"
+                                               FontSize="Small"
                                                VerticalOptions="Center"/>
 
-                                        <Label Text="{Binding Wins, Converter={StaticResource IntToStringConverter}}"
+                                    <Label Text="{Binding Wins, Converter={StaticResource IntToStringConverter}}"
                                                Grid.Column="2"
                                                HorizontalTextAlignment="End"
-                                               FontSize="Medium"
+                                               FontSize="Small"
                                                VerticalOptions="Center"/>
 
-                                        <Label Text="{Binding Losses, Converter={StaticResource IntToStringConverter}}"
+                                    <Label Text="{Binding Losses, Converter={StaticResource IntToStringConverter}}"
                                                Grid.Column="3"
                                                HorizontalTextAlignment="End"
-                                               FontSize="Medium"
+                                               FontSize="Small"
                                                VerticalOptions="Center"/>
 
-                                        <Label Text="{Binding Points, Converter={StaticResource IntToStringConverter}}"
+                                    <Label Text="{Binding Points, Converter={StaticResource IntToStringConverter}}"
                                                Grid.Column="4"
                                                HorizontalTextAlignment="End"
-                                               FontSize="Medium"
+                                               FontSize="Small"
                                                VerticalOptions="Center"/>
 
-                                        <Image Source="admin.png"
+                                    <Image Source="admin.png"
                                                IsVisible="{Binding IsAdmin}"
                                                Aspect="AspectFit"
                                                Grid.Column="5"
                                                BackgroundColor="Transparent"
                                                Margin="8"/>
 
-                                        <!--<ImageButton Grid.Column="5"
+                                    <!--<ImageButton Grid.Column="5"
                                                      Command="{Binding ViewMatchHistoryCommand}"
                                                      Source="planning.png"
                                                      BackgroundColor="Transparent"/>-->
 
-                                    </Grid>
+                                </Grid>
 
-                                </Frame>
+                            </Frame>
 
-                            </ViewCell>
+                        </ViewCell>
 
-                        </DataTemplate>
-                
-                    </ListView.ItemTemplate>
-            
-                </ListView>
-                
-            </ScrollView>
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+
+            </ListView>
 
             <Grid Grid.Row="2"
                   Grid.Column="0"

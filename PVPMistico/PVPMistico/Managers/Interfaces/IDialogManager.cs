@@ -7,6 +7,8 @@ namespace PVPMistico.Managers.Interfaces
     {
         void ShowToast(ToastConfig config, ToastModes mode = ToastModes.Info);
 
+        void ShowToast(string message, ToastModes mode = ToastModes.Info);
+
         void ShowAlert(AlertConfig config);
 
         void ShowConfirmationDialog(ConfirmConfig config);
