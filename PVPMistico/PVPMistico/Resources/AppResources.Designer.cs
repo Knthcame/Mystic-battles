@@ -232,6 +232,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Liga.
+        /// </summary>
+        public static string LeagueName {
+            get {
+                return ResourceManager.GetString("LeagueName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ya existe una liga con este nombre.
         /// </summary>
         public static string LeagueNameAlreadyUsed {
@@ -345,6 +354,15 @@ namespace PVPMistico.Resources {
         public static string MasterLeague {
             get {
                 return ResourceManager.GetString("MasterLeague", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Historial de partidas.
+        /// </summary>
+        public static string MatchHistory {
+            get {
+                return ResourceManager.GetString("MatchHistory", resourceCulture);
             }
         }
         

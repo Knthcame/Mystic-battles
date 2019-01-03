@@ -5,6 +5,7 @@ using PVPMistico.Extensions;
 using PVPMistico.Logging.Interfaces;
 using PVPMistico.Managers.Interfaces;
 using PVPMistico.Models;
+using PVPMistico.Resources;
 using PVPMistico.ViewModels.BaseViewModels;
 using System.Collections.ObjectModel;
 
@@ -43,6 +44,7 @@ namespace PVPMistico.ViewModels
         public PlayerMatchHistoryPageViewModel(INavigationService navigationService, ICustomLogger logger, IAccountManager accountManager, IMatchManager matchManager) 
             : base(navigationService, logger)
         {
+            Title = AppResources.MatchHistory;
             _accountManager = accountManager;
             _matchManager = matchManager;
         }

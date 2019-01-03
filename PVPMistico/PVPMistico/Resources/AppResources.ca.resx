@@ -283,4 +283,10 @@
   <data name="Win" xml:space="preserve">
     <value>Victòria</value>
   </data>
+  <data name="LeagueName" xml:space="preserve">
+    <value>Lliga</value>
+  </data>
+  <data name="MatchHistory" xml:space="preserve">
+    <value>Historial de partides</value>
+  </data>
 </root>
