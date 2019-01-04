@@ -12,6 +12,7 @@
     <ContentPage.Resources>
 
         <MyConverters:LeagueTypeConverter x:Key="LeagueTypeConverter"/>
+        <MyConverters:NegateBooleanConverter x:Key="NegateBooleanConverter"/>
 
     </ContentPage.Resources>
     
@@ -44,14 +45,37 @@
                                    Margin="0,30,0,0"/>                
             </Grid>
 
+            <Grid Grid.Row="1"
+                  IsVisible="{Binding IsLeaderboardPreviewListEmpty}">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <Label Text="{Localization:Translate LeaderboardPreviewEmpty}"
+                       Grid.Row="0"
+                       HorizontalTextAlignment="Center"/>
+                
+                <Image Source="pikachu.jpg"
+                       Grid.Row="1"/>
+                
+                <Label Text="{Localization:Translate LeaderboardPreviewEmptyHint}"
+                       Grid.Row="2"
+                       HorizontalTextAlignment="Center"/>
+                
+            </Grid>
+
 
             <ListView ItemsSource="{Binding LeaderboardPreviews}"
+                      IsVisible="{Binding IsLeaderboardPreviewListEmpty, Converter={StaticResource NegateBooleanConverter}}"
                       Grid.Row="1"
-                        RowHeight="80"
-                        SelectedItem="{Binding SelectedLeaderboard, Mode=TwoWay}"
-                        IsPullToRefreshEnabled="True"
-                        IsRefreshing="{Binding IsLeaderboardPreviewListRefreshing}"
-                        RefreshCommand="{Binding ResfreshLeaderboardPreviewsCommand}">
+                      RowHeight="80"
+                      SelectedItem="{Binding SelectedLeaderboard, Mode=TwoWay}"
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding IsLeaderboardPreviewListRefreshing}"
+                      RefreshCommand="{Binding ResfreshLeaderboardPreviewsCommand}">
 
                 <ListView.Behaviors>
 

@@ -292,4 +292,10 @@
   <data name="MatchHistory" xml:space="preserve">
     <value>Match history</value>
   </data>
+  <data name="LeaderboardPreviewEmpty" xml:space="preserve">
+    <value>Looks like you don't participate in any league at the moment</value>
+  </data>
+  <data name="LeaderboardPreviewEmptyHint" xml:space="preserve">
+    <value>Ask a league administrator to add to a league, or you can create your own</value>
+  </data>
 </root>

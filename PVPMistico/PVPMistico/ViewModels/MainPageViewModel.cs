@@ -23,6 +23,7 @@ namespace PVPMistico.ViewModels
         private LeaderBoardPreviewModel _selectedLeaderboard;
         private ObservableCollection<LeaderBoardPreviewModel> _leaderboardPreviews;
         private bool _isLeaderboardPreviewListRefreshing;
+        private bool _isLeaderboardPreviewListEmpty;
         private readonly ILeaderboardManager _leaderboardManager;
         private readonly IAccountManager _accountManager;
         private readonly IDialogManager _dialogManager;
@@ -43,6 +44,12 @@ namespace PVPMistico.ViewModels
         {
             get => _isLeaderboardPreviewListRefreshing;
             set => SetProperty(ref _isLeaderboardPreviewListRefreshing, value);
+        }
+
+        public bool IsLeaderboardPreviewListEmpty
+        {
+            get => _isLeaderboardPreviewListEmpty;
+            set => SetProperty(ref _isLeaderboardPreviewListEmpty, value);
         }
 
         public ObservableCollection<LeaderBoardPreviewModel> LeaderboardPreviews
@@ -111,6 +118,7 @@ namespace PVPMistico.ViewModels
                     leaderboardPreviews.Add(leaderboardPreview);
                 }
             }
+            IsLeaderboardPreviewListEmpty = leaderboardPreviews.Count == 0;
             LeaderboardPreviews = leaderboardPreviews;
             IsLeaderboardPreviewListRefreshing = false;
         }

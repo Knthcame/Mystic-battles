@@ -292,4 +292,10 @@
   <data name="MatchHistory" xml:space="preserve">
     <value>Historial de partidas</value>
   </data>
+  <data name="LeaderboardPreviewEmpty" xml:space="preserve">
+    <value>Parece que aún no particpas en ninguna liga</value>
+  </data>
+  <data name="LeaderboardPreviewEmptyHint" xml:space="preserve">
+    <value>Solicita al administrador de alguna liga que te añada, o puedes crear la tuya propia</value>
+  </data>
 </root>

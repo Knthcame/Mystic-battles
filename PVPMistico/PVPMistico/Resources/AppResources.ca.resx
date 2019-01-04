@@ -292,4 +292,10 @@
   <data name="MatchHistory" xml:space="preserve">
     <value>Historial de partides</value>
   </data>
+  <data name="LeaderboardPreviewEmpty" xml:space="preserve">
+    <value>Sembla que encara no participes en cap lliga</value>
+  </data>
+  <data name="LeaderboardPreviewEmptyHint" xml:space="preserve">
+    <value>Demana a l'administrador d'alguna lliga que t'afegeixi o pots crear-ne la teva pròpia</value>
+  </data>
 </root>

@@ -232,6 +232,24 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parece que aún no particpas en ninguna liga.
+        /// </summary>
+        public static string LeaderboardPreviewEmpty {
+            get {
+                return ResourceManager.GetString("LeaderboardPreviewEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solicita al administrador de alguna liga que te añada, o puedes crear la tuya propia.
+        /// </summary>
+        public static string LeaderboardPreviewEmptyHint {
+            get {
+                return ResourceManager.GetString("LeaderboardPreviewEmptyHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clasificaciones.
         /// </summary>
         public static string LeaderboardsHeader {
