@@ -6,6 +6,7 @@ namespace PVPMistico.ViewModels.BaseViewModels
 {
     public class BaseViewModel : BindableBase, INavigationAware, IDestructible
     {
+        private bool _isPageLoading;
         protected INavigationService NavigationService { get; private set; }
         protected ICustomLogger _logger;
 
@@ -14,6 +15,12 @@ namespace PVPMistico.ViewModels.BaseViewModels
         {
             get { return _title; }
             set { SetProperty(ref _title, value); }
+        }
+
+        public bool IsPageLoading
+        {
+            get => _isPageLoading;
+            set => SetProperty(ref _isPageLoading, value);
         }
 
         public virtual bool OnBackButtonPressed()

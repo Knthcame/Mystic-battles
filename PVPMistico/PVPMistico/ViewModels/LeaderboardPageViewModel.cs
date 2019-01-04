@@ -64,6 +64,7 @@ namespace PVPMistico.ViewModels
         {
             _leaderboardManager = leaderboardManager;
             _dialogManager = dialogManager;
+            IsPageLoading = true;
             AddTrainerCommand = new DelegateCommand(async () => await OnAddTrainerButtonPressedAsync());
             InputMatchCommand = new DelegateCommand(async () => await OnInputMatchButtonPressedAsync());
             ParticipantSelectedCommand = new DelegateCommand(async () => await OnSelectParticipantAsync());
@@ -71,12 +72,16 @@ namespace PVPMistico.ViewModels
 
         private async Task OnSelectParticipantAsync()
         {
+            if (SelectedParticipant == null)
+                return;
+
             var parameters = new NavigationParameters
             {
                 {NavigationParameterKeys.UsernameKey, SelectedParticipant.Username },
                 {NavigationParameterKeys.LeaderboardKey, Leaderboard }
             };
             await NavigationService.NavigateAsync(nameof(PlayerMatchHistoryPage), parameters);
+            SelectedParticipant = null;
         }
 
         private async Task OnInputMatchButtonPressedAsync()
@@ -117,6 +122,7 @@ namespace PVPMistico.ViewModels
             OrderParticipants();
 
             await SetAdminPermissionAsync();
+            IsPageLoading = false;
         }
 
         private async Task LoadLeaderboardAsync(int id)

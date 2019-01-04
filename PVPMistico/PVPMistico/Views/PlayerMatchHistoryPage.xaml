@@ -16,160 +16,183 @@
         <MyConverters:LeagueTypeConverter x:Key="LeagueTypeConverter"/>
         <MyConverters:LeaderboardNameConverter x:Key="LeaderboardNameConverter"/>
         <MyConverters:DateTimeConverter x:Key="DateTimeConverter"/>
+        <MyConverters:NegateBooleanConverter x:Key="NegateBooleanConverter"/>
     </MyViews:BasePage.Resources>
     
     <ContentPage.Content>
-        <Grid Margin="0,10,0,0">
+        <Grid>
+            
+            <Grid IsVisible="{Binding IsPageLoading}">
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="35*"/>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="35*"/>
+                </Grid.ColumnDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-            </Grid.ColumnDefinitions>
+                <ActivityIndicator IsRunning="{Binding IsPageLoading}"
+                                   Grid.Column="1"
+                                   Color="Black"
+                                   VerticalOptions="Start"
+                                   HorizontalOptions="CenterAndExpand"
+                                   Margin="0,30,0,0"/>
+            </Grid>
+            
+            <Grid Margin="0,10,0,0"
+                  IsVisible="{Binding IsPageLoading, Converter={StaticResource NegateBooleanConverter}}">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="90*"/>
-            </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
 
-            <Label Text="{Binding Trainer.Username}"
-                   Grid.Row="0"
-                   Grid.Column="0"
-                   FontAttributes="Bold"
-                   TextColor="Black"
-                   Margin="10,0"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="90*"/>
+                </Grid.RowDefinitions>
 
-            <Label Text="{Binding Trainer.Level, Converter={StaticResource LevelDetailConverter}}"
-                   Grid.Row="1"
-                   Grid.Column="0"
-                   TextColor="Black"
-                   Margin="10,0"/>
 
-            <Label Text="{Binding Leaderboard.Name, Converter={StaticResource LeaderboardNameConverter}}"
-                   Grid.Row="0"
-                   Grid.Column="1"
-                   FontAttributes="Bold"
-                   TextColor="Black"/>
 
-            <Label Text="{Binding Leaderboard.LeagueType, Converter={StaticResource LeagueTypeConverter}}"
-                   Grid.Row="1"
-                   Grid.Column="1"
-                   FontAttributes="Italic"
-                   TextColor="Black"/>
+                <Label Text="{Binding Trainer.Username}"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       FontAttributes="Bold"
+                       TextColor="Black"
+                       Margin="10,0"/>
 
-            <ListView ItemsSource="{Binding Matches}"
-                      IsRefreshing="{Binding IsListViewRefreshing}"
-                      RefreshCommand="{Binding RefreshMatchesCommand}"
-                      IsPullToRefreshEnabled="True"
+                <Label Text="{Binding Trainer.Level, Converter={StaticResource LevelDetailConverter}}"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       TextColor="Black"
+                       Margin="10,0"/>
+
+                <Label Text="{Binding Leaderboard.Name, Converter={StaticResource LeaderboardNameConverter}}"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       FontAttributes="Bold"
+                       TextColor="Black"/>
+
+                <Label Text="{Binding Leaderboard.LeagueType, Converter={StaticResource LeagueTypeConverter}}"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       FontAttributes="Italic"
+                       TextColor="Black"/>
+
+                <ListView ItemsSource="{Binding Matches}"
+                          IsRefreshing="{Binding IsListViewRefreshing}"
+                          RefreshCommand="{Binding RefreshMatchesCommand}"
+                          IsPullToRefreshEnabled="True"
+                          Grid.Row="2"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          RowHeight="80">
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <ViewCell>
+
+                                <Frame BorderColor="Black"
+                                       Margin="1,0"
+                                       CornerRadius="0"
+                                       Padding="2">
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="25"/>
+                                            <RowDefinition Height="45"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20*"/>
+                                            <ColumnDefinition Width="20*"/>
+                                            <ColumnDefinition Width="20*"/>
+                                            <ColumnDefinition Width="20*"/>
+                                            <ColumnDefinition Width="20*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Text="{Binding DateTime, Converter={StaticResource DateTimeConverter}}"
+                                               Grid.Row="0"
+                                               Grid.ColumnSpan="5"/>
+
+                                        <Label Text="{Binding Result, Converter={StaticResource ResultTextConverter}}"
+                                               TextColor="{Binding Result, Converter={StaticResource ResultColorConverter}}"
+                                               Grid.Row="1"
+                                               Grid.Column="0"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"/>
+
+                                        <Image Source="{Binding Result, Converter={StaticResource TrainerResultImageConverter}}"
+                                               Grid.Row="1"
+                                               Grid.Column="1"/>
+
+                                        <Image Source="versus.png"
+                                               Grid.Row="1"
+                                               Grid.Column="2"/>
+
+                                        <Grid Grid.Row="1"
+                                              Grid.Column="3">
+
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="20"/>
+                                                <RowDefinition Height="20"/>
+                                            </Grid.RowDefinitions>
+
+                                            <Label Text="{Binding Opponent.Username}"
+                                                   Grid.Row="0"
+                                                   TextColor="Black"
+                                                   FontAttributes="Bold"/>
+
+                                            <Label Text="{Binding Opponent.Level, Converter={StaticResource LevelDetailConverter}}"
+                                                   Grid.Row="1"
+                                                   TextColor="Gray"/>
+                                        </Grid>
+
+                                        <Image Source="{Binding Result, Converter={StaticResource OpponentResultImageConverter}}"
+                                               Grid.Row="1"
+                                               Grid.Column="4"/>
+
+                                    </Grid>
+
+                                </Frame>
+
+                            </ViewCell>
+
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+
+                </ListView>
+
+                <Grid Padding="30,50"
                       Grid.Row="2"
                       Grid.Column="0"
                       Grid.ColumnSpan="2"
-                      RowHeight="80">
+                      IsVisible="{Binding IsMatchListEmpty}">
 
-                <ListView.ItemTemplate>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
 
-                    <DataTemplate>
+                    <Label Text="{Localization:Translate EmptyTrainerMatchesList}"
+                           HorizontalTextAlignment="Center"
+                           Grid.Row="0"/>
 
-                        <ViewCell>
+                    <Image Source="egg.png"
+                           Grid.Row="1"/>
 
-                            <Frame BorderColor="Black"
-                                   Margin="1,0"
-                                   CornerRadius="0"
-                                   Padding="2">
-                                
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="25"/>
-                                        <RowDefinition Height="45"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="20*"/>
-                                        <ColumnDefinition Width="20*"/>
-                                        <ColumnDefinition Width="20*"/>
-                                        <ColumnDefinition Width="20*"/>
-                                        <ColumnDefinition Width="20*"/>
-                                    </Grid.ColumnDefinitions>
-                                
-                                    <Label Text="{Binding DateTime, Converter={StaticResource DateTimeConverter}}"
-                                           Grid.Row="0"
-                                           Grid.ColumnSpan="5"/>
+                    <Grid.GestureRecognizers>
+                        <SwipeGestureRecognizer Direction="Down"
+                                                Command="{Binding RefreshMatchesCommand}"/>
+                    </Grid.GestureRecognizers>
 
-                                    <Label Text="{Binding Result, Converter={StaticResource ResultTextConverter}}"
-                                           TextColor="{Binding Result, Converter={StaticResource ResultColorConverter}}"
-                                           Grid.Row="1"
-                                           Grid.Column="0"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center"/>
+                </Grid>
 
-                                    <Image Source="{Binding Result, Converter={StaticResource TrainerResultImageConverter}}"
-                                           Grid.Row="1"
-                                           Grid.Column="1"/>
-
-                                    <Image Source="versus.png"
-                                           Grid.Row="1"
-                                           Grid.Column="2"/>
-
-                                    <Grid Grid.Row="1"
-                                          Grid.Column="3">
-
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="20"/>
-                                            <RowDefinition Height="20"/>
-                                        </Grid.RowDefinitions>
-
-                                        <Label Text="{Binding Opponent.Username}"
-                                               Grid.Row="0"
-                                               TextColor="Black"
-                                               FontAttributes="Bold"/>
-                                        
-                                        <Label Text="{Binding Opponent.Level, Converter={StaticResource LevelDetailConverter}}"
-                                               Grid.Row="1"
-                                               TextColor="Gray"/>
-                                    </Grid>
-
-                                    <Image Source="{Binding Result, Converter={StaticResource OpponentResultImageConverter}}"
-                                           Grid.Row="1"
-                                           Grid.Column="4"/>
-
-                                </Grid>
-
-                            </Frame>
-
-                        </ViewCell>
-                        
-                    </DataTemplate>
-                    
-                </ListView.ItemTemplate>
-                
-            </ListView>
-
-            <Grid Padding="30,50"
-                  Grid.Row="2"
-                  Grid.Column="0"
-                  Grid.ColumnSpan="2"
-                  IsVisible="{Binding IsMatchListEmpty}">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="100"/>
-                </Grid.RowDefinitions>
-
-                <Label Text="{Localization:Translate EmptyTrainerMatchesList}"
-                       HorizontalTextAlignment="Center"
-                       Grid.Row="0"/>
-
-                <Image Source="egg.png"
-                       Grid.Row="1"/>
-
-                <Grid.GestureRecognizers>
-                    <SwipeGestureRecognizer Direction="Down"
-                                            Command="{Binding RefreshMatchesCommand}"/>
-                </Grid.GestureRecognizers>
-                
             </Grid>
-            
-        </Grid>
 
+        </Grid>
     </ContentPage.Content>
     
 </MyViews:BasePage>

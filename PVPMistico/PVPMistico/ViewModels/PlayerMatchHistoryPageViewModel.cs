@@ -9,7 +9,6 @@ using PVPMistico.Managers.Interfaces;
 using PVPMistico.Models;
 using PVPMistico.Resources;
 using PVPMistico.ViewModels.BaseViewModels;
-using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -72,12 +71,13 @@ namespace PVPMistico.ViewModels
             _accountManager = accountManager;
             _matchManager = matchManager;
             _dialogManager = dialogManager;
+
+            IsPageLoading = true;
             RefreshMatchesCommand = new DelegateCommand(async () => await RefreshMatchListAsync());
         }
 
         private async Task RefreshMatchListAsync()
         {
-            IsListViewRefreshing = true;
             var matches = await _matchManager.GetPlayerLeagueMatchesAsync(Leaderboard.ID, _trainerUsername);
             var trainerMatches = matches.ToTrainerMatchModel(Trainer.Username);
             IsMatchListEmpty = trainerMatches.Count == 0;
@@ -118,7 +118,7 @@ namespace PVPMistico.ViewModels
             Leaderboard = leaderboard;
             Trainer = await _accountManager.GetTrainer(username);
             await RefreshMatchListAsync();
-            IsListViewRefreshing = false;
+            IsPageLoading = false;
         }
     }
 }

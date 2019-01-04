@@ -21,8 +21,8 @@ namespace PVPMistico.ViewModels
     {
         private string _menuText;
         private LeaderBoardPreviewModel _selectedLeaderboard;
-        private bool _isCreateTournamentViewVisible;
         private ObservableCollection<LeaderBoardPreviewModel> _leaderboardPreviews;
+        private bool _isLeaderboardPreviewListRefreshing;
         private readonly ILeaderboardManager _leaderboardManager;
         private readonly IAccountManager _accountManager;
         private readonly IDialogManager _dialogManager;
@@ -39,10 +39,10 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _selectedLeaderboard, value);
         }
 
-        public bool IsCreateTournamentViewVisible
+        public bool IsLeaderboardPreviewListRefreshing
         {
-            get => _isCreateTournamentViewVisible;
-            set => SetProperty(ref _isCreateTournamentViewVisible, value);
+            get => _isLeaderboardPreviewListRefreshing;
+            set => SetProperty(ref _isLeaderboardPreviewListRefreshing, value);
         }
 
         public ObservableCollection<LeaderBoardPreviewModel> LeaderboardPreviews
@@ -54,6 +54,7 @@ namespace PVPMistico.ViewModels
         public ICommand MenuItemCommand { get; private set; }
         public ICommand CreateTournamentCommand { get; private set; }
         public ICommand SelectedLeaderboardCommand { get; private set; }
+        public ICommand ResfreshLeaderboardPreviewsCommand { get; private set; }
 
         public MainPageViewModel(INavigationService navigationService, IAccountManager accountManager, ICustomLogger logger, IDialogManager dialogManager, ILeaderboardManager leaderboardManager)
             : base(navigationService, logger)
@@ -61,11 +62,13 @@ namespace PVPMistico.ViewModels
             _accountManager = accountManager;
             _dialogManager = dialogManager;
             _leaderboardManager = leaderboardManager;
+
             Title = AppResources.MainPageTitle;
             MenuText = AppResources.LogOutButtonText;
             MenuItemCommand = new DelegateCommand(OnLogOutClicked);
             CreateTournamentCommand = new DelegateCommand(async () => await OnCreateTournamentButtonClickedAsync());
             SelectedLeaderboardCommand = new DelegateCommand(async () => await OnLeaderboardSelectedAsync());
+            ResfreshLeaderboardPreviewsCommand = new DelegateCommand(async () => await RefreshLeadeboardPreviews());
         }
 
         private async Task OnCreateTournamentButtonClickedAsync()
@@ -77,14 +80,17 @@ namespace PVPMistico.ViewModels
         {
             if (SelectedLeaderboard == null)
                 return;
+
             var parameters = new NavigationParameters
             {
                 { NavigationParameterKeys.LeaderboardIdKey, SelectedLeaderboard.ID }
             };
             await NavigationService.NavigateAsync(nameof(LeaderboardPage), parameters);
+
+            SelectedLeaderboard = null;
         }
 
-        private async Task<ObservableCollection<LeaderBoardPreviewModel>> LoadMyLeaderboardsAsync()
+        private async Task RefreshLeadeboardPreviews()
         {
             var username = await SecureStorage.GetAsync(SecureStorageTokens.Username);
             var leaderboards = await _leaderboardManager.GetMyLeaderboardsAsync(username);
@@ -105,7 +111,8 @@ namespace PVPMistico.ViewModels
                     leaderboardPreviews.Add(leaderboardPreview);
                 }
             }
-            return leaderboardPreviews;
+            LeaderboardPreviews = leaderboardPreviews;
+            IsLeaderboardPreviewListRefreshing = false;
         }
 
         private void OnLogOutClicked()
@@ -130,12 +137,13 @@ namespace PVPMistico.ViewModels
             }
         }
 
-        public override async void OnNavigatedTo(INavigationParameters parameters)
+        public override async void OnNavigatingTo(INavigationParameters parameters)
         {
+            IsPageLoading = true;
             base.OnNavigatedTo(parameters);
-            SelectedLeaderboard = null;
 
-            LeaderboardPreviews = new ObservableCollection<LeaderBoardPreviewModel>(await LoadMyLeaderboardsAsync());
+            await RefreshLeadeboardPreviews();
+            IsPageLoading = false;
         }
     }
 }
