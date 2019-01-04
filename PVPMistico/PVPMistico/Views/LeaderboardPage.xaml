@@ -86,7 +86,7 @@
 
                     <DataTemplate>
 
-                        <ViewCell>
+                        <MyWidgets:ConditionalMenuItemsViewCell MenuItemsEnabled="{Binding Source={x:Reference MyPage}, Path=BindingContext.IsCurrentUserAdmin}">
 
                             <ViewCell.ContextActions>
 
@@ -166,7 +166,7 @@
 
                             </Frame>
 
-                        </ViewCell>
+                        </MyWidgets:ConditionalMenuItemsViewCell>
 
                     </DataTemplate>
 

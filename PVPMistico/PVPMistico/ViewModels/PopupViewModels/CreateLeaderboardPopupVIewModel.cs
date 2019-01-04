@@ -107,6 +107,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
 
         private async Task OnCreateLeaderboardButtonPressedAsync()
         {
+            _dialogManager.ShowLoading();
             var username = await SecureStorage.GetAsync(SecureStorageTokens.Username);
             var participant = await _accountManager.CreateParticipantAsync(username, isAdmin: true);
 
@@ -117,6 +118,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
             }
             
             var response = await _leaderboardManager.CreateLeaderboardAsync(LeagueName.Value, SelectedLeagueType.LeagueTypesEnum, participant);
+            _dialogManager.EndLoading();
             switch(response)
             {
                 case CreateLeaderboardResponseCode.CreatedSuccessfully:

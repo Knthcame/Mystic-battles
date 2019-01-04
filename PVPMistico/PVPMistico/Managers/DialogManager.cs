@@ -1,6 +1,7 @@
 ﻿using Acr.UserDialogs;
 using PVPMistico.Enums;
 using PVPMistico.Managers.Interfaces;
+using PVPMistico.Resources;
 using System.Drawing;
 
 namespace PVPMistico.Managers
@@ -51,9 +52,14 @@ namespace PVPMistico.Managers
             ShowToast(config, mode);
         }
 
-        public void ShowLoading(string title = null)
+        public void ShowLoading(string title)
         {
             UserDialogs.Instance.ShowLoading(title);
+        }
+
+        public void ShowLoading()
+        {
+            ShowLoading(AppResources.Loading);
         }
 
         public void EndLoading()
