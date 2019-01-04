@@ -2,6 +2,7 @@
 using Models.Enums;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace PVPService.Services
@@ -50,13 +51,30 @@ namespace PVPService.Services
 
             match.DateTime = DateTime.Now;
 
-            AddWin(winner);
-            AddLoss(loser);
-            RecalculatePositions(leaderboard);
+            leaderboard = RecalculatePoints(leaderboard, winner, loser);
+            leaderboard = RecalculatePositions(leaderboard);
 
             _database.AddMatch(match);
             _database.UpdateLeaderboard(leaderboard);
             return true;
+        }
+
+        public bool UpdateParticipant(int leaderboardId, ParticipantModel trainer)
+        {
+            if (trainer == null)
+                return false;
+
+            var leaderboard = GetLeaderboard(leaderboardId);
+            if (leaderboard == null)
+                return false;
+
+            var player = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == trainer.Username);
+            if (player == null)
+                return false;
+
+            var index = leaderboard.Participants.IndexOf(player);
+            leaderboard.Participants[index] = trainer;
+            return _database.UpdateLeaderboard(leaderboard);
         }
 
         public CreateLeaderboardResponseCode AddLeaderboard(LeaderboardModel leaderboard)
@@ -71,6 +89,24 @@ namespace PVPService.Services
                 return CreateLeaderboardResponseCode.CreatedSuccessfully;
             else
                 return CreateLeaderboardResponseCode.UnknownError;
+        }
+
+        public bool RemoveTrainer(int leaderboardId, string username)
+        {
+            var leaderboard = GetLeaderboard(leaderboardId);
+            if (leaderboard == null)
+                return false;
+
+            var trainer = leaderboard.Participants.FirstOrDefault(participant => participant.Username == username);
+            var succes = leaderboard.Participants.Remove(trainer);
+
+            if (succes)
+            {
+                leaderboard = RecalculatePositions(leaderboard);
+                _database.UpdateLeaderboard(leaderboard);
+            }
+            
+            return succes;
         }
 
         public AddTrainerResponseCode AddTrainer(int leaderboardId, ParticipantModel trainer)
@@ -88,6 +124,9 @@ namespace PVPService.Services
             trainer.Position = leaderboard.Participants.Count + 1;
 
             leaderboard.Participants.Add(trainer);
+
+            leaderboard = RecalculatePositions(leaderboard);
+
             if(_database.UpdateLeaderboard(leaderboard))
                 return AddTrainerResponseCode.TrainerAddedSuccesfully;
             else
@@ -106,7 +145,7 @@ namespace PVPService.Services
             return newId;
         }
 
-        private void RecalculatePositions(LeaderboardModel leaderboard)
+        private LeaderboardModel RecalculatePositions(LeaderboardModel leaderboard)
         {
             var orderedParticipants = leaderboard.Participants.OrderByDescending((participant) => participant.Points);
             int i = 1;
@@ -114,17 +153,38 @@ namespace PVPService.Services
             {
                 participant.Position = i++;
             }
+            leaderboard.Participants = new ObservableCollection<ParticipantModel>(orderedParticipants);
+            return leaderboard;
         }
 
-        private void AddLoss(ParticipantModel loser)
+        private ParticipantModel AddLoss(ParticipantModel loser, int points)
         {
             loser.Losses++;
+            loser.Points -= Math.Max(3, points);
+            loser.Points = Math.Max(0, loser.Points);
+            return loser;
         }
 
-        private void AddWin(ParticipantModel winner)
+        private ParticipantModel AddWin(ParticipantModel winner, int points)
         {
             winner.Wins++;
-            winner.Points += 3;
+            winner.Points += Math.Max(3, points);
+            return winner;
+        }
+
+        private LeaderboardModel RecalculatePoints(LeaderboardModel leaderboard, ParticipantModel winner, ParticipantModel loser)
+        {
+            double pointsDifference = winner.Points - loser.Points;
+            double compensationPoints = (int)Math.Round(pointsDifference / 30);
+            compensationPoints = Math.Clamp(compensationPoints, -10, 2);
+            var resultPoints = (int)(5 - compensationPoints);
+
+            var winnerIndex = leaderboard.Participants.IndexOf(winner);
+            leaderboard.Participants[winnerIndex] = AddWin(winner, resultPoints);
+
+            var loserIndex = leaderboard.Participants.IndexOf(loser);
+            leaderboard.Participants[loserIndex] = AddLoss(loser, resultPoints);
+            return leaderboard;
         }
     }
 }

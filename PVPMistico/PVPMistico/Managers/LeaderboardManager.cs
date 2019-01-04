@@ -80,11 +80,21 @@ namespace PVPMistico.Managers
             return response;
         }
 
-        public bool RemoveTrainer(LeaderboardModel leaderboard, ParticipantModel trainer)
+        public async Task<bool> RemoveTrainerAsync(LeaderboardModel leaderboard, ParticipantModel participant)
         {
-            return leaderboard.Participants.Remove(trainer);
+            if (participant == null || leaderboard == null)
+                return false;
+
+            return await _httpManager.DeleteAsync<bool>(ApiConstants.LeaderboardsURL + ApiConstants.LeagueExtension + leaderboard.ID.ToString() +"/" + ApiConstants.TrainerExtension + participant.Username);
         }
 
+        public async Task<bool> UpdateParticipantAsync(LeaderboardModel leaderboard, ParticipantModel participant)
+        {
+            if (participant == null | leaderboard == null)
+                return false;
+
+            return await _httpManager.PostAsync<bool>(ApiConstants.LeaderboardsURL, participant, ApiConstants.TrainerExtension, leaderboard.ID.ToString());
+        }
         
         public async Task<bool> InputMatch(LeaderboardModel leaderboard, MatchModel match)
         {

@@ -44,7 +44,7 @@
                                         Grid.Row="1"/>
 
             <ListView ItemsSource="{Binding TrainerList}"
-                      SelectedItem="{Binding SelectedTrainer}"
+                      SelectedItem="{Binding SelectedTrainer, Mode=TwoWay}"
                       IsVisible="{Binding IsPageLoading, Converter={StaticResource NegateBooleanConverter}}"
                       Grid.Row="1">
 

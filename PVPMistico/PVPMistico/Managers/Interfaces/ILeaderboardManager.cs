@@ -17,7 +17,9 @@ namespace PVPMistico.Managers.Interfaces
 
         Task<AddTrainerResponseCode> AddTrainerAsync(LeaderboardModel leaderboard, TrainerModel trainer);
 
-        bool RemoveTrainer(LeaderboardModel leaderboard, ParticipantModel trainer);
+        Task<bool> UpdateParticipantAsync(LeaderboardModel leaderboard, ParticipantModel participant);
+
+        Task<bool> RemoveTrainerAsync(LeaderboardModel leaderboard, ParticipantModel participant);
 
         Task<bool> InputMatch(LeaderboardModel leaderboard, MatchModel match);
     }

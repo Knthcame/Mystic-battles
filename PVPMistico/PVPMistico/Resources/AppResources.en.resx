@@ -298,4 +298,19 @@
   <data name="LeaderboardPreviewEmptyHint" xml:space="preserve">
     <value>Ask a league administrator to add to a league, or you can create your own</value>
   </data>
+  <data name="AddAsAdmin" xml:space="preserve">
+    <value>Add as admin</value>
+  </data>
+  <data name="CeaseAdmin" xml:space="preserve">
+    <value>Cease admin</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Remove trainer</value>
+  </data>
+  <data name="DeleteParticipantConfirmationMessage" xml:space="preserve">
+    <value>Are you sure you want to remove this trainer from this league?</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
 </root>

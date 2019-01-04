@@ -15,18 +15,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
+using System;
 
 namespace PVPMistico.ViewModels
 {
     public class LeaderboardPageViewModel : BaseViewModel
     {
         #region Fields
+        internal object ContextActions;
         private readonly ILeaderboardManager _leaderboardManager;
         private readonly IDialogManager _dialogManager;
         private LeaderboardModel _leaderboard;
         private bool _isCurrentUserAdmin;
         private ObservableCollection<ParticipantModel> _participants;
         private ParticipantModel _selectedParticipant;
+        private bool _isLeaderboardRefreshing;
+        private ParticipantModel _participantToDelete;
         #endregion
 
         #region Properties
@@ -48,6 +52,12 @@ namespace PVPMistico.ViewModels
             set => SetProperty(ref _isCurrentUserAdmin, value);
         }
 
+        public bool IsLeaderboardRefreshing
+        {
+            get => _isLeaderboardRefreshing;
+            set => SetProperty(ref _isLeaderboardRefreshing, value);
+        }
+
         public ParticipantModel SelectedParticipant
         {
             get => _selectedParticipant;
@@ -57,6 +67,9 @@ namespace PVPMistico.ViewModels
         public ICommand AddTrainerCommand { get; private set; }
         public ICommand InputMatchCommand { get; private set; }
         public ICommand ParticipantSelectedCommand { get; private set; }
+        public ICommand ChangeAdminPermissionsCommand { get; private set; }
+        public ICommand RefreshParticipantsCommand { get; private set; }
+        public ICommand DeleteParticipantCommand { get; private set; }
         #endregion
 
         public LeaderboardPageViewModel(INavigationService navigationService, ICustomLogger logger, ILeaderboardManager leaderboardManager, IDialogManager dialogManager)
@@ -68,6 +81,62 @@ namespace PVPMistico.ViewModels
             AddTrainerCommand = new DelegateCommand(async () => await OnAddTrainerButtonPressedAsync());
             InputMatchCommand = new DelegateCommand(async () => await OnInputMatchButtonPressedAsync());
             ParticipantSelectedCommand = new DelegateCommand(async () => await OnSelectParticipantAsync());
+            ChangeAdminPermissionsCommand = new DelegateCommand<ParticipantModel>(async (participant) => await ChangeAdminPermissions(participant));
+            RefreshParticipantsCommand = new DelegateCommand(async () => await RefreshParticipants());
+            DeleteParticipantCommand = new DelegateCommand<ParticipantModel>(AskForParticipantRemovalConfirmation);
+        }
+
+        private void AskForParticipantRemovalConfirmation(ParticipantModel participant)
+        {
+            _participantToDelete = participant;
+            var config = new ConfirmConfig
+            {
+                OkText = AppResources.ConfirmationDialogOkButton,
+                CancelText = AppResources.ConfirmationDialogCancelButton,
+                Title = AppResources.DeleteParticipant,
+                Message = AppResources.DeleteParticipantConfirmationMessage + "\n\n" + participant.Username,
+                OnAction = async (confirmed) => await DeleteParticipantAsync(confirmed)
+            };
+            _dialogManager.ShowConfirmationDialog(config);
+        }
+
+        private async Task DeleteParticipantAsync(bool confirmed)
+        {
+            if (!confirmed || _participantToDelete == null)
+                return;
+
+            _dialogManager.ShowLoading(AppResources.Loading);
+            var succes = await _leaderboardManager.RemoveTrainerAsync(Leaderboard, _participantToDelete);
+            _dialogManager.EndLoading();
+            if (succes)
+                await RefreshParticipants();
+            else
+                _dialogManager.ShowToast(AppResources.Error, ToastModes.Error);
+        }
+
+        private async Task RefreshParticipants()
+        {
+            IsLeaderboardRefreshing = true;
+            await LoadLeaderboardAsync(Leaderboard.ID);
+            Participants = Leaderboard.Participants;
+            OrderParticipants();
+            IsLeaderboardRefreshing = false;
+        }
+
+        private async Task ChangeAdminPermissions(ParticipantModel participant)
+        {
+            _dialogManager.ShowLoading(AppResources.Loading);
+            if (participant == null)
+                return;
+
+            participant.IsAdmin ^= true;
+            var success = await _leaderboardManager.UpdateParticipantAsync(Leaderboard, participant);
+
+            _dialogManager.EndLoading();
+            if (success)
+                await RefreshParticipants();
+            else
+                _dialogManager.ShowToast(AppResources.Error, ToastModes.Error);
         }
 
         private async Task OnSelectParticipantAsync()
@@ -118,12 +187,9 @@ namespace PVPMistico.ViewModels
                 _dialogManager.ShowToast(new ToastConfig(AppResources.LeaderboardNotFoundToast), ToastModes.Error);
                 return;
             }
-            //Refresh Leaderboard after adding trainer or match
             else
-                await LoadLeaderboardAsync(Leaderboard.ID);
-
+                await RefreshParticipants();
             OrderParticipants();
-
             await SetAdminPermissionAsync();
             IsPageLoading = false;
         }

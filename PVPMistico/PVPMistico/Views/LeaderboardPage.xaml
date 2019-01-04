@@ -13,6 +13,7 @@
     <ContentPage.Resources>
 
         <MyConverters:IntToStringConverter x:Key="IntToStringConverter"/>
+        <MyConverters:IsAdminToTextConverter x:Key="IsAdminToTextConverter"/>
 
     </ContentPage.Resources>
     
@@ -66,6 +67,9 @@
 
             <ListView ItemsSource="{Binding Participants}"
                       SelectedItem="{Binding SelectedParticipant, Mode=TwoWay}"
+                      IsPullToRefreshEnabled="True"
+                      RefreshCommand="{Binding RefreshParticipantsCommand}"
+                      IsRefreshing="{Binding IsLeaderboardRefreshing}"
                       Grid.Row="1"
                       Grid.Column="0"
                       Grid.ColumnSpan="6"
@@ -83,6 +87,18 @@
                     <DataTemplate>
 
                         <ViewCell>
+
+                            <ViewCell.ContextActions>
+
+                                <MenuItem Text="{Binding IsAdmin, Converter={StaticResource IsAdminToTextConverter}}"
+                                          Command="{Binding Source={x:Reference MyPage }, Path=BindingContext.ChangeAdminPermissionsCommand}"
+                                          CommandParameter="{Binding .}"/>
+
+                                <MenuItem Text="{Localization:Translate DeleteParticipant}"
+                                          Command="{Binding Source={x:Reference MyPage }, Path=BindingContext.DeleteParticipantCommand}"
+                                          CommandParameter="{Binding .}"/>
+                                
+                            </ViewCell.ContextActions>
 
                             <Frame BorderColor="Black"
                                        Padding="0">

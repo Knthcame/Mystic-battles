@@ -61,6 +61,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nombrar administrador.
+        /// </summary>
+        public static string AddAsAdmin {
+            get {
+                return ResourceManager.GetString("AddAsAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Añadir entrenador.
         /// </summary>
         public static string AddTrainerButtonText {
@@ -93,6 +102,15 @@ namespace PVPMistico.Resources {
         public static string CannotAddTrainer {
             get {
                 return ResourceManager.GetString("CannotAddTrainer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cesar administrador.
+        /// </summary>
+        public static string CeaseAdmin {
+            get {
+                return ResourceManager.GetString("CeaseAdmin", resourceCulture);
             }
         }
         
@@ -138,6 +156,24 @@ namespace PVPMistico.Resources {
         public static string Defeat {
             get {
                 return ResourceManager.GetString("Defeat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expulsar entrenador.
+        /// </summary>
+        public static string DeleteParticipant {
+            get {
+                return ResourceManager.GetString("DeleteParticipant", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estás seguro de que quieres eliminar a este entrenador de esta liga?.
+        /// </summary>
+        public static string DeleteParticipantConfirmationMessage {
+            get {
+                return ResourceManager.GetString("DeleteParticipantConfirmationMessage", resourceCulture);
             }
         }
         
@@ -300,6 +336,15 @@ namespace PVPMistico.Resources {
         public static string Level {
             get {
                 return ResourceManager.GetString("Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cargando.
+        /// </summary>
+        public static string Loading {
+            get {
+                return ResourceManager.GetString("Loading", resourceCulture);
             }
         }
         

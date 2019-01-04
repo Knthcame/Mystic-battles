@@ -58,8 +58,10 @@ namespace PVPMistico.ViewModels.PopupViewModels
 
         private async Task OnTrainerSelectedAsync()
         {
+            _dialogManager.ShowLoading(AppResources.Loading);
             var response = await _leaderboardManager.AddTrainerAsync(_leaderboard, SelectedTrainer);
 
+            _dialogManager.EndLoading();
             switch (response)
             {
                 case AddTrainerResponseCode.TrainerAddedSuccesfully:

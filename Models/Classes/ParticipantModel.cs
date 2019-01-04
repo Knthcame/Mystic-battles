@@ -10,7 +10,7 @@
 
         public int Losses { get; set; }
 
-        public int Points { get; set; }
+        public int Points { get; set; } = 500;
 
         public int Position { get; set; }
 

@@ -298,4 +298,19 @@
   <data name="LeaderboardPreviewEmptyHint" xml:space="preserve">
     <value>Solicita al administrador de alguna liga que te añada, o puedes crear la tuya propia</value>
   </data>
+  <data name="AddAsAdmin" xml:space="preserve">
+    <value>Nombrar administrador</value>
+  </data>
+  <data name="CeaseAdmin" xml:space="preserve">
+    <value>Cesar administrador</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Expulsar entrenador</value>
+  </data>
+  <data name="DeleteParticipantConfirmationMessage" xml:space="preserve">
+    <value>Estás seguro de que quieres eliminar a este entrenador de esta liga?</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Cargando</value>
+  </data>
 </root>

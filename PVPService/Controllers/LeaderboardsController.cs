@@ -32,6 +32,12 @@ namespace PVPService.Controllers
             return Ok(response);
         }
 
+        [HttpPost("trainer/{leaderboardId}")]
+        public IActionResult UpdateParticipant(int leaderboardId, [FromBody] ParticipantModel trainer)
+        {
+            return Ok(_leaderboards.UpdateParticipant(leaderboardId, trainer));
+        }
+
         [HttpPut("match/{id}")]
         public IActionResult InputMatch(int id, [FromBody] MatchModel match)
         {
@@ -42,10 +48,10 @@ namespace PVPService.Controllers
                 return BadRequest(ok);
         }
 
-        [HttpPut("trainer/{id}")]
-        public IActionResult AddTrainer(int id, [FromBody] ParticipantModel trainer)
+        [HttpPut("trainer/{leaderboardId}")]
+        public IActionResult AddTrainer(int leaderboardId, [FromBody] ParticipantModel trainer)
         {
-            var response = _leaderboards.AddTrainer(id, trainer);
+            var response = _leaderboards.AddTrainer(leaderboardId, trainer);
 
             switch (response)
             {
@@ -70,6 +76,14 @@ namespace PVPService.Controllers
                 default:
                     return BadRequest(response);
             }
+        }
+
+        [HttpDelete("league/{leaderboardId}/trainer/{username}")]
+        public IActionResult RemoveTrainer(int leaderboardId, string username)
+        {
+            var response = _leaderboards.RemoveTrainer(leaderboardId, username);
+
+            return Ok(response);
         }
     }
 }
