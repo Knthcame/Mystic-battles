@@ -283,6 +283,9 @@
   <data name="Win" xml:space="preserve">
     <value>Victoria</value>
   </data>
+  <data name="EmptyTrainerMatchesList" xml:space="preserve">
+    <value>Parece que este entrenador todavía no ha disputado ningún partido en esta liga</value>
+  </data>
   <data name="LeagueName" xml:space="preserve">
     <value>Liga</value>
   </data>

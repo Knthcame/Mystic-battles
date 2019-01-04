@@ -178,6 +178,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parece que este entrenador todavía no ha disputado ningún partido en esta liga.
+        /// </summary>
+        public static string EmptyTrainerMatchesList {
+            get {
+                return ResourceManager.GetString("EmptyTrainerMatchesList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to El nombre de usuario no puede estar vacio.
         /// </summary>
         public static string EmptyUsernameError {

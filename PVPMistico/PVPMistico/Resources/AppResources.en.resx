@@ -283,6 +283,9 @@
   <data name="Win" xml:space="preserve">
     <value>Win</value>
   </data>
+  <data name="EmptyTrainerMatchesList" xml:space="preserve">
+    <value>Looks like this trainer hasn't played any match in this league yet</value>
+  </data>
   <data name="LeagueName" xml:space="preserve">
     <value>League</value>
   </data>

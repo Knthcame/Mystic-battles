@@ -3,6 +3,7 @@
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:MyViews="clr-namespace:PVPMistico.Views"
                   xmlns:MyConverters="clr-namespace:PVPMistico.Converters"
+                  xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
                   x:Class="PVPMistico.Views.PlayerMatchHistoryPage"
                   Title="{Binding Title}">
 
@@ -57,6 +58,9 @@
                    TextColor="Black"/>
 
             <ListView ItemsSource="{Binding Matches}"
+                      IsRefreshing="{Binding IsListViewRefreshing}"
+                      RefreshCommand="{Binding RefreshMatchesCommand}"
+                      IsPullToRefreshEnabled="True"
                       Grid.Row="2"
                       Grid.Column="0"
                       Grid.ColumnSpan="2"
@@ -139,6 +143,31 @@
                 
             </ListView>
 
+            <Grid Padding="30,50"
+                  Grid.Row="2"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  IsVisible="{Binding IsMatchListEmpty}">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+
+                <Label Text="{Localization:Translate EmptyTrainerMatchesList}"
+                       HorizontalTextAlignment="Center"
+                       Grid.Row="0"/>
+
+                <Image Source="egg.png"
+                       Grid.Row="1"/>
+
+                <Grid.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Down"
+                                            Command="{Binding RefreshMatchesCommand}"/>
+                </Grid.GestureRecognizers>
+                
+            </Grid>
+            
         </Grid>
 
     </ContentPage.Content>
