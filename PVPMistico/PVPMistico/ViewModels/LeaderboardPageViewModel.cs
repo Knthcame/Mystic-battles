@@ -106,6 +106,9 @@ namespace PVPMistico.ViewModels
         {
             base.OnNavigatingTo(parameters);
 
+            if (parameters.TryGetValue(NavigationParameterKeys.LeaderboardNameKey, out string name))
+                Leaderboard = new LeaderboardModel { Name = name };
+
             if (parameters.TryGetValue(NavigationParameterKeys.LeaderboardIdKey, out int id))
                 await LoadLeaderboardAsync(id);
 

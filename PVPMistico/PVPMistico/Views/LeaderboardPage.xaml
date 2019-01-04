@@ -4,6 +4,7 @@
                   xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
                   xmlns:MyConverters="clr-namespace:PVPMistico.Converters"
                   xmlns:MyPages="clr-namespace:PVPMistico.Views"
+                  xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets"
                   xmlns:PrismBehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
                   x:Class="PVPMistico.Views.LeaderboardPage"
                   Title="{Binding Leaderboard.Name}"
@@ -58,23 +59,10 @@
                    HorizontalOptions="End"
                    FontAttributes="Bold"/>
 
-            <Grid Grid.Row="1"
-                  Grid.Column="0"
-                  Grid.ColumnSpan="6">
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="35*"/>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="35*"/>
-                </Grid.ColumnDefinitions>
-
-                <ActivityIndicator IsRunning="{Binding IsPageLoading}"
-                                   Grid.Column="1"
-                                   Color="Black"
-                                   VerticalOptions="Start"
-                                   HorizontalOptions="CenterAndExpand"
-                                   Margin="0,30,0,0"/>
-            </Grid>
+            <MyWidgets:LoadingIndicator IsLoading="{Binding IsPageLoading}" 
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="6"/>
 
             <ListView ItemsSource="{Binding Participants}"
                       SelectedItem="{Binding SelectedParticipant, Mode=TwoWay}"

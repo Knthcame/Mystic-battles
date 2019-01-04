@@ -2,6 +2,7 @@
 <MyViews:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                   xmlns:MyViews="clr-namespace:PVPMistico.Views"
+                  xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets"
                   xmlns:MyConverters="clr-namespace:PVPMistico.Converters"
                   xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
                   x:Class="PVPMistico.Views.PlayerMatchHistoryPage"
@@ -21,23 +22,9 @@
     
     <ContentPage.Content>
         <Grid>
-            
-            <Grid IsVisible="{Binding IsPageLoading}">
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="35*"/>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="35*"/>
-                </Grid.ColumnDefinitions>
 
-                <ActivityIndicator IsRunning="{Binding IsPageLoading}"
-                                   Grid.Column="1"
-                                   Color="Black"
-                                   VerticalOptions="Start"
-                                   HorizontalOptions="CenterAndExpand"
-                                   Margin="0,30,0,0"/>
-            </Grid>
-            
+            <MyWidgets:LoadingIndicator IsLoading="{Binding IsPageLoading}"/>
+
             <Grid Margin="0,10,0,0"
                   IsVisible="{Binding IsPageLoading, Converter={StaticResource NegateBooleanConverter}}">
 

@@ -50,6 +50,8 @@ namespace PVPMistico.ViewModels.PopupViewModels
             _accountManager = accountManager;
             _leaderboardManager = leaderboardManager;
             _dialogManager = dialogManager;
+
+            IsPageLoading = true;
             SearchTrainerCommand = new DelegateCommand(async () => await OnTrainerSearch());
             TrainerSelectedCommand = new DelegateCommand(async () => await OnTrainerSelectedAsync());
         }
@@ -118,6 +120,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
             else
             {
                 await SetFullTrainerListAsync();
+                IsPageLoading = false;
                 if (TrainerList == null || TrainerList.Count == 0)
                 {
                     var config = new AlertConfig()

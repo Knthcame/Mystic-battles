@@ -59,6 +59,7 @@ namespace PVPMistico.Widgets
             set => SetValue(PasswordVisibilityIconProperty, value);
         }
         #endregion
+
         public PasswordValidationEntry ()
 		{
             try

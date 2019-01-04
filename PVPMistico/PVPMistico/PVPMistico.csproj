@@ -31,6 +31,9 @@
     <Compile Update="Widgets\BaseValidationFrame.xaml.cs">
       <DependentUpon>BaseValidationFrame.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Widgets\LoadingIndicator.xaml.cs">
+      <DependentUpon>LoadingIndicator.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Widgets\ValidationFrame.xaml.cs">
       <DependentUpon>ValidationFrame.xaml</DependentUpon>
     </Compile>
@@ -66,6 +69,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\StartupPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Widgets\LoadingIndicator.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Widgets\PasswordValidationEntry.xaml">

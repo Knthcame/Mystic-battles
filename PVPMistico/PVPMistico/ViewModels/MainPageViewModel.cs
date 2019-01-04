@@ -90,7 +90,8 @@ namespace PVPMistico.ViewModels
 
             var parameters = new NavigationParameters
             {
-                { NavigationParameterKeys.LeaderboardIdKey, SelectedLeaderboard.ID }
+                { NavigationParameterKeys.LeaderboardIdKey, SelectedLeaderboard.ID },
+                { NavigationParameterKeys.LeaderboardNameKey, SelectedLeaderboard.Name }
             };
             await NavigationService.NavigateAsync(nameof(LeaderboardPage), parameters);
 

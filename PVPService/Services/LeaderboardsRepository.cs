@@ -41,6 +41,7 @@ namespace PVPService.Services
             if (leaderboard == null)
                 return false;
 
+            leaderboard = _blobsManager.DeblobLeaderboard(leaderboard);
             var winner = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Winner.Username);
             var loser = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Loser.Username);
 
