@@ -36,7 +36,12 @@
 
             <Grid Grid.Row="1"
                   IsVisible="{Binding IsLeaderboardPreviewListEmpty}">
-
+                
+                <Grid.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Down"
+                                            Command="{Binding ReloadEmptyPreviewsCommand}"/>
+                </Grid.GestureRecognizers>
+                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="50"/>

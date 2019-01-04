@@ -61,6 +61,7 @@ namespace PVPMistico.ViewModels
         public ICommand MenuItemCommand { get; private set; }
         public ICommand CreateTournamentCommand { get; private set; }
         public ICommand SelectedLeaderboardCommand { get; private set; }
+        public ICommand ReloadEmptyPreviewsCommand { get; private set; }
         public ICommand ResfreshLeaderboardPreviewsCommand { get; private set; }
 
         public MainPageViewModel(INavigationService navigationService, IAccountManager accountManager, ICustomLogger logger, IDialogManager dialogManager, ILeaderboardManager leaderboardManager)
@@ -75,6 +76,7 @@ namespace PVPMistico.ViewModels
             MenuItemCommand = new DelegateCommand(OnLogOutClicked);
             CreateTournamentCommand = new DelegateCommand(async () => await OnCreateTournamentButtonClickedAsync());
             SelectedLeaderboardCommand = new DelegateCommand(async () => await OnLeaderboardSelectedAsync());
+            ReloadEmptyPreviewsCommand = new DelegateCommand(async () => await ReloadEmptyPreviews());
             ResfreshLeaderboardPreviewsCommand = new DelegateCommand(async () => await RefreshLeadeboardPreviews());
         }
 
@@ -98,7 +100,22 @@ namespace PVPMistico.ViewModels
             SelectedLeaderboard = null;
         }
 
+        private async Task ReloadEmptyPreviews()
+        {
+            IsLeaderboardPreviewListEmpty = false;
+            IsPageLoading = true;
+            await LoadLeadeboardPreviews();
+            IsPageLoading = false;
+        }
+
         private async Task RefreshLeadeboardPreviews()
+        {
+            IsLeaderboardPreviewListRefreshing = true;
+            await LoadLeadeboardPreviews();
+            IsLeaderboardPreviewListRefreshing = false;
+        }
+
+        private async Task LoadLeadeboardPreviews()
         {
             var username = await SecureStorage.GetAsync(SecureStorageTokens.Username);
             var leaderboards = await _leaderboardManager.GetMyLeaderboardsAsync(username);
@@ -151,7 +168,7 @@ namespace PVPMistico.ViewModels
             IsPageLoading = true;
             base.OnNavigatedTo(parameters);
 
-            await RefreshLeadeboardPreviews();
+            await LoadLeadeboardPreviews();
             IsPageLoading = false;
         }
     }
