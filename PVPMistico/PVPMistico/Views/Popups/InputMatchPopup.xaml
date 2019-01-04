@@ -13,7 +13,7 @@
                      Padding="20,40"
                      VerticalOptions="Center">
             <Label Text="{Localization:Translate Opponent}"/>
-            <Picker x:Name="opponentPicker"
+            <Picker x:Name="OpponentPicker"
                     ItemsSource="{Binding PossibleOpponentsList}"
                     ItemDisplayBinding="{Binding Username}"
                     SelectedItem="{Binding SelectedOpponent}">
@@ -27,7 +27,8 @@
             </Picker>
 
             <Label Text="{Localization:Translate Winner}"/>
-            <Picker ItemsSource="{Binding Rivals}"
+            <Picker x:Name="WinnerPicker" 
+                    ItemsSource="{Binding Rivals}"
                     ItemDisplayBinding="{Binding Username}"
                     SelectedItem="{Binding SelectedWinner}"
                     IsEnabled="{Binding IsOpponentSelected}">
@@ -41,7 +42,8 @@
                 
             </Picker>
 
-            <Button Text="{Localization:Translate InputMatch}"
+            <Button x:Name="ConfirmButton" 
+                    Text="{Localization:Translate InputMatch}"
                     Command="{Binding ConfimInputCommand}"
                     IsEnabled="{Binding IsWinnerSelected}"/>
 

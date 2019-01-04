@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using PVPMistico.ViewModels.PopupViewModels;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace PVPMistico.Views.Popups
 {
@@ -8,12 +10,14 @@ namespace PVPMistico.Views.Popups
 		public InputMatchPopup ()
 		{
 			InitializeComponent ();
-		}
-        protected override void OnDisappearingAnimationBegin()
+            ConfirmButton.Clicked += ConfirmButton_Clicked;
+        }
+
+        //HACK: Fixes bug where picker was focused when clicking the button
+        private void ConfirmButton_Clicked(object sender, System.EventArgs e)
         {
-            base.OnDisappearingAnimationBegin();
-            //HACK: Patches bug causing picker to focus on GoBackAsync();
-            opponentPicker.Unfocus();
+            OpponentPicker.Unfocus();
+            WinnerPicker.Unfocus();
         }
     }
 }

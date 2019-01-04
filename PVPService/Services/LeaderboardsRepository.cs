@@ -34,7 +34,7 @@ namespace PVPService.Services
 
         public bool InputMatch(int id, MatchModel match)
         {
-            if (match == null)
+            if (match == null || match.Winner == null || match.Loser == null)
                 return false;
 
             var leaderboard = GetLeaderboard(id);

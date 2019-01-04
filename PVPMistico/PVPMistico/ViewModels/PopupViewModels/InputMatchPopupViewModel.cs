@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using PVPMistico.Managers.Interfaces;
 using PVPMistico.Resources;
 using PVPMistico.ViewModels.BaseViewModels;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace PVPMistico.ViewModels.PopupViewModels
 {
@@ -30,7 +32,6 @@ namespace PVPMistico.ViewModels.PopupViewModels
         private ParticipantModel _currentUser;
         private bool _isOpponentSelected;
         private bool _isWinnerSelected;
-        private bool _isOpponentPickerEnabled;
         #endregion
 
         #region Properties
@@ -48,12 +49,6 @@ namespace PVPMistico.ViewModels.PopupViewModels
         {
             get => _isOpponentSelected;
             set => SetProperty(ref _isOpponentSelected, value);
-        }
-
-        public bool IsOpponentPickerEnabled
-        {
-            get => _isOpponentPickerEnabled;
-            set => SetProperty(ref _isOpponentPickerEnabled, value);
         }
 
         public bool IsWinnerSelected
@@ -88,10 +83,16 @@ namespace PVPMistico.ViewModels.PopupViewModels
 
         private async Task ConfirmInputAsync()
         {
-            if (await _leaderboardManager.InputMatch(_leaderboard, _match))
-            {
+            _dialogManager.ShowLoading();
+
+            if (_match.Winner == null || _match.Loser == null)
+                await OnWinnerSelectedAsync();
+
+            var added = await _leaderboardManager.InputMatch(_leaderboard, _match);
+            _dialogManager.EndLoading();
+
+            if (added)
                 await NavigationService.GoBackAsync();
-            }
             else
                 _dialogManager.ShowToast(new ToastConfig(AppResources.Error), ToastModes.Error);
         }
@@ -112,7 +113,6 @@ namespace PVPMistico.ViewModels.PopupViewModels
 
         private void InitializePickers()
         {
-            IsOpponentPickerEnabled = true;
             var opponentsList = new List<ParticipantModel>(_leaderboard.Participants);
             opponentsList.Remove(_currentUser);
             PossibleOpponentsList = new ObservableCollection<ParticipantModel>(opponentsList);

@@ -12,5 +12,9 @@ namespace PVPMistico.Managers.Interfaces
         void ShowAlert(AlertConfig config);
 
         void ShowConfirmationDialog(ConfirmConfig config);
+
+        void ShowLoading(string title = null);
+
+        void EndLoading();
     }
 }
