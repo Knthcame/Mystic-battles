@@ -22,7 +22,6 @@ namespace PVPMistico.ViewModels
     public class LeaderboardPageViewModel : BaseViewModel
     {
         #region Fields
-        internal object ContextActions;
         private readonly ILeaderboardManager _leaderboardManager;
         private readonly IDialogManager _dialogManager;
         private LeaderboardModel _leaderboard;
