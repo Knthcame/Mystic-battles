@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ConfirmationDialogCancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ConfirmationDialogOkButton" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailAlreadyUsedResponse" xml:space="preserve">
+    <value>This email is registered with another user</value>
+  </data>
+  <data name="EmptyEntryError" xml:space="preserve">
+    <value>This entry can not be empty.</value>
+  </data>
+  <data name="EmptyNameError" xml:space="preserve">
+    <value>Name can not be empty.</value>
+  </data>
+  <data name="EmptyUsernameError" xml:space="preserve">
+    <value>Username can not be empty.</value>
+  </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="LogInPageTitle" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="LogInSuccesfulResponse" xml:space="preserve">
+    <value>Log in successful</value>
+  </data>
+  <data name="LogOutButtonText" xml:space="preserve">
+    <value>Log out</value>
+  </data>
+  <data name="LogOutConfirmationMessage" xml:space="preserve">
+    <value>Are you sure you want to log out?</value>
+  </data>
+  <data name="LogOutConfirmationTitle" xml:space="preserve">
+    <value>Loging out</value>
+  </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>Main page</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordFormatInvalidPlaceholder" xml:space="preserve">
+    <value>Password must have between minimum and maximum characters, including an uppercase, a lowercase and a number.</value>
+    <comment>'minimum' and 'maximum' must be replaced by their corresponding values.</comment>
+  </data>
+  <data name="PasswordIncorrectResponse" xml:space="preserve">
+    <value>Wrong password</value>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="SignInPageTitle" xml:space="preserve">
+    <value>Registro de cuenta</value>
+  </data>
+  <data name="SignInSuccessfulResponse" xml:space="preserve">
+    <value>User successfully signed in</value>
+  </data>
+  <data name="UserAlreadyExistsError" xml:space="preserve">
+    <value>User already exists.</value>
+  </data>
+  <data name="UserAlreadyRegisteredResponse" xml:space="preserve">
+    <value>User already registered</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="UsernameNotFoundResponse" xml:space="preserve">
+    <value>There is no account registered with this username</value>
+  </data>
+  <data name="UserNotRegisteredError" xml:space="preserve">
+    <value>User not registered.</value>
+  </data>
+  <data name="WrongEmailFormatError" xml:space="preserve">
+    <value>Please inseert a valid email format.</value>
+  </data>
+  <data name="LeaderboardNotFoundToast" xml:space="preserve">
+    <value>Could not load this leaderboard</value>
+  </data>
+  <data name="LeaderboardsHeader" xml:space="preserve">
+    <value>Leaderboards</value>
+  </data>
+  <data name="LosesLabel" xml:space="preserve">
+    <value>Loses</value>
+  </data>
+  <data name="MatchHistoryButtonText" xml:space="preserve">
+    <value>Match history</value>
+  </data>
+  <data name="PointsLabel" xml:space="preserve">
+    <value>Points</value>
+  </data>
+  <data name="PositionLabel" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="WinsLabel" xml:space="preserve">
+    <value>Wins</value>
+  </data>
+  <data name="AddTrainerButtonText" xml:space="preserve">
+    <value>Add trainer</value>
+  </data>
+  <data name="CreateLeadearboard" xml:space="preserve">
+    <value>Create new tournament</value>
+  </data>
+  <data name="GreatLeague" xml:space="preserve">
+    <value>Great league</value>
+  </data>
+  <data name="LeagueNameLabel" xml:space="preserve">
+    <value>League name</value>
+  </data>
+  <data name="LeagueTypeLabel" xml:space="preserve">
+    <value>League type</value>
+  </data>
+  <data name="MasterLeague" xml:space="preserve">
+    <value>Master league</value>
+  </data>
+  <data name="UltraLeague" xml:space="preserve">
+    <value>Ultra league</value>
+  </data>
+  <data name="AddTrainerSearchPlaceholder" xml:space="preserve">
+    <value>Search by username</value>
+  </data>
+  <data name="AlertDialogOkButton" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="CannotAddTrainer" xml:space="preserve">
+    <value>Cannot add trainer</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="NoTrainersLeftToAdd" xml:space="preserve">
+    <value>There are no registered trainers left to add</value>
+  </data>
+  <data name="LeagueNameAlreadyUsed" xml:space="preserve">
+    <value>A league with this name already exists</value>
+  </data>
+  <data name="InputMatch" xml:space="preserve">
+    <value>Input match</value>
+  </data>
+  <data name="Opponent" xml:space="preserve">
+    <value>Opponent</value>
+  </data>
+  <data name="Winner" xml:space="preserve">
+    <value>Winner</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="Defeat" xml:space="preserve">
+    <value>Defeat</value>
+  </data>
+  <data name="PasswordsDontMatch" xml:space="preserve">
+    <value>Passwords do not match</value>
+  </data>
+  <data name="Win" xml:space="preserve">
+    <value>Win</value>
+  </data>
+  <data name="EmptyTrainerMatchesList" xml:space="preserve">
+    <value>Looks like this trainer hasn't played any match in this league yet</value>
+  </data>
+  <data name="LeagueName" xml:space="preserve">
+    <value>League</value>
+  </data>
+  <data name="MatchHistory" xml:space="preserve">
+    <value>Match history</value>
+  </data>
+  <data name="LeaderboardPreviewEmpty" xml:space="preserve">
+    <value>Looks like you don't participate in any league at the moment</value>
+  </data>
+  <data name="LeaderboardPreviewEmptyHint" xml:space="preserve">
+    <value>Ask a league administrator to add to a league, or you can create your own</value>
+  </data>
+  <data name="AddAsAdmin" xml:space="preserve">
+    <value>Add as admin</value>
+  </data>
+  <data name="CeaseAdmin" xml:space="preserve">
+    <value>Cease admin</value>
+  </data>
+  <data name="DeleteParticipant" xml:space="preserve">
+    <value>Remove trainer</value>
+  </data>
+  <data name="DeleteParticipantConfirmationMessage" xml:space="preserve">
+    <value>Are you sure you want to remove this trainer from this league?</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+</root>

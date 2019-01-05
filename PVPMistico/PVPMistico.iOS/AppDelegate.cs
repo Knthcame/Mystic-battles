@@ -1,6 +1,8 @@
 ﻿using Foundation;
 using Prism;
 using Prism.Ioc;
+using Prism.Plugin.Popups;
+using Rg.Plugins.Popup;
 using UIKit;
 
 
@@ -24,6 +26,8 @@ namespace PVPMistico.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App(new iOSInitializer()));
 
+            Popup.Init();
+
             return base.FinishedLaunching(app, options);
         }
     }
@@ -32,6 +36,8 @@ namespace PVPMistico.iOS
     {
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterPopupNavigationService();
+
             // Register any platform specific implementations
         }
     }

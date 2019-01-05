@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MyPopus:BasePopup xmlns="http://xamarin.com/schemas/2014/forms"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:MyPopus="clr-namespace:PVPMistico.Views.Popups"
+                   xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
+                   xmlns:PrismBehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+                   x:Class="PVPMistico.Views.Popups.InputMatchPopup"
+                   Padding="30,80">
+    
+    <ContentPage.Content>
+        
+        <StackLayout BackgroundColor="White"
+                     Padding="20,40"
+                     VerticalOptions="Center">
+            <Label Text="{Localization:Translate Opponent}"/>
+            <Picker x:Name="OpponentPicker"
+                    ItemsSource="{Binding PossibleOpponentsList}"
+                    ItemDisplayBinding="{Binding Username}"
+                    SelectedItem="{Binding SelectedOpponent}">
+
+                <Picker.Behaviors>
+
+                    <PrismBehaviors:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                                           Command="{Binding OpponentSelectedCommand}"/>
+
+                </Picker.Behaviors>
+            </Picker>
+
+            <Label Text="{Localization:Translate Winner}"/>
+            <Picker x:Name="WinnerPicker" 
+                    ItemsSource="{Binding Rivals}"
+                    ItemDisplayBinding="{Binding Username}"
+                    SelectedItem="{Binding SelectedWinner}"
+                    IsEnabled="{Binding IsOpponentSelected}">
+
+                <Picker.Behaviors>
+
+                    <PrismBehaviors:EventToCommandBehavior EventName="SelectedIndexChanged"
+                                                           Command="{Binding WinnerSelectedCommand}"/>
+
+                </Picker.Behaviors>
+                
+            </Picker>
+
+            <Button x:Name="ConfirmButton" 
+                    Text="{Localization:Translate InputMatch}"
+                    Command="{Binding ConfimInputCommand}"
+                    IsEnabled="{Binding IsWinnerSelected}"/>
+
+        </StackLayout>
+        
+    </ContentPage.Content>
+    
+</MyPopus:BasePopup>

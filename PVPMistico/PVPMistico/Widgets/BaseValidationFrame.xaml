@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Frame xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:Converters="clr-namespace:PVPMistico.Converters;assembly=PVPMistico"
+       x:Class="PVPMistico.Widgets.BaseValidationFrame"
+       x:Name="MyBaseValidationFrame">
+
+    <Frame.Resources>
+        <ResourceDictionary>
+            <Converters:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter"/>
+        </ResourceDictionary>
+    </Frame.Resources>
+    
+    <Frame.Content>
+        <Grid Margin="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding TitleHeight, Source={x:Reference MyBaseValidationFrame}}"/>
+                <RowDefinition Height="{Binding EntryHeight, Source={x:Reference MyBaseValidationFrame}}"/>
+                <RowDefinition Height="{Binding ErrorHeight, Source={x:Reference MyBaseValidationFrame}}"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" 
+                   Text="{Binding Title, Source={x:Reference MyBaseValidationFrame}}"/>
+
+            <ContentView x:Name="MyContentView"
+                         Grid.Row="1"
+                         Margin="0"/>
+
+            <!--<MyWidgets:ValidationEntry x:Name="MyValidationEntry" 
+                                       Grid.Row="1"
+                                       ValidatableObject="{Binding ValidatableObject, Source={x:Reference MyValidationFrame}}"
+                                       UnfocusedCommand="{Binding UnfocusedCommand, Source={x:Reference MyValidationFrame}}"
+                                       Margin="0"
+                                       VerticalOptions="End"/>-->
+
+            <Label Grid.Row="2"
+                   Text="{Binding ValidatableObject.Errors, Converter={StaticResource FirstValidationErrorConverter}, Source={x:Reference MyBaseValidationFrame}}"
+                   TextColor="Red"/>
+        </Grid>
+    </Frame.Content>
+</Frame>

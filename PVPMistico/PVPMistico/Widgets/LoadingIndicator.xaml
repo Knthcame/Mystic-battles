@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PVPMistico.Widgets.LoadingIndicator"
+             x:Name="MyIndicator">
+  <ContentView.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="35*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="35*"/>
+            </Grid.ColumnDefinitions>
+
+            <ActivityIndicator IsRunning="{Binding IsLoading, Source={x:Reference MyIndicator}}"
+                               Grid.Column="1"
+                               Color="Black"
+                               VerticalOptions="Start"
+                               HorizontalOptions="CenterAndExpand"
+                               Margin="0,30,0,0"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -1,7 +1,13 @@
 ﻿using Prism;
 using Prism.Ioc;
+using PVPMistico.Logging;
+using PVPMistico.Logging.Interfaces;
+using PVPMistico.Managers;
+using PVPMistico.Managers.Interfaces;
 using PVPMistico.ViewModels;
+using PVPMistico.ViewModels.PopupViewModels;
 using PVPMistico.Views;
+using PVPMistico.Views.Popups;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -23,13 +29,28 @@ namespace PVPMistico
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync(nameof(StartupPage));
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<LogInPage, LogInPageViewModel>();
+            containerRegistry.RegisterForNavigation<SignInPage, SignInPageViewModel>();
+            containerRegistry.RegisterForNavigation<StartupPage, StartupPageViewmodel>();
+            containerRegistry.RegisterForNavigation<LeaderboardPage, LeaderboardPageViewModel>();
+            containerRegistry.RegisterForNavigation<CreateLeaderboardPopup, CreateLeaderboardPopupViewModel>();
+            containerRegistry.RegisterForNavigation<AddTrainerPopup, AddTrainerPopupViewModel>();
+            containerRegistry.RegisterForNavigation<InputMatchPopup, InputMatchPopupViewModel>();
+            containerRegistry.RegisterForNavigation<PlayerMatchHistoryPage, PlayerMatchHistoryPageViewModel>();
+
+            containerRegistry.Register<IHttpManager, HttpManager>();
+            containerRegistry.Register<IAccountManager, AccountManager>();
+            containerRegistry.Register<ICustomLogger, CustomLogger>();
+            containerRegistry.Register<ILeaderboardManager, LeaderboardManager>();
+            containerRegistry.Register<IDialogManager, DialogManager>();
+            containerRegistry.Register<IMatchManager, MatchManager>();
         }
     }
 }

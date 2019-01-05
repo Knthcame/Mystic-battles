@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MyPages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
+                  xmlns:MyConverters="clr-namespace:PVPMistico.Converters"
+                  xmlns:MyPages="clr-namespace:PVPMistico.Views"
+                  xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets"
+                  xmlns:PrismBehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+                  x:Class="PVPMistico.Views.LeaderboardPage"
+                  Title="{Binding Leaderboard.Name}"
+                  x:Name="MyPage">
+
+    <ContentPage.Resources>
+
+        <MyConverters:IntToStringConverter x:Key="IntToStringConverter"/>
+        <MyConverters:IsAdminToTextConverter x:Key="IsAdminToTextConverter"/>
+
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+
+        <Grid Padding="2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="15*"/>
+                <ColumnDefinition Width="10*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="{Localization:Translate Username}"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   FontAttributes="Bold"
+                   MaxLines="1"/>
+
+            <Label Text="{Localization:Translate WinsLabel}"
+                   Grid.Row="0"
+                   Grid.Column="2"
+                   HorizontalOptions="End"
+                   FontAttributes="Bold"/>
+
+            <Label Text="{Localization:Translate LosesLabel}"
+                   Grid.Row="0"
+                   Grid.Column="3"
+                   HorizontalOptions="End"
+                   FontAttributes="Bold"/>
+
+            <Label Text="{Localization:Translate PointsLabel}"
+                   Grid.Row="0"
+                   Grid.Column="4"
+                   HorizontalOptions="End"
+                   FontAttributes="Bold"/>
+
+            <MyWidgets:LoadingIndicator IsLoading="{Binding IsPageLoading}" 
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="6"/>
+
+            <ListView ItemsSource="{Binding Participants}"
+                      SelectedItem="{Binding SelectedParticipant, Mode=TwoWay}"
+                      IsPullToRefreshEnabled="True"
+                      RefreshCommand="{Binding RefreshParticipantsCommand}"
+                      IsRefreshing="{Binding IsLeaderboardRefreshing}"
+                      Grid.Row="1"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="6"
+                      RowHeight="40">
+
+                <ListView.Behaviors>
+
+                        <PrismBehaviors:EventToCommandBehavior EventName="ItemSelected"
+                                                               Command="{Binding ParticipantSelectedCommand}"/>
+
+                    </ListView.Behaviors>
+
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <MyWidgets:ConditionalMenuItemsViewCell MenuItemsEnabled="{Binding Source={x:Reference MyPage}, Path=BindingContext.IsCurrentUserAdmin}">
+
+                            <ViewCell.ContextActions>
+
+                                <MenuItem Text="{Binding IsAdmin, Converter={StaticResource IsAdminToTextConverter}}"
+                                          Command="{Binding Source={x:Reference MyPage }, Path=BindingContext.ChangeAdminPermissionsCommand}"
+                                          CommandParameter="{Binding .}"/>
+
+                                <MenuItem Text="{Localization:Translate DeleteParticipant}"
+                                          Command="{Binding Source={x:Reference MyPage }, Path=BindingContext.DeleteParticipantCommand}"
+                                          CommandParameter="{Binding .}"/>
+                                
+                            </ViewCell.ContextActions>
+
+                            <Frame BorderColor="Black"
+                                       Padding="0">
+
+                                <Grid Padding="2"
+                                          VerticalOptions="Center">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*"/>
+                                        <ColumnDefinition Width="30*"/>
+                                        <ColumnDefinition Width="20*"/>
+                                        <ColumnDefinition Width="20*"/>
+                                        <ColumnDefinition Width="15*"/>
+                                        <ColumnDefinition Width="10*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!--<Grid.GestureRecognizers>
+                                        <SwipeGestureRecognizer Direction="Right"
+                                                                    Command="{Binding Source={x:Reference MyPage}, Path=BindingContext.ParticipantSelectedCommand}"/>
+                                    </Grid.GestureRecognizers>-->
+
+                                    <Label Text="{Binding Position, Converter={StaticResource IntToStringConverter}}"
+                                               Grid.Column="0"
+                                               HorizontalOptions="End"
+                                               FontSize="Small"
+                                               VerticalOptions="Center"/>
+
+                                    <Label Text="{Binding Username}"
+                                               Grid.Column="1"
+                                               FontAttributes="Italic"
+                                               FontSize="Small"
+                                               VerticalOptions="Center"/>
+
+                                    <Label Text="{Binding Wins, Converter={StaticResource IntToStringConverter}}"
+                                               Grid.Column="2"
+                                               HorizontalTextAlignment="End"
+                                               FontSize="Small"
+                                               VerticalOptions="Center"/>
+
+                                    <Label Text="{Binding Losses, Converter={StaticResource IntToStringConverter}}"
+                                               Grid.Column="3"
+                                               HorizontalTextAlignment="End"
+                                               FontSize="Small"
+                                               VerticalOptions="Center"/>
+
+                                    <Label Text="{Binding Points, Converter={StaticResource IntToStringConverter}}"
+                                               Grid.Column="4"
+                                               HorizontalTextAlignment="End"
+                                               FontSize="Small"
+                                               VerticalOptions="Center"/>
+
+                                    <Image Source="admin.png"
+                                               IsVisible="{Binding IsAdmin}"
+                                               Aspect="AspectFit"
+                                               Grid.Column="5"
+                                               BackgroundColor="Transparent"
+                                               Margin="8"/>
+
+                                    <!--<ImageButton Grid.Column="5"
+                                                     Command="{Binding ViewMatchHistoryCommand}"
+                                                     Source="planning.png"
+                                                     BackgroundColor="Transparent"/>-->
+
+                                </Grid>
+
+                            </Frame>
+
+                        </MyWidgets:ConditionalMenuItemsViewCell>
+
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+            <Grid Grid.Row="2"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="6">
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+
+                </Grid.ColumnDefinitions>
+                
+                <Button Text="{Localization:Translate InputMatch}"
+                        Command="{Binding InputMatchCommand}"
+                        Grid.Column="0"
+                        HorizontalOptions="FillAndExpand"/>
+
+                <Button Text="{Localization:Translate AddTrainerButtonText}"
+                        IsVisible="{Binding IsCurrentUserAdmin}"
+                        Command="{Binding AddTrainerCommand}"
+                        Grid.Column="1"
+                        HorizontalOptions="FillAndExpand"/>
+
+            </Grid>
+
+        </Grid>
+        
+    </ContentPage.Content>
+    
+</MyPages:BasePage>

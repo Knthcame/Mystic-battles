@@ -1,11 +1,184 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="PVPMistico.Views.MainPage"
-             Title="{Binding Title}">
+<?xml version="1.0" encoding="UTF-8"?>
+<MyPages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
+                  xmlns:MyConverters="clr-namespace:PVPMistico.Converters"
+                  xmlns:PrismBehaviors="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+                  xmlns:MyPages="clr-namespace:PVPMistico.Views"
+                  xmlns:MyWidgets="clr-namespace:PVPMistico.Widgets"
+                  x:Class="PVPMistico.Views.MainPage"
+                  Title="{Binding Title}">
 
-    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        <Label Text="Welcome to Xamarin Forms and Prism!"/>
-    </StackLayout>
 
-</ContentPage>
+    <ContentPage.Resources>
+
+        <MyConverters:LeagueTypeConverter x:Key="LeagueTypeConverter"/>
+        <MyConverters:NegateBooleanConverter x:Key="NegateBooleanConverter"/>
+
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>    
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Label Text="{Localization:Translate LeaderboardsHeader}"
+                   Margin="10"
+                   Grid.Row="0"
+                   FontSize="Medium"/>
+
+            <MyWidgets:LoadingIndicator Grid.Row="1"
+                                        IsLoading="{Binding IsPageLoading}"/>
+
+            <Grid Grid.Row="1"
+                  IsVisible="{Binding IsLeaderboardPreviewListEmpty}">
+                
+                <Grid.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Down"
+                                            Command="{Binding ReloadEmptyPreviewsCommand}"/>
+                </Grid.GestureRecognizers>
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <Label Text="{Localization:Translate LeaderboardPreviewEmpty}"
+                       Grid.Row="0"
+                       HorizontalTextAlignment="Center"/>
+                
+                <Image Source="pikachu.jpg"
+                       Grid.Row="1"/>
+                
+                <Label Text="{Localization:Translate LeaderboardPreviewEmptyHint}"
+                       Grid.Row="2"
+                       HorizontalTextAlignment="Center"/>
+                
+            </Grid>
+
+
+            <ListView ItemsSource="{Binding LeaderboardPreviews}"
+                      IsVisible="{Binding IsLeaderboardPreviewListEmpty, Converter={StaticResource NegateBooleanConverter}}"
+                      Grid.Row="1"
+                      RowHeight="80"
+                      SelectedItem="{Binding SelectedLeaderboard, Mode=TwoWay}"
+                      IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding IsLeaderboardPreviewListRefreshing}"
+                      RefreshCommand="{Binding ResfreshLeaderboardPreviewsCommand}">
+
+                <ListView.Behaviors>
+
+                    <PrismBehaviors:EventToCommandBehavior EventName="ItemSelected"
+                                                           Command="{Binding SelectedLeaderboardCommand}"/>
+
+                </ListView.Behaviors>
+
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <ViewCell>
+                            
+                            <Frame BorderColor="Black"
+                                   Margin="0"
+                                   Padding="3">
+                                
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Text="{Binding Name}"
+                                           Grid.Row="0"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="3"
+                                           FontAttributes="Bold"/>
+
+                                    <Label Text="{Binding LeagueType, Converter={StaticResource LeagueTypeConverter}}"
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Grid.ColumnSpan="3"
+                                        FontAttributes="Italic"
+                                        MaxLines="1"/>
+
+                                    <Label Text="{Localization:Translate PositionLabel}"
+                                           Grid.Row="1"
+                                           Grid.Column="0"/>
+
+                                    <Label Text="{Localization:Translate Username}"
+                                        Grid.Row="1"
+                                        Grid.Column="1"/>
+
+                                    <Label Text="{Localization:Translate WinsLabel}"
+                                        Grid.Row="1"
+                                        Grid.Column="2"/>
+
+                                    <Label Text="{Localization:Translate LosesLabel}"
+                                        Grid.Row="1"
+                                        Grid.Column="3"/>
+
+                                    <Label Text="{Localization:Translate PointsLabel}"
+                                        Grid.Row="1"
+                                        Grid.Column="4"/>
+
+                                    <Label Text="{Binding Participant.Position}"
+                                        Grid.Row="2"
+                                        Grid.Column="0"/>
+
+                                    <Label Text="{Binding Participant.Username}"
+                                        Grid.Row="2"
+                                        Grid.Column="1"/>
+
+                                    <Label Text="{Binding Participant.Wins}"
+                                        Grid.Row="2"
+                                        Grid.Column="2"/>
+
+                                    <Label Text="{Binding Participant.Losses}"
+                                        Grid.Row="2"
+                                        Grid.Column="3"/>
+
+                                    <Label Text="{Binding Participant.Points}"
+                                        Grid.Row="2"
+                                        Grid.Column="4"/>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+
+                    </DataTemplate>
+
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+            <Button Text="{Localization:Translate CreateLeadearboard}"
+                    Grid.Row="2"
+                    Command="{Binding CreateTournamentCommand}"
+                    HorizontalOptions="End"/>
+
+        </Grid>
+    </ContentPage.Content>
+
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Command="{Binding MenuItemCommand}"
+                     Order="Secondary"
+                     Text="{Binding MenuText}"/>
+
+    </ContentPage.ToolbarItems>
+    
+</MyPages:BasePage>
