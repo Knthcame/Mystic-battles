@@ -529,7 +529,7 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resgistrarse.
+        ///   Looks up a localized string similar to Registrarse.
         /// </summary>
         public static string SignIn {
             get {
@@ -538,7 +538,7 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign in.
+        ///   Looks up a localized string similar to Registro de cuenta.
         /// </summary>
         public static string SignInPageTitle {
             get {

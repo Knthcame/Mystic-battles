@@ -176,7 +176,7 @@
     <value>Sign in</value>
   </data>
   <data name="SignInPageTitle" xml:space="preserve">
-    <value>Registro de cuenta</value>
+    <value>Sign in</value>
   </data>
   <data name="SignInSuccessfulResponse" xml:space="preserve">
     <value>User successfully signed in</value>
