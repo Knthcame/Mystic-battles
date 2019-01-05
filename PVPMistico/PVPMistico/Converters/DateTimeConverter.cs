@@ -11,6 +11,7 @@ namespace PVPMistico.Converters
             try
             {
                 var dateTime = (DateTime) value;
+                dateTime = dateTime.ToLocalTime();
                 var convertedDate = dateTime.ToString("dd MMMM yyyy HH:mm");
                 return convertedDate;
             }
