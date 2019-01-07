@@ -88,7 +88,7 @@ namespace PVPMistico.ViewModels.PopupViewModels
             if (_match.Winner == null || _match.Loser == null)
                 await OnWinnerSelectedAsync();
 
-            var added = await _leaderboardManager.InputMatch(_leaderboard, _match);
+            var added = await _leaderboardManager.InputMatchAsync(_leaderboard, _match);
             _dialogManager.EndLoading();
 
             if (added)

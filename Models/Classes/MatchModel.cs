@@ -29,5 +29,8 @@ namespace Models.Classes
         public LeagueTypesEnum LeagueType { get; set; }
 
         public DateTime DateTime { get; set; }
+
+        [NotNull]
+        public int Points { get; set; } = 5;
     }
 }

@@ -15,5 +15,7 @@ namespace PVPMistico.Models
         public TrainerModel Opponent { get; set; }
 
         public DateTime DateTime { get; set; }
+
+        public int Points { get; set; }
     }
 }

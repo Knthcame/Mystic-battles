@@ -1,5 +1,6 @@
 ﻿using Models.Classes;
 using PVPMistico.Enums;
+using PVPMistico.Managers.Interfaces;
 using PVPMistico.Models;
 using System.Collections.Generic;
 
@@ -9,6 +10,9 @@ namespace PVPMistico.Extensions
     {
         public static List<TrainerMatchModel> ToTrainerMatchModel(this List<MatchModel> matches, string trainerUsername)
         {
+            if (matches == null)
+                return null;
+
             var list = new List<TrainerMatchModel>();
 
             foreach(MatchModel match in matches)
@@ -39,6 +43,7 @@ namespace PVPMistico.Extensions
 
             trainerMatch.DateTime = match.DateTime;
             trainerMatch.ID = match.ID;
+            trainerMatch.Points = match.Points;
 
             return trainerMatch;
         }

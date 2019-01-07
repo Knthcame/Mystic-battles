@@ -21,6 +21,8 @@ namespace PVPMistico.Managers.Interfaces
 
         Task<bool> RemoveTrainerAsync(LeaderboardModel leaderboard, ParticipantModel participant);
 
-        Task<bool> InputMatch(LeaderboardModel leaderboard, MatchModel match);
+        Task<bool> InputMatchAsync(LeaderboardModel leaderboard, MatchModel match);
+
+        Task<bool> UndoMatchAsync(MatchModel match);
     }
 }

@@ -170,6 +170,18 @@ namespace PVPMistico.ViewModels
             await NavigationService.NavigateAsync(nameof(AddTrainerPopup), parameters);
         }
 
+        public override async void OnNavigatedTo(INavigationParameters parameters)
+        {
+            base.OnNavigatedTo(parameters);
+
+            if(parameters[NavigationParameterKeys.LeaderboardIdKey] == null)
+            {
+                IsLeaderboardRefreshing = true;
+                await RefreshParticipants();
+                OrderParticipants();
+            }
+        }
+
         public override async void OnNavigatingTo(INavigationParameters parameters)
         {
             base.OnNavigatingTo(parameters);
@@ -186,8 +198,7 @@ namespace PVPMistico.ViewModels
                 _dialogManager.ShowToast(new ToastConfig(AppResources.LeaderboardNotFoundToast), ToastModes.Error);
                 return;
             }
-            else
-                await RefreshParticipants();
+
             OrderParticipants();
             await SetAdminPermissionAsync();
             IsPageLoading = false;

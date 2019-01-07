@@ -6,6 +6,7 @@
                   xmlns:MyConverters="clr-namespace:PVPMistico.Converters"
                   xmlns:Localization="clr-namespace:PVPMistico.ResxLocalization"
                   x:Class="PVPMistico.Views.PlayerMatchHistoryPage"
+                  x:Name="MyMatchHistory"
                   Title="{Binding Title}">
 
     <MyViews:BasePage.Resources>
@@ -18,6 +19,7 @@
         <MyConverters:LeaderboardNameConverter x:Key="LeaderboardNameConverter"/>
         <MyConverters:DateTimeConverter x:Key="DateTimeConverter"/>
         <MyConverters:NegateBooleanConverter x:Key="NegateBooleanConverter"/>
+        <MyConverters:MatchPointsConverter x:Key="MatchPointsConverter"/>
     </MyViews:BasePage.Resources>
     
     <ContentPage.Content>
@@ -38,8 +40,6 @@
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="90*"/>
                 </Grid.RowDefinitions>
-
-
 
                 <Label Text="{Binding Trainer.Username}"
                        Grid.Row="0"
@@ -79,7 +79,15 @@
 
                         <DataTemplate>
 
-                            <ViewCell>
+                            <MyWidgets:ConditionalMenuItemsViewCell MenuItemsEnabled="{Binding Source={x:Reference MyMatchHistory}, Path=BindingContext.IsMyOwnMatchHistory}">
+
+                                <ViewCell.ContextActions>
+
+                                    <MenuItem Text="{Localization:Translate UndoMatch}"
+                                              Command="{Binding Source={x:Reference MyMatchHistory}, Path=BindingContext.UndoMatchCommand}"
+                                              CommandParameter="{Binding .}"/>
+
+                                </ViewCell.ContextActions>
 
                                 <Frame BorderColor="Black"
                                        Margin="1,0"
@@ -101,7 +109,12 @@
 
                                         <Label Text="{Binding DateTime, Converter={StaticResource DateTimeConverter}}"
                                                Grid.Row="0"
-                                               Grid.ColumnSpan="5"/>
+                                               Grid.ColumnSpan="3"/>
+
+                                        <Label Text="{Binding Points, Converter={StaticResource MatchPointsConverter}}"
+                                               Grid.Row="0"
+                                               Grid.Column="3"
+                                               Grid.ColumnSpan="2"/>
 
                                         <Label Text="{Binding Result, Converter={StaticResource ResultTextConverter}}"
                                                TextColor="{Binding Result, Converter={StaticResource ResultColorConverter}}"
@@ -144,7 +157,7 @@
 
                                 </Frame>
 
-                            </ViewCell>
+                            </MyWidgets:ConditionalMenuItemsViewCell>
 
                         </DataTemplate>
 

@@ -10,6 +10,8 @@ namespace PVPService.Controllers
     public class LeaderboardsController : Controller
     {
         private LeaderboardsRepository _leaderboards = new LeaderboardsRepository();
+
+        private MatchesRepository _matches = new MatchesRepository();
         // GET: /<controller>/
         [HttpGet]
         public IActionResult GetLeaderboards()
@@ -84,6 +86,13 @@ namespace PVPService.Controllers
             var response = _leaderboards.RemoveTrainer(leaderboardId, username);
 
             return Ok(response);
+        }
+
+        [HttpDelete("match/{matchId}")]
+        public IActionResult UndoMatch(int matchId)
+        {
+            var match = _matches.GetMatch(matchId);
+            return Ok(_leaderboards.UndoMatch(match));
         }
     }
 }

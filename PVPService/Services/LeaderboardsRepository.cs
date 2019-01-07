@@ -41,8 +41,7 @@ namespace PVPService.Services
             var leaderboard = GetLeaderboard(id);
             if (leaderboard == null)
                 return false;
-
-            leaderboard = _blobsManager.DeblobLeaderboard(leaderboard);
+            
             var winner = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Winner.Username);
             var loser = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Loser.Username);
 
@@ -50,12 +49,48 @@ namespace PVPService.Services
                 return false;
 
             match.DateTime = DateTime.Now;
-
-            leaderboard = RecalculatePoints(leaderboard, winner, loser);
+            var resultPoints = CalculatePoints(winner, loser);
+            leaderboard = ModifyPoints(leaderboard, winner, loser, resultPoints);
             leaderboard = RecalculatePositions(leaderboard);
+            match.Points = resultPoints;
 
             _database.AddMatch(match);
             _database.UpdateLeaderboard(leaderboard);
+            return true;
+        }
+
+        public bool UndoMatch(MatchModel match)
+        {
+            if (match == null || match.Winner == null || match.Loser == null)
+                return false;
+
+            var leaderboard = GetLeaderboard(match.LeagueID);
+            if (leaderboard == null)
+                return false;
+
+            var winner = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Winner.Username);
+            var loser = leaderboard.Participants.FirstOrDefault((participant) => participant.Username == match.Loser.Username);
+
+            if (winner == null || loser == null)
+                return false;
+
+            if (!_database.DeleteMatch(match))
+                return false;
+
+            var resultPoints = match.Points;
+
+            var winnerIndex = leaderboard.Participants.IndexOf(winner);
+            leaderboard.Participants[winnerIndex] = RemoveWin(winner, resultPoints);
+
+            var loserIndex = leaderboard.Participants.IndexOf(loser);
+            leaderboard.Participants[loserIndex] = RemoveLoss(loser, resultPoints);
+
+            if (!_database.UpdateLeaderboard(leaderboard))
+            {
+                _database.AddMatch(match);
+                return false;
+            }
+
             return true;
         }
 
@@ -161,7 +196,6 @@ namespace PVPService.Services
         {
             loser.Losses++;
             loser.Points -= Math.Max(3, points);
-            loser.Points = Math.Max(0, loser.Points);
             return loser;
         }
 
@@ -172,19 +206,38 @@ namespace PVPService.Services
             return winner;
         }
 
-        private LeaderboardModel RecalculatePoints(LeaderboardModel leaderboard, ParticipantModel winner, ParticipantModel loser)
+        private ParticipantModel RemoveLoss(ParticipantModel loser, int points)
         {
-            double pointsDifference = winner.Points - loser.Points;
-            double compensationPoints = (int)Math.Round(pointsDifference / 30);
-            compensationPoints = Math.Clamp(compensationPoints, -10, 2);
-            var resultPoints = (int)(5 - compensationPoints);
+            loser.Losses--;
+            loser.Points += points;
+            return loser;
+        }
 
+        private ParticipantModel RemoveWin(ParticipantModel winner, int points)
+        {
+            winner.Wins--;
+            winner.Points -= points;
+            return winner;
+        }
+
+        private LeaderboardModel ModifyPoints(LeaderboardModel leaderboard, ParticipantModel winner, ParticipantModel loser, int resultPoints)
+        {
             var winnerIndex = leaderboard.Participants.IndexOf(winner);
             leaderboard.Participants[winnerIndex] = AddWin(winner, resultPoints);
 
             var loserIndex = leaderboard.Participants.IndexOf(loser);
             leaderboard.Participants[loserIndex] = AddLoss(loser, resultPoints);
             return leaderboard;
+        }
+
+        private int CalculatePoints(ParticipantModel winner, ParticipantModel loser)
+        {
+            double pointsDifference = winner.Points - loser.Points;
+            double compensationPoints = (int)Math.Round(pointsDifference / 30);
+            compensationPoints = Math.Clamp(compensationPoints, -10, 2);
+            var resultPoints = (int)(5 - compensationPoints);
+
+            return resultPoints;
         }
     }
 }

@@ -16,6 +16,12 @@ namespace PVPService.Controllers
             return Ok(response);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult GetMatch(int id)
+        {
+            return Ok(_matches.GetMatch(id));
+        }
+
         [HttpGet("league/{id}")]
         public IActionResult Get(int id)
         {

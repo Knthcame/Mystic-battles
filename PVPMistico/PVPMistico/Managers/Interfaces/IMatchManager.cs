@@ -8,6 +8,8 @@ namespace PVPMistico.Managers.Interfaces
     {
         Task<List<MatchModel>> GetMatchesAsync();
 
+        Task<MatchModel> GetMatch(int id);
+
         Task<List<MatchModel>> GetLeagueMatchesAsync(int leagueID);
 
         Task<List<MatchModel>> GetPlayerMatchesAsync(string username);

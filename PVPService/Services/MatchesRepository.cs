@@ -18,6 +18,15 @@ namespace PVPService.Services
             return matches;
         }
 
+        public MatchModel GetMatch(int ID)
+        {
+            var matches = _database.GetMatches();
+            var match = matches.Find(m => m.ID == ID);
+            match = _blobsManager.DeblobMatch(match);
+            match = SetMatchLeaderboard(match);
+            return match;
+        }
+
         public List<MatchModel> GetLeagueMatches(int leagueId)
         {
             var matches = _database.GetMatches().Where(match => match.LeagueID == leagueId).ToList();

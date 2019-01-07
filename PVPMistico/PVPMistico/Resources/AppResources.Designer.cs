@@ -565,6 +565,15 @@ namespace PVPMistico.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deshacer partido.
+        /// </summary>
+        public static string UndoMatch {
+            get {
+                return ResourceManager.GetString("UndoMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Este usuario ya existe..
         /// </summary>
         public static string UserAlreadyExistsError {

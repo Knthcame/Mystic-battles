@@ -75,10 +75,25 @@ namespace PVPService.Services
             return UpdateObject(match);
         }
 
+        public bool DeleteTrainer(TrainerModel trainer)
+            => DeleteObject(trainer);
+
+        public bool DeleteAccount(AccountModel account)
+            => DeleteObject(account);
+
+        public bool DeleteMatch(MatchModel match)
+            => DeleteObject(match);
+
+        public bool DeleteLeaderboard(LeaderboardModel leaderboard)
+            => DeleteObject(leaderboard);
+
         private bool AddObject(object obj)
             => _database.Insert(obj) > 0;
 
         private bool UpdateObject(object obj)
             => _database.Update(obj) > 0;
+
+        private bool DeleteObject(object obj)
+            => _database.Delete(obj) > 0;
     }
 }

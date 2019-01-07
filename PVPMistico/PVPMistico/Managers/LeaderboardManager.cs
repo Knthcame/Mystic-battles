@@ -95,13 +95,23 @@ namespace PVPMistico.Managers
 
             return await _httpManager.PostAsync<bool>(ApiConstants.LeaderboardsURL, participant, ApiConstants.TrainerExtension, leaderboard.ID.ToString());
         }
-        
-        public async Task<bool> InputMatch(LeaderboardModel leaderboard, MatchModel match)
+
+        public async Task<bool> InputMatchAsync(LeaderboardModel leaderboard, MatchModel match)
         {
             if (leaderboard == null || match == null)
                 return false;
 
             var response = await _httpManager.PutAsync<bool>(ApiConstants.LeaderboardsURL, match, extension: ApiConstants.MatchExtension, parameter: leaderboard.ID.ToString());
+
+            return response;
+        }
+
+        public async Task<bool> UndoMatchAsync(MatchModel match)
+        {
+            if (match == null)
+                return false;
+
+            var response = await _httpManager.DeleteAsync<bool>(ApiConstants.LeaderboardsURL, extension: ApiConstants.MatchExtension , parameter: match.ID.ToString());
 
             return response;
         }

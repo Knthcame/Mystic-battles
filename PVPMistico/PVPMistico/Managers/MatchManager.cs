@@ -26,6 +26,11 @@ namespace PVPMistico.Managers
             return await _httpManager.GetAsync<List<MatchModel>>(ApiConstants.MatchesURL);
         }
 
+        public async Task<MatchModel> GetMatch(int id)
+        {
+            return await _httpManager.GetAsync<MatchModel>(ApiConstants.MatchesURL, parameter: id.ToString());
+        }
+
         public async Task<List<MatchModel>> GetPlayerLeagueMatchesAsync(int leagueid, string username)
         {
             var url = ApiConstants.MatchesURL + ApiConstants.LeagueExtension + leagueid + "/" + ApiConstants.UsernameExtension + username;
