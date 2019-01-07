@@ -276,5 +276,14 @@
   <ItemGroup>
     <BundleResource Include="Resources\pikachu%403x.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\egg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\egg%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\egg%403x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
